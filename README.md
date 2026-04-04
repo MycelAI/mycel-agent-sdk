@@ -160,6 +160,7 @@ pushes to `main` are restricted to maintainers).
 | [**AGENTS.md**](AGENTS.md) | Maintainer and contributor operations guide |
 | [**PLANS.md**](PLANS.md) | ExecPlan discipline for substantial work |
 | [**ExecPlan (fork vision)**](docs/execplans/mycel-fork-gateway-and-rust-tiers.md) | Gateway, builtins, Rust tiers — living spec |
+| [**Market pains (2026)**](docs/research/agent-market-pains-2026.md) | Synthesized agent/gateway/MCP pain themes for roadmap |
 | [**Pull request template**](.github/PULL_REQUEST_TEMPLATE/pull_request_template.md) | Use when opening PRs here |
 
 **Security:** there is no `SECURITY.md` yet; report sensitive issues privately via

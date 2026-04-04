@@ -82,6 +82,7 @@ The OpenAI Agents Python repository provides the Python Agents SDK, examples, an
 - `examples/`: Sample projects showing SDK usage.
 - `docs/`: MkDocs documentation source; do not edit translated docs under `docs/ja`, `docs/ko`, or `docs/zh` (they are generated).
 - `docs/scripts/`: Documentation utilities, including translation and reference generation.
+- `docs/research/`: Optional research notes (excluded from the public MkDocs nav unless linked).
 - `mkdocs.yml`: Documentation site configuration.
 - `Makefile`: Common developer commands.
 - `pyproject.toml`, `uv.lock`: Python dependencies and tool configuration.

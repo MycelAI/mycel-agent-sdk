@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`docs/research/agent-market-pains-2026.md`:** synthesized market pain themes
+  (observability, safety, gateway ops, MCP, evals, fork/supply-chain) for
+  product planning.
 - **`CHANGELOG.md`** (Keep a Changelog) and **SemVer / changelog policy** in
   **`AGENTS.md`**.
 - **`CONTRIBUTING.md`**, **`CODE_OF_CONDUCT.md`**, and a refreshed **`README.md`**
