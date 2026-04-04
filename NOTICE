@@ -1,0 +1,47 @@
+Mycel Agent SDK (this repository)
+=================================
+
+This monorepo is published under the MIT License (see LICENSE). It combines
+Mycel-original components and a Python library forked from the OpenAI Agents SDK.
+
+Mycel-original components (not from OpenAI Agents SDK source)
+-------------------------------------------------------------
+
+The following paths are **developed by Mycel UG (haftungsbeschränkt)** and are
+**not** derived from the OpenAI Agents SDK for Python codebase. They may follow
+**documented HTTP API shapes** from OpenAI (e.g. Chat Completions JSON) for
+client compatibility only.
+
+1. **`gateway/`** — the **mycel-gateway** Rust HTTP service (library + binary).
+   - SPDX-License-Identifier: MIT
+   - Copyright (c) 2026 Mycel UG (haftungsbeschränkt)
+
+2. **`rust/mycel_accelerator/`** — optional **PyO3** accelerator stub for the
+   Mycel fork, when built.
+   - SPDX-License-Identifier: MIT
+   - Copyright (c) 2026 Mycel UG (haftungsbeschränkt)
+
+Upstream third-party software (attribution)
+-------------------------------------------
+
+1. **OpenAI Agents SDK for Python** (portions under `src/agents/` and related
+   Python packaging/tests/docs that track the upstream fork)
+
+   - Project: https://github.com/openai/openai-agents-python
+   - SPDX-License-Identifier: MIT
+   - Copyright (c) 2025 OpenAI
+
+   Mycel modifications and additional Python modules in this repository are
+   Copyright (c) 2026 Mycel UG (haftungsbeschränkt) where they are original work.
+
+   MIT requires the above copyright notice and permission notice to appear in
+   copies of the Software; see the LICENSE file in this repository.
+
+Other dependencies
+------------------
+
+Runtime libraries are not shipped as source inside published wheels for every
+dependency; they are declared in `pyproject.toml` / `Cargo.toml` and are
+subject to their respective licenses when you install or distribute them. For
+dependency license details, use your package manager’s tooling (for example
+`uv pip show` or `cargo license` if installed).

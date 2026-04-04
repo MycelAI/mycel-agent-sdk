@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# 快速入门
+# 快速入门 {#quickstart}
 
 Python SDK 中的实时智能体是服务端、低延迟的智能体，基于 OpenAI Realtime API 并通过 WebSocket 传输构建。
 
@@ -14,23 +14,23 @@ Python SDK 中的实时智能体是服务端、低延迟的智能体，基于 Op
 
     Python SDK **不**提供浏览器 WebRTC 传输。本页仅涵盖由 Python 管理、基于服务端 WebSockets 的实时会话。可使用此 SDK 进行服务端编排、工具调用、审批和电话集成。另请参见[Realtime transport](transport.md)。
 
-## 前提条件
+## 前提条件 {#prerequisites}
 
 -   Python 3.10 或更高版本
 -   OpenAI API 密钥
 -   对 OpenAI Agents SDK 的基本了解
 
-## 安装
+## 安装 {#installation}
 
 如果你尚未安装，请安装 OpenAI Agents SDK：
 
 ```bash
-pip install openai-agents
+pip install mycel-agent-sdk
 ```
 
-## 创建服务端实时会话
+## 创建服务端实时会话 {#create-a-server-side-realtime-session}
 
-### 1. 导入实时组件
+### 1. 导入实时组件 {#1-import-the-realtime-components}
 
 ```python
 import asyncio
@@ -38,7 +38,7 @@ import asyncio
 from agents.realtime import RealtimeAgent, RealtimeRunner
 ```
 
-### 2. 定义起始智能体
+### 2. 定义起始智能体 {#2-define-the-starting-agent}
 
 ```python
 agent = RealtimeAgent(
@@ -47,7 +47,7 @@ agent = RealtimeAgent(
 )
 ```
 
-### 3. 配置运行器
+### 3. 配置运行器 {#3-configure-the-runner}
 
 新代码推荐使用嵌套的 `audio.input` / `audio.output` 会话设置结构。对于新的实时智能体，建议从 `gpt-realtime-1.5` 开始。
 
@@ -76,7 +76,7 @@ runner = RealtimeRunner(
 )
 ```
 
-### 4. 启动会话并发送输入
+### 4. 启动会话并发送输入 {#4-start-the-session-and-send-input}
 
 `runner.run()` 返回一个 `RealtimeSession`。进入会话上下文时会打开连接。
 
@@ -106,12 +106,12 @@ if __name__ == "__main__":
 
 `session.send_message()` 既可接收纯字符串，也可接收结构化的实时消息。对于原始音频块，请使用 [`session.send_audio()`][agents.realtime.session.RealtimeSession.send_audio]。
 
-## 本快速入门未包含的内容
+## 本快速入门未包含的内容 {#what-this-quickstart-does-not-include}
 
--   麦克风采集和扬声器播放代码。请参阅 [`examples/realtime`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime) 中的实时示例。
+-   麦克风采集和扬声器播放代码。请参阅 [`examples/realtime`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime) 中的实时示例。
 -   SIP / 电话接入流程。请参阅 [Realtime transport](transport.md) 和 [SIP 部分](guide.md#sip-and-telephony)。
 
-## 关键设置
+## 关键设置 {#key-settings}
 
 当基础会话可用后，大多数人接下来会用到这些设置：
 
@@ -130,7 +130,7 @@ if __name__ == "__main__":
 
 完整模式请参阅 [`RealtimeRunConfig`][agents.realtime.config.RealtimeRunConfig] 和 [`RealtimeSessionModelSettings`][agents.realtime.config.RealtimeSessionModelSettings]。
 
-## 连接选项
+## 连接选项 {#connection-options}
 
 在环境中设置 API 密钥：
 
@@ -155,8 +155,8 @@ session = await runner.run(model_config={"api_key": "your-api-key"})
 
 连接 Azure OpenAI 时，请在 `model_config["url"]` 中传入 GA Realtime 端点 URL，并显式设置请求头。避免在实时智能体中使用旧版 beta 路径（`/openai/realtime?api-version=...`）。详见[Realtime agents guide](guide.md#low-level-access-and-custom-endpoints)。
 
-## 后续步骤
+## 后续步骤 {#next-steps}
 
 -   阅读 [Realtime transport](transport.md)，在服务端 WebSocket 和 SIP 之间进行选择。
 -   阅读 [Realtime agents guide](guide.md)，了解生命周期、结构化输入、审批、任务转移、安全防护措施和底层控制。
--   浏览 [`examples/realtime`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime) 中的示例。
+-   浏览 [`examples/realtime`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime) 中的示例。

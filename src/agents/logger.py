@@ -1,3 +1,3 @@
 import logging
 
-logger = logging.getLogger("openai.agents")
+logger = logging.getLogger("mycel_agents")

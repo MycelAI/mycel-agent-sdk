@@ -1,0 +1,37 @@
+# Combined stack: Rust gateway + Python SDK (demo client).
+#
+#   docker compose up --build
+#
+# Gateway alone:
+#   docker compose up --build gateway
+#
+# SDK alone (point at an existing gateway URL):
+#   docker compose run --rm --no-deps -e OPENAI_BASE_URL=http://your-host:8080/v1 sdk
+
+services:
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    ports:
+      - "${MYCEL_GATEWAY_PORT:-8080}:8080"
+    environment:
+      MYCEL_GATEWAY_BIND: "0.0.0.0:8080"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O-", "http://127.0.0.1:8080/health"]
+      interval: 2s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+  sdk:
+    build:
+      context: .
+      dockerfile: docker/sdk/Dockerfile
+    environment:
+      OPENAI_BASE_URL: http://gateway:8080/v1
+      GATEWAY_API_KEY: ${GATEWAY_API_KEY:-gateway-internal-key}
+      GATEWAY_MODEL: ${GATEWAY_MODEL:-gpt-4o-mini}
+    depends_on:
+      gateway:
+        condition: service_healthy

@@ -21,7 +21,7 @@ Realtime agents in the Python SDK are server-side, low-latency agents built on t
 If you haven't already, install the OpenAI Agents SDK:
 
 ```bash
-pip install openai-agents
+pip install mycel-agent-sdk
 ```
 
 ## Create a server-side realtime session
@@ -104,7 +104,7 @@ if __name__ == "__main__":
 
 ## What this quickstart does not include
 
--   Microphone capture and speaker playback code. See the realtime examples in [`examples/realtime`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime).
+-   Microphone capture and speaker playback code. See the realtime examples in [`examples/realtime`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime).
 -   SIP / telephony attach flows. See [Realtime transport](transport.md) and the [SIP section](guide.md#sip-and-telephony).
 
 ## Key settings
@@ -155,4 +155,4 @@ When connecting to Azure OpenAI, pass a GA Realtime endpoint URL in `model_confi
 
 -   Read [Realtime transport](transport.md) to choose between server-side WebSocket and SIP.
 -   Read the [Realtime agents guide](guide.md) for lifecycle, structured input, approvals, handoffs, guardrails, and low-level control.
--   Browse the examples in [`examples/realtime`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime).
+-   Browse the examples in [`examples/realtime`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime).

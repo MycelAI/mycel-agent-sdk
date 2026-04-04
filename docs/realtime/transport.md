@@ -12,7 +12,7 @@ Use this page to decide how realtime agents fit into your Python application.
 | --- | --- | --- |
 | Build a server-managed realtime app | [Quickstart](quickstart.md) | The default Python path is a server-side WebSocket session managed by `RealtimeRunner`. |
 | Understand which transport and deployment shape to choose | This page | Use this before you commit to a transport or deployment shape. |
-| Attach agents to phone or SIP calls | [Realtime guide](guide.md) and [`examples/realtime/twilio_sip`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/twilio_sip) | The repo ships a SIP attach flow driven by `call_id`. |
+| Attach agents to phone or SIP calls | [Realtime guide](guide.md) and [`examples/realtime/twilio_sip`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/twilio_sip) | The repo ships a SIP attach flow driven by `call_id`. |
 
 ## Server-side WebSocket is the default Python path
 
@@ -27,9 +27,9 @@ That means the standard Python topology looks like this:
 
 This is the topology used by the core demo app, the CLI example, and the Twilio Media Streams example:
 
--   [`examples/realtime/app`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/app)
--   [`examples/realtime/cli`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/cli)
--   [`examples/realtime/twilio`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/twilio)
+-   [`examples/realtime/app`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/app)
+-   [`examples/realtime/cli`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/cli)
+-   [`examples/realtime/twilio`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/twilio)
 
 Use this path when your server owns the audio pipeline, tool execution, approval flow, and history handling.
 
@@ -44,7 +44,7 @@ This topology looks like:
 3. Your Python service starts a `RealtimeRunner(..., model=OpenAIRealtimeSIPModel())`.
 4. The session connects with `model_config={"call_id": ...}` and then processes events like any other realtime session.
 
-This is the topology shown in [`examples/realtime/twilio_sip`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/twilio_sip).
+This is the topology shown in [`examples/realtime/twilio_sip`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/twilio_sip).
 
 The broader Realtime API also uses `call_id` for some server-side control patterns, but this repository's shipped attach example is SIP.
 

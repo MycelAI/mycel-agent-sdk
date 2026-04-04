@@ -2,13 +2,13 @@
 search:
   exclude: true
 ---
-# 핸드오프
+# 핸드오프 {#handoffs}
 
 핸드오프를 사용하면 한 에이전트가 다른 에이전트에 작업을 위임할 수 있습니다. 이는 서로 다른 에이전트가 각기 다른 영역을 전문으로 하는 시나리오에서 특히 유용합니다. 예를 들어 고객 지원 앱에는 주문 상태, 환불, FAQ 등의 작업을 각각 전담하는 에이전트가 있을 수 있습니다.
 
 핸드오프는 LLM에 도구로 표현됩니다. 따라서 `Refund Agent`라는 이름의 에이전트로 핸드오프가 있으면 도구 이름은 `transfer_to_refund_agent`가 됩니다.
 
-## 핸드오프 생성
+## 핸드오프 생성 {#creating-a-handoff}
 
 모든 에이전트에는 [`handoffs`][agents.agent.Agent.handoffs] 매개변수가 있으며, 여기에 `Agent`를 직접 전달하거나 핸드오프를 사용자 지정하는 `Handoff` 객체를 전달할 수 있습니다.
 
@@ -16,7 +16,7 @@ search:
 
 Agents SDK가 제공하는 [`handoff()`][agents.handoffs.handoff] 함수를 사용해 핸드오프를 만들 수 있습니다. 이 함수로 핸드오프 대상 에이전트와 선택적 재정의 및 입력 필터를 지정할 수 있습니다.
 
-### 기본 사용법
+### 기본 사용법 {#basic-usage}
 
 간단한 핸드오프를 만드는 방법은 다음과 같습니다:
 
@@ -32,7 +32,7 @@ triage_agent = Agent(name="Triage agent", handoffs=[billing_agent, handoff(refun
 
 1. 에이전트를 직접 사용할 수 있고(`billing_agent`처럼), 또는 `handoff()` 함수를 사용할 수 있습니다.
 
-### `handoff()` 함수로 핸드오프 사용자 지정
+### `handoff()` 함수로 핸드오프 사용자 지정 {#customizing-handoffs-via-the-handoff-function}
 
 [`handoff()`][agents.handoffs.handoff] 함수로 여러 항목을 사용자 지정할 수 있습니다.
 
@@ -63,7 +63,7 @@ handoff_obj = handoff(
 )
 ```
 
-## 핸드오프 입력
+## 핸드오프 입력 {#handoff-inputs}
 
 특정 상황에서는 핸드오프를 호출할 때 LLM이 일부 데이터를 제공하도록 하고 싶을 수 있습니다. 예를 들어 "Escalation agent"로 핸드오프한다고 가정해 보겠습니다. 이때 기록을 남기기 위해 사유를 함께 받도록 할 수 있습니다.
 
@@ -93,7 +93,7 @@ handoff_obj = handoff(
 
 `input_type`은 [`RunContextWrapper.context`][agents.run_context.RunContextWrapper.context]와도 별개입니다. 이미 로컬에 있는 애플리케이션 상태나 의존성이 아니라, 모델이 핸드오프 시점에 결정하는 메타데이터에 `input_type`을 사용하세요.
 
-### `input_type` 사용 시점
+### `input_type` 사용 시점 {#when-to-use-input_type}
 
 핸드오프에 `reason`, `language`, `priority`, `summary` 같은 모델 생성 메타데이터의 작은 조각이 필요할 때 `input_type`을 사용하세요. 예를 들어 트리아지 에이전트는 `{ "reason": "duplicate_charge", "priority": "high" }`와 함께 환불 에이전트로 핸드오프할 수 있으며, `on_handoff`는 환불 에이전트가 이어받기 전에 해당 메타데이터를 기록하거나 저장할 수 있습니다.
 
@@ -104,7 +104,7 @@ handoff_obj = handoff(
 -   가능한 전문 에이전트 대상이 여러 개라면 대상마다 하나의 핸드오프를 등록하세요. `input_type`은 선택된 핸드오프에 메타데이터를 추가할 수는 있지만, 대상 간 디스패치를 수행하지는 않습니다.
 -   대화를 전송하지 않고 중첩 전문 에이전트에 구조화된 입력을 주고 싶다면 [`Agent.as_tool(parameters=...)`][agents.agent.Agent.as_tool]을 우선 사용하세요. [도구](tools.md#structured-input-for-tool-agents)를 참고하세요.
 
-## 입력 필터
+## 입력 필터 {#input-filters}
 
 핸드오프가 발생하면 새 에이전트가 대화를 이어받아 이전 전체 대화 기록을 보는 것과 같습니다. 이를 변경하려면 [`input_filter`][agents.handoffs.Handoff.input_filter]를 설정할 수 있습니다. 입력 필터는 [`HandoffInputData`][agents.handoffs.HandoffInputData]를 통해 기존 입력을 받고, 새로운 `HandoffInputData`를 반환해야 하는 함수입니다.
 
@@ -140,7 +140,7 @@ handoff_obj = handoff(
 
 1. 이렇게 하면 `FAQ agent`가 호출될 때 기록에서 모든 도구가 자동으로 제거됩니다.
 
-## 권장 프롬프트
+## 권장 프롬프트 {#recommended-prompts}
 
 LLM이 핸드오프를 올바르게 이해하도록 하려면, 에이전트에 핸드오프 관련 정보를 포함할 것을 권장합니다. [`agents.extensions.handoff_prompt.RECOMMENDED_PROMPT_PREFIX`][]에 권장 접두사가 있으며, [`agents.extensions.handoff_prompt.prompt_with_handoff_instructions`][]를 호출해 프롬프트에 권장 데이터를 자동으로 추가할 수도 있습니다.
 

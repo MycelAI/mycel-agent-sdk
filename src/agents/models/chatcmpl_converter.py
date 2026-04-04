@@ -129,8 +129,8 @@ class Converter:
         """
         items: list[TResponseOutputItem] = []
 
-        # Check if message is agents.extensions.models.litellm_model.InternalChatCompletionMessage
-        # We can't actually import it here because litellm is an optional dependency
+        # InternalChatCompletionMessage (agents.models.internal_chat_completion) adds
+        # reasoning_content / thinking_blocks without importing optional providers.
         # So we use hasattr to check for reasoning_content and thinking_blocks
         if hasattr(message, "reasoning_content") and message.reasoning_content:
             reasoning_kwargs: dict[str, Any] = {

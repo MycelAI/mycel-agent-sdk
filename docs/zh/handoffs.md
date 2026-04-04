@@ -2,13 +2,13 @@
 search:
   exclude: true
 ---
-# 任务转移
+# 任务转移 {#handoffs}
 
 任务转移允许一个智能体将任务委派给另一个智能体。这在不同智能体专注于不同领域的场景中特别有用。例如，一个客户支持应用可能会有多个智能体，分别专门处理订单状态、退款、常见问题等任务。
 
 任务转移会作为工具呈现给 LLM。因此，如果有一个转移目标是名为 `Refund Agent` 的智能体，那么该工具名称会是 `transfer_to_refund_agent`。
 
-## 创建任务转移
+## 创建任务转移 {#creating-a-handoff}
 
 所有智能体都有一个 [`handoffs`][agents.agent.Agent.handoffs] 参数，它既可以直接接收一个 `Agent`，也可以接收一个用于自定义任务转移的 `Handoff` 对象。
 
@@ -16,7 +16,7 @@ search:
 
 你可以使用 Agents SDK 提供的 [`handoff()`][agents.handoffs.handoff] 函数创建任务转移。该函数允许你指定要转移到的智能体，以及可选的覆盖项和输入过滤器。
 
-### 基本用法
+### 基本用法 {#basic-usage}
 
 下面是创建一个简单任务转移的方法：
 
@@ -32,7 +32,7 @@ triage_agent = Agent(name="Triage agent", handoffs=[billing_agent, handoff(refun
 
 1. 你可以直接使用智能体（如 `billing_agent`），也可以使用 `handoff()` 函数。
 
-### 通过 `handoff()` 函数自定义任务转移
+### 通过 `handoff()` 函数自定义任务转移 {#customizing-handoffs-via-the-handoff-function}
 
 [`handoff()`][agents.handoffs.handoff] 函数允许你自定义配置。
 
@@ -63,7 +63,7 @@ handoff_obj = handoff(
 )
 ```
 
-## 任务转移输入
+## 任务转移输入 {#handoff-inputs}
 
 在某些情况下，你会希望 LLM 在调用任务转移时提供一些数据。例如，设想有一个到“升级处理智能体”的任务转移。你可能希望提供原因，以便记录日志。
 
@@ -93,7 +93,7 @@ handoff_obj = handoff(
 
 `input_type` 也独立于 [`RunContextWrapper.context`][agents.run_context.RunContextWrapper.context]。`input_type` 适用于模型在任务转移时决定的元数据，而不是你本地已存在的应用状态或依赖项。
 
-### 何时使用 `input_type`
+### 何时使用 `input_type` {#when-to-use-input_type}
 
 当任务转移需要一小段由模型生成的元数据（如 `reason`、`language`、`priority` 或 `summary`）时，使用 `input_type`。例如，分流智能体可以将任务转移给退款智能体并附带 `{ "reason": "duplicate_charge", "priority": "high" }`，而 `on_handoff` 可以在退款智能体接管前记录或持久化该元数据。
 
@@ -104,7 +104,7 @@ handoff_obj = handoff(
 -   如果存在多个可能的专家目标，为每个目标注册一个任务转移。`input_type` 可以为已选任务转移添加元数据，但不会在目标之间分发。
 -   如果你想为嵌套专家提供 structured outputs 输入而不转移对话，优先使用 [`Agent.as_tool(parameters=...)`][agents.agent.Agent.as_tool]。参见 [tools](tools.md#structured-input-for-tool-agents)。
 
-## 输入过滤器
+## 输入过滤器 {#input-filters}
 
 当发生任务转移时，就好像新智能体接管了对话，并能看到此前完整的对话历史。如果你想改变这一点，可以设置 [`input_filter`][agents.handoffs.Handoff.input_filter]。输入过滤器是一个函数，它通过 [`HandoffInputData`][agents.handoffs.HandoffInputData] 接收现有输入，并且必须返回一个新的 `HandoffInputData`。
 
@@ -140,7 +140,7 @@ handoff_obj = handoff(
 
 1. 当调用 `FAQ agent` 时，这会自动从历史中移除所有工具。
 
-## 推荐提示词
+## 推荐提示词 {#recommended-prompts}
 
 为了确保 LLM 正确理解任务转移，我们建议在你的智能体中包含任务转移相关信息。我们在 [`agents.extensions.handoff_prompt.RECOMMENDED_PROMPT_PREFIX`][] 中提供了建议前缀，或者你可以调用 [`agents.extensions.handoff_prompt.prompt_with_handoff_instructions`][]，将推荐内容自动添加到你的提示词中。
 

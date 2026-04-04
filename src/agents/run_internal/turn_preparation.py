@@ -11,6 +11,7 @@ from ..handoffs import Handoff, handoff
 from ..items import TResponseInputItem
 from ..lifecycle import AgentHooksBase, RunHooks, RunHooksBase
 from ..models.interface import Model
+from ..permissions import PermissionMode, apply_permission_mode_to_tools
 from ..run_config import CallModelData, ModelInputData, RunConfig
 from ..run_context import RunContextWrapper, TContext
 from ..tool import Tool
@@ -105,9 +106,17 @@ async def get_handoffs(agent: Agent[Any], context_wrapper: RunContextWrapper[Any
     return enabled
 
 
-async def get_all_tools(agent: Agent[Any], context_wrapper: RunContextWrapper[Any]) -> list[Tool]:
+async def get_all_tools(
+    agent: Agent[Any],
+    context_wrapper: RunContextWrapper[Any],
+    *,
+    permission_mode: PermissionMode | None = None,
+) -> list[Tool]:
     """Fetch all tools available to the agent."""
-    return await agent.get_all_tools(context_wrapper)
+    tools = await agent.get_all_tools(context_wrapper)
+    if permission_mode is None:
+        return tools
+    return apply_permission_mode_to_tools(tools, permission_mode)
 
 
 def get_output_schema(agent: Agent[Any]) -> AgentOutputSchemaBase | None:

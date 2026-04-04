@@ -2,9 +2,9 @@
 search:
   exclude: true
 ---
-# 快速入门
+# 快速入门 {#quickstart}
 
-## 创建项目和虚拟环境
+## 创建项目和虚拟环境 {#create-a-project-and-virtual-environment}
 
 你只需要做一次。
 
@@ -14,7 +14,7 @@ cd my_project
 python -m venv .venv
 ```
 
-### 激活虚拟环境
+### 激活虚拟环境 {#activate-the-virtual-environment}
 
 每次开始新的终端会话时都要执行此操作。
 
@@ -22,13 +22,13 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-### 安装 Agents SDK
+### 安装 Agents SDK {#install-the-agents-sdk}
 
 ```bash
-pip install openai-agents # or `uv add openai-agents`, etc
+pip install mycel-agent-sdk # or `uv add mycel-agent-sdk`, etc
 ```
 
-### 设置 OpenAI API 密钥
+### 设置 OpenAI API 密钥 {#set-an-openai-api-key}
 
 如果你还没有，请按照[这些说明](https://platform.openai.com/docs/quickstart#create-and-export-an-api-key)创建 OpenAI API 密钥。
 
@@ -36,7 +36,7 @@ pip install openai-agents # or `uv add openai-agents`, etc
 export OPENAI_API_KEY=sk-...
 ```
 
-## 创建你的第一个智能体
+## 创建你的第一个智能体 {#create-your-first-agent}
 
 智能体通过 instructions、名称以及可选配置（例如特定模型）来定义。
 
@@ -49,7 +49,7 @@ agent = Agent(
 )
 ```
 
-## 运行你的第一个智能体
+## 运行你的第一个智能体 {#run-your-first-agent}
 
 使用 [`Runner`][agents.run.Runner] 执行智能体，并获取返回的 [`RunResult`][agents.result.RunResult]。
 
@@ -82,7 +82,7 @@ if __name__ == "__main__":
 
 有关权衡和精确行为，请参见[运行智能体](running_agents.md#choose-a-memory-strategy)。
 
-## 为你的智能体提供工具
+## 为你的智能体提供工具 {#give-your-agent-tools}
 
 你可以为智能体提供工具来查找信息或执行操作。
 
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-## 再添加几个智能体
+## 再添加几个智能体 {#add-a-few-more-agents}
 
 在选择多智能体模式之前，先决定由谁来负责最终答案：
 
@@ -143,7 +143,7 @@ math_tutor_agent = Agent(
 )
 ```
 
-## 定义你的任务转移
+## 定义你的任务转移 {#define-your-handoffs}
 
 在一个智能体上，你可以定义一个可对外发起的任务转移选项清单，以便它在解决任务时进行选择。
 
@@ -155,7 +155,7 @@ triage_agent = Agent(
 )
 ```
 
-## 运行智能体编排
+## 运行智能体编排 {#run-the-agent-orchestration}
 
 Runner 会处理执行各个智能体、任何任务转移以及任何工具调用。
 
@@ -177,19 +177,19 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-## 参考代码示例
+## 参考代码示例 {#reference-examples}
 
 该仓库包含了相同核心模式的完整脚本：
 
--   [`examples/basic/hello_world.py`](https://github.com/openai/openai-agents-python/tree/main/examples/basic/hello_world.py) 用于首次运行。
--   [`examples/basic/tools.py`](https://github.com/openai/openai-agents-python/tree/main/examples/basic/tools.py) 用于工具调用。
--   [`examples/agent_patterns/routing.py`](https://github.com/openai/openai-agents-python/tree/main/examples/agent_patterns/routing.py) 用于多智能体路由。
+-   [`examples/basic/hello_world.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/basic/hello_world.py) 用于首次运行。
+-   [`examples/basic/tools.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/basic/tools.py) 用于工具调用。
+-   [`examples/agent_patterns/routing.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/agent_patterns/routing.py) 用于多智能体路由。
 
-## 查看追踪
+## 查看追踪 {#view-your-traces}
 
 要查看智能体运行期间发生了什么，请前往 [OpenAI 控制台中的 Trace viewer](https://platform.openai.com/traces) 查看智能体运行的追踪。
 
-## 后续步骤
+## 后续步骤 {#next-steps}
 
 了解如何构建更复杂的智能体流程：
 

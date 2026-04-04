@@ -3,14 +3,11 @@ from __future__ import annotations
 from typing import Any, cast
 
 import httpx
-import litellm
 import pytest
-from litellm.types.utils import Choices, Message, ModelResponse, Usage
 from openai.types.chat.chat_completion import ChatCompletion, Choice
 from openai.types.chat.chat_completion_message import ChatCompletionMessage
 from openai.types.completion_usage import CompletionUsage
 
-from agents.extensions.models.litellm_model import LitellmModel
 from agents.items import TResponseInputItem
 from agents.model_settings import ModelSettings
 from agents.models.chatcmpl_converter import Converter
@@ -358,46 +355,4 @@ async def test_openai_chatcompletions_hook_can_enable_reasoning_content_replay()
     assert len(contexts) == 1
     assert contexts[0].model == REASONING_CONTENT_MODEL_B
     assert contexts[0].base_url == "https://example.com/v1"
-    assert contexts[0].reasoning.origin_model == REASONING_CONTENT_MODEL_B
-
-
-@pytest.mark.allow_call_model_methods
-@pytest.mark.asyncio
-async def test_litellm_hook_can_enable_reasoning_content_replay(monkeypatch) -> None:
-    captured: dict[str, Any] = {}
-    contexts: list[ReasoningContentReplayContext] = []
-
-    def should_replay_reasoning_content(context: ReasoningContentReplayContext) -> bool:
-        contexts.append(context)
-        return context.model == REASONING_CONTENT_MODEL_B
-
-    async def fake_acompletion(model, messages=None, **kwargs):
-        captured["messages"] = messages
-        msg = Message(role="assistant", content="done")
-        choice = Choices(index=0, message=msg)
-        return ModelResponse(choices=[choice], usage=Usage(0, 0, 0))
-
-    monkeypatch.setattr(litellm, "acompletion", fake_acompletion)
-
-    model = LitellmModel(
-        model=REASONING_CONTENT_MODEL_B,
-        should_replay_reasoning_content=should_replay_reasoning_content,
-    )
-
-    await model.get_response(
-        system_instructions=None,
-        input=_second_turn_input_items(REASONING_CONTENT_MODEL_B),
-        model_settings=ModelSettings(),
-        tools=[],
-        output_schema=None,
-        handoffs=[],
-        tracing=ModelTracing.DISABLED,
-        previous_response_id=None,
-    )
-
-    assistant = _assistant_with_tool_calls(cast(list[dict[str, Any]], captured["messages"]))
-    assert assistant["reasoning_content"] == "I should call the weather tool first."
-    assert len(contexts) == 1
-    assert contexts[0].model == REASONING_CONTENT_MODEL_B
-    assert contexts[0].base_url is None
     assert contexts[0].reasoning.origin_model == REASONING_CONTENT_MODEL_B

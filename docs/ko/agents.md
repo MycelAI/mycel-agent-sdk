@@ -2,13 +2,13 @@
 search:
   exclude: true
 ---
-# 에이전트
+# 에이전트 {#agents}
 
 에이전트는 앱의 핵심 구성 요소입니다. 에이전트는 instructions, tools, 그리고 핸드오프, 가드레일, structured outputs 같은 선택적 런타임 동작으로 구성된 대규모 언어 모델( LLM )입니다
 
 단일 에이전트를 정의하거나 사용자 지정하려면 이 페이지를 사용하세요. 여러 에이전트가 어떻게 협업해야 할지 결정 중이라면 [에이전트 오케스트레이션](multi_agent.md)을 읽어보세요
 
-## 다음 가이드 선택
+## 다음 가이드 선택 {#choose-the-next-guide}
 
 이 페이지를 에이전트 정의의 허브로 사용하세요. 다음으로 내려야 할 결정에 맞는 인접 가이드로 이동하세요
 
@@ -22,7 +22,7 @@ search:
 | 최종 출력, 실행 항목, 재개 가능한 상태 점검 | [결과](results.md) |
 | 로컬 의존성 및 런타임 상태 공유 | [컨텍스트 관리](context.md) |
 
-## 기본 구성
+## 기본 구성 {#basic-configuration}
 
 에이전트의 가장 일반적인 속성은 다음과 같습니다
 
@@ -61,7 +61,7 @@ agent = Agent(
 )
 ```
 
-## 프롬프트 템플릿
+## 프롬프트 템플릿 {#prompt-templates}
 
 `prompt`를 설정하면 OpenAI 플랫폼에서 만든 프롬프트 템플릿을 참조할 수 있습니다. 이는 Responses API를 사용하는 OpenAI 모델에서 동작합니다
 
@@ -120,7 +120,7 @@ result = await Runner.run(
 )
 ```
 
-## 컨텍스트
+## 컨텍스트 {#context}
 
 에이전트는 `context` 타입에 대해 제네릭합니다. 컨텍스트는 의존성 주입 도구입니다. 즉, 사용자가 생성해 `Runner.run()`에 전달하는 객체로, 모든 에이전트, 도구, 핸드오프 등에 전달되며 에이전트 실행을 위한 의존성과 상태를 담는 모음 역할을 합니다. 컨텍스트로는 어떤 Python 객체든 제공할 수 있습니다
 
@@ -141,7 +141,7 @@ agent = Agent[UserContext](
 )
 ```
 
-## 출력 타입
+## 출력 타입 {#output-types}
 
 기본적으로 에이전트는 일반 텍스트(즉 `str`) 출력을 생성합니다. 에이전트가 특정 타입의 출력을 생성하도록 하려면 `output_type` 매개변수를 사용할 수 있습니다. 일반적으로 [Pydantic](https://docs.pydantic.dev/) 객체를 많이 사용하지만, Pydantic [TypeAdapter](https://docs.pydantic.dev/latest/api/type_adapter/)로 래핑 가능한 타입은 모두 지원합니다 - dataclasses, lists, TypedDict 등
 
@@ -166,7 +166,7 @@ agent = Agent(
 
     `output_type`을 전달하면, 모델은 일반 텍스트 응답 대신 [structured outputs](https://platform.openai.com/docs/guides/structured-outputs)을 사용하도록 지시받습니다
 
-## 멀티 에이전트 시스템 설계 패턴
+## 멀티 에이전트 시스템 설계 패턴 {#multi-agent-system-design-patterns}
 
 멀티 에이전트 시스템 설계 방법은 다양하지만, 일반적으로 널리 적용 가능한 두 가지 패턴이 있습니다:
 
@@ -175,7 +175,7 @@ agent = Agent(
 
 자세한 내용은 [에이전트 구축 실전 가이드](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf)를 참고하세요
 
-### 매니저(Agents as tools)
+### 매니저(Agents as tools) {#manager-agents-as-tools}
 
 `customer_facing_agent`는 모든 사용자 상호작용을 처리하고 도구로 노출된 전문 하위 에이전트를 호출합니다. 자세한 내용은 [tools](tools.md#agents-as-tools) 문서를 참고하세요
 
@@ -204,7 +204,7 @@ customer_facing_agent = Agent(
 )
 ```
 
-### 핸드오프
+### 핸드오프 {#handoffs}
 
 핸드오프는 에이전트가 위임할 수 있는 하위 에이전트입니다. 핸드오프가 발생하면 위임된 에이전트가 대화 기록을 받아 대화를 이어받습니다. 이 패턴은 단일 작업에 뛰어난 모듈식 전문 에이전트를 가능하게 합니다. 자세한 내용은 [handoffs](handoffs.md) 문서를 참고하세요
 
@@ -225,7 +225,7 @@ triage_agent = Agent(
 )
 ```
 
-## 동적 instructions
+## 동적 instructions {#dynamic-instructions}
 
 대부분의 경우 에이전트를 생성할 때 instructions를 제공하면 됩니다. 하지만 함수를 통해 동적 instructions를 제공할 수도 있습니다. 함수는 에이전트와 컨텍스트를 전달받아 프롬프트를 반환해야 합니다. 일반 함수와 `async` 함수 모두 허용됩니다
 
@@ -242,7 +242,7 @@ agent = Agent[UserContext](
 )
 ```
 
-## 라이프사이클 이벤트 (hooks)
+## 라이프사이클 이벤트 (hooks) {#lifecycle-events-hooks}
 
 때로는 에이전트의 라이프사이클을 관찰하고 싶을 수 있습니다. 예를 들어 이벤트 로깅, 데이터 사전 로드, 특정 이벤트 발생 시 사용량 기록 등을 원할 수 있습니다
 
@@ -287,11 +287,11 @@ print(result.final_output)
 
 전체 콜백 표면은 [라이프사이클 API 레퍼런스](ref/lifecycle.md)를 참고하세요
 
-## 가드레일
+## 가드레일 {#guardrails}
 
 가드레일을 사용하면 에이전트 실행과 병렬로 사용자 입력에 대한 검사/검증을 수행하고, 에이전트 출력이 생성된 뒤 출력에 대한 검사도 수행할 수 있습니다. 예를 들어 사용자 입력과 에이전트 출력의 관련성을 검사할 수 있습니다. 자세한 내용은 [guardrails](guardrails.md) 문서를 참고하세요
 
-## 에이전트 복제/복사
+## 에이전트 복제/복사 {#cloningcopying-agents}
 
 에이전트의 `clone()` 메서드를 사용하면 Agent를 복제하고, 원하는 속성을 선택적으로 변경할 수 있습니다
 
@@ -308,7 +308,7 @@ robot_agent = pirate_agent.clone(
 )
 ```
 
-## 도구 사용 강제
+## 도구 사용 강제 {#forcing-tool-use}
 
 도구 목록을 제공했다고 해서 항상 LLM이 도구를 사용하는 것은 아닙니다. [`ModelSettings.tool_choice`][agents.model_settings.ModelSettings.tool_choice]를 설정해 도구 사용을 강제할 수 있습니다. 유효한 값은 다음과 같습니다:
 
@@ -335,7 +335,7 @@ agent = Agent(
 )
 ```
 
-## 도구 사용 동작
+## 도구 사용 동작 {#tool-use-behavior}
 
 `Agent` 구성의 `tool_use_behavior` 매개변수는 도구 출력 처리 방식을 제어합니다:
 

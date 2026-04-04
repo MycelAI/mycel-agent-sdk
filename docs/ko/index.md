@@ -2,9 +2,9 @@
 search:
   exclude: true
 ---
-# OpenAI Agents SDK
+# Mycel Agent SDK {#mycel-agent-sdk}
 
-[OpenAI Agents SDK](https://github.com/openai/openai-agents-python)는 매우 적은 추상화로, 가볍고 사용하기 쉬운 패키지에서 agentic AI 앱을 구축할 수 있게 해줍니다. 이는 에이전트에 대한 이전 실험인 [Swarm](https://github.com/openai/swarm/tree/main)의 프로덕션 준비 버전 업그레이드입니다. Agents SDK는 매우 작은 기본 구성 요소 세트를 제공합니다
+[Mycel Agent SDK](https://github.com/MycelAI/mycel-agent-sdk)는 매우 적은 추상화로, 가볍고 사용하기 쉬운 패키지에서 agentic AI 앱을 구축할 수 있게 합니다. 이 저장소는 업스트림 [OpenAI Agents SDK for Python](https://github.com/openai/openai-agents-python)을 따르며, 그 SDK는 이전 에이전트 실험 [Swarm](https://github.com/openai/swarm/tree/main)을 프로덕션 준비 수준으로 발전시킨 것입니다. SDK는 매우 작은 기본 구성 요소 세트를 제공합니다
 
 -   **에이전트**: instructions와 tools를 갖춘 LLM
 -   **Agents as tools / 핸드오프**: 에이전트가 특정 작업을 위해 다른 에이전트에 위임할 수 있도록 함
@@ -12,7 +12,7 @@ search:
 
 Python과 결합하면, 이러한 기본 구성 요소는 도구와 에이전트 사이의 복잡한 관계를 표현할 만큼 강력하며, 가파른 학습 곡선 없이 실제 애플리케이션을 구축할 수 있게 해줍니다. 또한 SDK에는 agentic 흐름을 시각화하고 디버깅할 수 있게 해주는 내장 **트레이싱**이 포함되어 있으며, 이를 평가하고 애플리케이션에 맞게 모델을 파인튜닝하는 것까지 가능합니다.
 
-## Agents SDK 사용 이유
+## Agents SDK 사용 이유 {#why-use-the-agents-sdk}
 
 SDK에는 두 가지 핵심 설계 원칙이 있습니다
 
@@ -32,13 +32,13 @@ SDK에는 두 가지 핵심 설계 원칙이 있습니다
 -   **트레이싱**: 워크플로를 시각화, 디버깅, 모니터링하기 위한 내장 트레이싱과 OpenAI 평가, 파인튜닝, 증류 도구 모음 지원
 -   **실시간 에이전트**: `gpt-realtime-1.5`, 자동 인터럽션(중단 처리) 감지, 컨텍스트 관리, 가드레일 등을 사용해 강력한 음성 에이전트 구축
 
-## 설치
+## 설치 {#installation}
 
 ```bash
-pip install openai-agents
+pip install mycel-agent-sdk
 ```
 
-## Hello world 예제
+## Hello world 예제 {#hello-world-example}
 
 ```python
 from agents import Agent, Runner
@@ -59,13 +59,13 @@ print(result.final_output)
 export OPENAI_API_KEY=sk-...
 ```
 
-## 시작 지점
+## 시작 지점 {#start-here}
 
 -   [Quickstart](quickstart.md)로 첫 텍스트 기반 에이전트를 구축하세요
 -   그다음 [에이전트 실행](running_agents.md#choose-a-memory-strategy)에서 턴 간 상태를 유지할 방법을 결정하세요
 -   핸드오프와 매니저 스타일 오케스트레이션 중에서 고민 중이라면 [에이전트 오케스트레이션](multi_agent.md)을 읽어보세요
 
-## 경로 선택
+## 경로 선택 {#choose-your-path}
 
 하고 싶은 작업은 알지만 어떤 페이지에서 설명하는지 모를 때 이 표를 사용하세요
 

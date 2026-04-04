@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# Model context protocol (MCP)
+# Model context protocol (MCP) {#model-context-protocol-mcp}
 
 [Model context protocol](https://modelcontextprotocol.io/introduction)(MCP)은 애플리케이션이 언어 모델에 도구와 컨텍스트를 노출하는 방식을 표준화합니다. 공식 문서에서 다음과 같이 설명합니다:
 
@@ -13,7 +13,7 @@ search:
 Agents Python SDK는 여러 MCP 전송 방식을 이해합니다. 이를 통해 기존 MCP 서버를 재사용하거나 직접 구축하여
 파일시스템, HTTP 또는 커넥터 기반 도구를 에이전트에 노출할 수 있습니다.
 
-## MCP 통합 선택
+## MCP 통합 선택 {#choosing-an-mcp-integration}
 
 에이전트에 MCP 서버를 연결하기 전에 도구 호출이 어디에서 실행되어야 하는지, 어떤 전송 방식에 도달할 수 있는지 결정하세요. 아래
 매트릭스는 Python SDK가 지원하는 옵션을 요약합니다.
@@ -27,7 +27,7 @@ Agents Python SDK는 여러 MCP 전송 방식을 이해합니다. 이를 통해 
 
 아래 섹션에서는 각 옵션, 구성 방법, 그리고 어떤 전송 방식을 선호해야 하는지를 안내합니다.
 
-## 에이전트 수준 MCP 구성
+## 에이전트 수준 MCP 구성 {#agent-level-mcp-configuration}
 
 전송 방식 선택 외에도 `Agent.mcp_config`를 설정하여 MCP 도구 준비 방식을 조정할 수 있습니다.
 
@@ -54,7 +54,7 @@ agent = Agent(
 - `failure_error_function`이 설정되지 않으면 SDK는 기본 도구 오류 포매터를 사용합니다
 - 서버 수준 `failure_error_function`은 해당 서버에서 `Agent.mcp_config["failure_error_function"]`보다 우선합니다
 
-## 전송 방식 전반의 공통 패턴
+## 전송 방식 전반의 공통 패턴 {#shared-patterns-across-transports}
 
 전송 방식을 선택한 뒤에는 대부분의 통합에서 동일한 후속 결정을 해야 합니다:
 
@@ -65,13 +65,13 @@ agent = Agent(
 
 로컬 MCP 서버(`MCPServerStdio`, `MCPServerSse`, `MCPServerStreamableHttp`)의 경우 승인 정책과 호출별 `_meta` 페이로드도 공통 개념입니다. Streamable HTTP 섹션에 가장 완전한 예제가 있으며, 동일한 패턴이 다른 로컬 전송 방식에도 적용됩니다.
 
-## 1. 호스티드 MCP 서버 도구
+## 1. 호스티드 MCP 서버 도구 {#1-hosted-mcp-server-tools}
 
 호스티드 도구는 도구 라운드트립 전체를 OpenAI 인프라로 이동시킵니다. 코드가 도구를 나열하고 호출하는 대신
 [`HostedMCPTool`][agents.tool.HostedMCPTool]이 서버 레이블(및 선택적 커넥터 메타데이터)을 Responses API로 전달합니다. 모델은
 원격 서버의 도구를 나열하고 Python 프로세스에 추가 콜백 없이 이를 호출합니다. 현재 호스티드 도구는 Responses API의 호스티드 MCP 통합을 지원하는 OpenAI 모델에서 동작합니다.
 
-### 기본 호스티드 MCP 도구
+### 기본 호스티드 MCP 도구 {#basic-hosted-mcp-tool}
 
 에이전트의 `tools` 목록에 [`HostedMCPTool`][agents.tool.HostedMCPTool]을 추가하여 호스티드 도구를 생성합니다. `tool_config`
 딕셔너리는 REST API로 보내는 JSON을 반영합니다:
@@ -106,7 +106,7 @@ asyncio.run(main())
 
 호스티드 도구 검색에서 호스티드 MCP 서버를 지연 로드하려면 `tool_config["defer_loading"] = True`로 설정하고 에이전트에 [`ToolSearchTool`][agents.tool.ToolSearchTool]을 추가하세요. 이는 OpenAI Responses 모델에서만 지원됩니다. 전체 도구 검색 설정과 제약 사항은 [도구](tools.md#hosted-tool-search)를 참고하세요.
 
-### 호스티드 MCP 결과 스트리밍
+### 호스티드 MCP 결과 스트리밍 {#streaming-hosted-mcp-results}
 
 호스티드 도구는 함수 도구와 정확히 동일한 방식으로 결과 스트리밍을 지원합니다. `Runner.run_streamed`를 사용해
 모델이 아직 작업 중일 때 점진적인 MCP 출력을 소비하세요:
@@ -119,7 +119,7 @@ async for event in result.stream_events():
 print(result.final_output)
 ```
 
-### 선택적 승인 흐름
+### 선택적 승인 흐름 {#optional-approval-flows}
 
 서버가 민감한 작업을 수행할 수 있다면 각 도구 실행 전에 사람 또는 프로그래매틱 승인을 요구할 수 있습니다. `tool_config`에서
 `require_approval`을 단일 정책(`"always"`, `"never"`) 또는 도구 이름별 정책 딕셔너리로 구성하세요. Python 내부에서 결정을 내리려면 `on_approval_request` 콜백을 제공하세요.
@@ -152,7 +152,7 @@ agent = Agent(
 
 콜백은 동기 또는 비동기일 수 있으며, 모델이 실행을 계속하기 위해 승인 데이터가 필요할 때마다 호출됩니다.
 
-### 커넥터 기반 호스티드 서버
+### 커넥터 기반 호스티드 서버 {#connector-backed-hosted-servers}
 
 호스티드 MCP는 OpenAI 커넥터도 지원합니다. `server_url`을 지정하는 대신 `connector_id`와 액세스 토큰을 제공하세요. Responses
 API가 인증을 처리하고 호스티드 서버가 커넥터의 도구를 노출합니다.
@@ -172,9 +172,9 @@ HostedMCPTool(
 ```
 
 스트리밍, 승인, 커넥터를 포함한 완전한 동작 예제는
-[`examples/hosted_mcp`](https://github.com/openai/openai-agents-python/tree/main/examples/hosted_mcp)에 있습니다.
+[`examples/hosted_mcp`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/hosted_mcp)에 있습니다.
 
-## 2. Streamable HTTP MCP 서버
+## 2. Streamable HTTP MCP 서버 {#2-streamable-http-mcp-servers}
 
 네트워크 연결을 직접 관리하려면
 [`MCPServerStreamableHttp`][agents.mcp.server.MCPServerStreamableHttp]를 사용하세요. Streamable HTTP 서버는 전송 계층을 제어하거나
@@ -223,7 +223,7 @@ asyncio.run(main())
 - `failure_error_function`은 모델에 표시되는 MCP 도구 실패 메시지를 사용자 지정합니다. 대신 오류를 발생시키려면 `None`으로 설정하세요
 - `tool_meta_resolver`는 `call_tool()` 전에 호출별 MCP `_meta` 페이로드를 주입합니다
 
-### 로컬 MCP 서버용 승인 정책
+### 로컬 MCP 서버용 승인 정책 {#approval-policies-for-local-mcp-servers}
 
 `MCPServerStdio`, `MCPServerSse`, `MCPServerStreamableHttp`는 모두 `require_approval`을 지원합니다.
 
@@ -246,7 +246,7 @@ async with MCPServerStreamableHttp(
 
 전체 일시정지/재개 흐름은 [휴먼인더루프](human_in_the_loop.md) 및 `examples/mcp/get_all_mcp_tools_example/main.py`를 참고하세요.
 
-### `tool_meta_resolver`를 사용한 호출별 메타데이터
+### `tool_meta_resolver`를 사용한 호출별 메타데이터 {#per-call-metadata-with-tool_meta_resolver}
 
 MCP 서버가 `_meta`에 요청 메타데이터(예: 테넌트 ID 또는 트레이스 컨텍스트)를 기대한다면 `tool_meta_resolver`를 사용하세요. 아래 예제는 `Runner.run(...)`에 `context`로 `dict`를 전달한다고 가정합니다.
 
@@ -271,11 +271,11 @@ server = MCPServerStreamableHttp(
 
 실행 컨텍스트가 Pydantic 모델, dataclass 또는 사용자 정의 클래스라면 대신 속성 접근으로 테넌트 ID를 읽으세요.
 
-### MCP 도구 출력: 텍스트 및 이미지
+### MCP 도구 출력: 텍스트 및 이미지 {#mcp-tool-outputs-text-and-images}
 
 MCP 도구가 이미지 콘텐츠를 반환하면 SDK가 이를 이미지 도구 출력 항목으로 자동 매핑합니다. 텍스트/이미지 혼합 응답은 출력 항목 목록으로 전달되므로 에이전트는 일반 함수 도구의 이미지 출력과 동일한 방식으로 MCP 이미지 결과를 소비할 수 있습니다.
 
-## 3. SSE 기반 HTTP MCP 서버
+## 3. SSE 기반 HTTP MCP 서버 {#3-http-with-sse-mcp-servers}
 
 !!! warning
 
@@ -309,7 +309,7 @@ async with MCPServerSse(
     print(result.final_output)
 ```
 
-## 4. stdio MCP 서버
+## 4. stdio MCP 서버 {#4-stdio-mcp-servers}
 
 로컬 서브프로세스로 실행되는 MCP 서버에는 [`MCPServerStdio`][agents.mcp.server.MCPServerStdio]를 사용하세요. SDK가 프로세스를 생성하고
 파이프를 열린 상태로 유지하며, 컨텍스트 매니저가 종료되면 자동으로 닫습니다. 이 옵션은 빠른 개념 검증이나 서버가 명령줄 엔트리 포인트만 노출할 때 유용합니다.
@@ -338,7 +338,7 @@ async with MCPServerStdio(
     print(result.final_output)
 ```
 
-## 5. MCP 서버 매니저
+## 5. MCP 서버 매니저 {#5-mcp-server-manager}
 
 여러 MCP 서버가 있는 경우 `MCPServerManager`를 사용해 미리 연결하고, 연결된 하위 집합을 에이전트에 노출하세요.
 생성자 옵션과 재연결 동작은 [MCPServerManager API 참조](ref/mcp/manager.md)를 참고하세요.
@@ -370,16 +370,16 @@ async with MCPServerManager(servers) as manager:
 - 실패한 서버만 재시도하려면 `reconnect(failed_only=True)`, 모든 서버를 재시작하려면 `reconnect(failed_only=False)`를 호출하세요
 - 라이프사이클 동작을 조정하려면 `connect_timeout_seconds`, `cleanup_timeout_seconds`, `connect_in_parallel`을 사용하세요
 
-## 공통 서버 기능
+## 공통 서버 기능 {#common-server-capabilities}
 
 아래 섹션은 MCP 서버 전송 방식 전반에 적용됩니다(API 표면은 서버 클래스에 따라 정확히 달라질 수 있음).
 
-## 도구 필터링
+## 도구 필터링 {#tool-filtering}
 
 각 MCP 서버는 도구 필터를 지원하므로 에이전트에 필요한 함수만 노출할 수 있습니다. 필터링은
 생성 시점이나 실행별 동적으로 수행할 수 있습니다.
 
-### 정적 도구 필터링
+### 정적 도구 필터링 {#static-tool-filtering}
 
 간단한 허용/차단 목록을 구성하려면 [`create_static_tool_filter`][agents.mcp.create_static_tool_filter]를 사용하세요:
 
@@ -402,7 +402,7 @@ filesystem_server = MCPServerStdio(
 `allowed_tool_names`와 `blocked_tool_names`가 모두 제공되면 SDK는 먼저 허용 목록을 적용한 뒤, 남은 집합에서
 차단된 도구를 제거합니다.
 
-### 동적 도구 필터링
+### 동적 도구 필터링 {#dynamic-tool-filtering}
 
 더 정교한 로직이 필요하면 [`ToolFilterContext`][agents.mcp.ToolFilterContext]를 받는 callable을 전달하세요. 해당 callable은
 동기 또는 비동기일 수 있으며, 도구를 노출해야 하면 `True`를 반환합니다.
@@ -431,7 +431,7 @@ async with MCPServerStdio(
 
 필터 컨텍스트는 활성 `run_context`, 도구를 요청하는 `agent`, `server_name`을 노출합니다.
 
-## 프롬프트
+## 프롬프트 {#prompts}
 
 MCP 서버는 에이전트 instructions를 동적으로 생성하는 프롬프트도 제공할 수 있습니다. 프롬프트를 지원하는 서버는 두 가지
 메서드를 노출합니다:
@@ -455,13 +455,13 @@ agent = Agent(
 )
 ```
 
-## 캐싱
+## 캐싱 {#caching}
 
 모든 에이전트 실행은 각 MCP 서버에서 `list_tools()`를 호출합니다. 원격 서버는 눈에 띄는 지연 시간을 유발할 수 있으므로 모든 MCP
 서버 클래스는 `cache_tools_list` 옵션을 노출합니다. 도구 정의가 자주
 변경되지 않는다고 확신할 때만 이를 `True`로 설정하세요. 나중에 최신 목록을 강제로 가져오려면 서버 인스턴스에서 `invalidate_tools_cache()`를 호출하세요.
 
-## 트레이싱
+## 트레이싱 {#tracing}
 
 [트레이싱](./tracing.md)은 다음을 포함해 MCP 활동을 자동으로 수집합니다:
 
@@ -470,8 +470,8 @@ agent = Agent(
 
 ![MCP Tracing Screenshot](../assets/images/mcp-tracing.jpg)
 
-## 추가 읽을거리
+## 추가 읽을거리 {#further-reading}
 
 - [Model Context Protocol](https://modelcontextprotocol.io/) – 명세 및 설계 가이드
-- [examples/mcp](https://github.com/openai/openai-agents-python/tree/main/examples/mcp) – 실행 가능한 stdio, SSE, Streamable HTTP 샘플
-- [examples/hosted_mcp](https://github.com/openai/openai-agents-python/tree/main/examples/hosted_mcp) – 승인 및 커넥터를 포함한 완전한 호스티드 MCP 데모
+- [examples/mcp](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/mcp) – 실행 가능한 stdio, SSE, Streamable HTTP 샘플
+- [examples/hosted_mcp](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/hosted_mcp) – 승인 및 커넥터를 포함한 완전한 호스티드 MCP 데모

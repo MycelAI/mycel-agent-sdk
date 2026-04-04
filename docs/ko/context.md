@@ -2,14 +2,14 @@
 search:
   exclude: true
 ---
-# 컨텍스트 관리
+# 컨텍스트 관리 {#context-management}
 
 컨텍스트는 여러 의미로 사용되는 용어입니다. 주로 고려할 수 있는 컨텍스트는 두 가지 주요 범주가 있습니다
 
 1. 코드에서 로컬로 사용할 수 있는 컨텍스트: 도구 함수가 실행될 때, `on_handoff` 같은 콜백 중, 라이프사이클 훅 등에서 필요할 수 있는 데이터와 의존성입니다
 2. LLM에서 사용할 수 있는 컨텍스트: LLM이 응답을 생성할 때 보는 데이터입니다
 
-## 로컬 컨텍스트
+## 로컬 컨텍스트 {#local-context}
 
 이는 [`RunContextWrapper`][agents.run_context.RunContextWrapper] 클래스와 그 안의 [`context`][agents.run_context.RunContextWrapper.context] 속성으로 표현됩니다. 동작 방식은 다음과 같습니다
 
@@ -31,7 +31,7 @@ search:
 
 단일 실행 내에서 파생된 래퍼들은 동일한 기본 앱 컨텍스트, 승인 상태, 사용량 추적을 공유합니다. 중첩된 [`Agent.as_tool()`][agents.agent.Agent.as_tool] 실행은 다른 `tool_input`을 연결할 수 있지만, 기본적으로 앱 상태의 분리된 복사본을 받지는 않습니다.
 
-### `RunContextWrapper` 노출 항목
+### `RunContextWrapper` 노출 항목 {#what-runcontextwrapper-exposes}
 
 [`RunContextWrapper`][agents.run_context.RunContextWrapper]는 앱에서 정의한 컨텍스트 객체를 감싸는 래퍼입니다. 실제로는 보통 다음을 가장 자주 사용합니다
 
@@ -91,7 +91,7 @@ if __name__ == "__main__":
 
 ---
 
-### 고급: `ToolContext`
+### 고급: `ToolContext` {#advanced-toolcontext}
 
 일부 경우에는 실행 중인 도구에 대한 추가 메타데이터(예: 이름, 호출 ID, 원문 인자 문자열)에 접근하고 싶을 수 있습니다  
 이를 위해 `RunContextWrapper`를 확장한 [`ToolContext`][agents.tool_context.ToolContext] 클래스를 사용할 수 있습니다
@@ -136,7 +136,7 @@ agent = Agent(
 
 ---
 
-## 에이전트/LLM 컨텍스트
+## 에이전트/LLM 컨텍스트 {#agentllm-context}
 
 LLM이 호출될 때, LLM이 볼 수 있는 데이터는 대화 기록의 데이터 **뿐**입니다. 즉, 새로운 데이터를 LLM에서 사용할 수 있게 하려면 반드시 해당 기록에서 접근 가능하도록 만들어야 합니다. 이를 위한 방법은 몇 가지가 있습니다
 

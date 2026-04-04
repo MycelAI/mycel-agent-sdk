@@ -409,7 +409,7 @@ class TestRunState:
         agent = Agent(name="AgentMapping")
         state = make_state(agent, context=context, original_input="input", max_turns=1)
 
-        with caplog.at_level(logging.WARNING, logger="openai.agents"):
+        with caplog.at_level(logging.WARNING, logger="mycel_agents"):
             json_data = state.to_json()
 
         assert json_data["context"]["context"] == {}
@@ -443,7 +443,7 @@ class TestRunState:
         agent = Agent(name="AgentMapping")
         state = make_state(agent, context=context, original_input="input", max_turns=1)
 
-        with caplog.at_level(logging.WARNING, logger="openai.agents"):
+        with caplog.at_level(logging.WARNING, logger="mycel_agents"):
             json_data = state.to_json()
 
         def deserialize_context(payload: Mapping[str, Any]) -> SampleContext:
@@ -495,7 +495,7 @@ class TestRunState:
 
         json_data = state.to_json()
 
-        with caplog.at_level(logging.WARNING, logger="openai.agents"):
+        with caplog.at_level(logging.WARNING, logger="mycel_agents"):
             _ = await RunState.from_json(agent, json_data)
 
         assert any("context_deserializer" in record.message for record in caplog.records)
@@ -553,7 +553,7 @@ class TestRunState:
         agent = Agent(name="AgentMapping")
         state = make_state(agent, context=context, original_input="input", max_turns=1)
 
-        with caplog.at_level(logging.WARNING, logger="openai.agents"):
+        with caplog.at_level(logging.WARNING, logger="mycel_agents"):
             json_data = state.to_json()
 
         context_meta = json_data["context"]["context_meta"]

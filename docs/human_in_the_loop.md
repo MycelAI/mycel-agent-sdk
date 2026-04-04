@@ -79,7 +79,7 @@ state.reject(
 )
 ```
 
-See [`examples/agent_patterns/human_in_the_loop_custom_rejection.py`](https://github.com/openai/openai-agents-python/tree/main/examples/agent_patterns/human_in_the_loop_custom_rejection.py) for a complete example that shows both layers together.
+See [`examples/agent_patterns/human_in_the_loop_custom_rejection.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/agent_patterns/human_in_the_loop_custom_rejection.py) for a complete example that shows both layers together.
 
 ## Automatic approval decisions
 

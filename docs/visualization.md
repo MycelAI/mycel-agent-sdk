@@ -7,7 +7,7 @@ Agent visualization allows you to generate a structured graphical representation
 Install the optional `viz` dependency group:
 
 ```bash
-pip install "openai-agents[viz]"
+pip install "mycel-agent-sdk[viz]"
 ```
 
 ## Generating a graph

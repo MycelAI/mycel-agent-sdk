@@ -277,7 +277,7 @@ By default, compaction runs after each turn once the candidate threshold is reac
 
 `compaction_mode="previous_response_id"` works best when you are already chaining turns with Responses API response IDs. `compaction_mode="input"` rebuilds the compaction request from the current session items instead, which is useful when the response chain is unavailable or you want the session contents to be the source of truth. The default `"auto"` chooses the safest available option.
 
-If your agent runs with `ModelSettings(store=False)`, the Responses API does not retain the last response for later lookup. In that stateless setup, the default `"auto"` mode falls back to input-based compaction instead of relying on `previous_response_id`. See [`examples/memory/compaction_session_stateless_example.py`](https://github.com/openai/openai-agents-python/tree/main/examples/memory/compaction_session_stateless_example.py) for a complete example.
+If your agent runs with `ModelSettings(store=False)`, the Responses API does not retain the last response for later lookup. In that stateless setup, the default `"auto"` mode falls back to input-based compaction instead of relying on `previous_response_id`. See [`examples/memory/compaction_session_stateless_example.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/memory/compaction_session_stateless_example.py) for a complete example.
 
 #### auto-compaction can block streaming
 
@@ -347,7 +347,7 @@ result = await Runner.run(agent, "Hello", session=session)
 Use `RedisSession` for shared session memory across multiple workers or services.
 
 ```bash
-pip install openai-agents[redis]
+pip install mycel-agent-sdk[redis]
 ```
 
 ```python
@@ -389,7 +389,7 @@ See [SQLAlchemy Sessions](sqlalchemy_session.md) for detailed documentation.
 Use `DaprSession` when you already run Dapr sidecars or want session storage that can move across different state-store backends without changing your agent code.
 
 ```bash
-pip install openai-agents[dapr]
+pip install mycel-agent-sdk[dapr]
 ```
 
 ```python
@@ -413,7 +413,7 @@ Notes:
 -   Pass `ttl=...` to let the backing state store expire old session data automatically when the store supports TTL.
 -   Pass `consistency=DAPR_CONSISTENCY_STRONG` when you need stronger read-after-write guarantees.
 -   The Dapr Python SDK also checks the HTTP sidecar endpoint. In local development, start Dapr with `--dapr-http-port 3500` as well as the gRPC port used in `dapr_address`.
--   See [`examples/memory/dapr_session_example.py`](https://github.com/openai/openai-agents-python/tree/main/examples/memory/dapr_session_example.py) for a full setup walkthrough, including local components and troubleshooting.
+-   See [`examples/memory/dapr_session_example.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/memory/dapr_session_example.py) for a full setup walkthrough, including local components and troubleshooting.
 
 
 ### Advanced SQLite sessions

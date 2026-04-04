@@ -1,0 +1,30 @@
+[package]
+name = "mycel_gateway"
+version = "0.1.0"
+edition = "2021"
+publish = false
+license = "MIT"
+description = "mycel-gateway: OpenAI Chat Completions-compatible HTTP gateway (stub for routing to providers)."
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "mycel-gateway"
+path = "src/main.rs"
+
+[dependencies]
+async-stream = "0.3.6"
+axum = "0.7.9"
+bytes = "1.10"
+futures = "0.3.31"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.43", features = ["macros", "net", "rt-multi-thread"] }
+tower-http = { version = "0.6.2", features = ["trace"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[dev-dependencies]
+http-body-util = "0.1.2"
+tower = { version = "0.5.2", features = ["util"] }

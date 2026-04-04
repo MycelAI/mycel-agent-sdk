@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# トレーシング
+# トレーシング {#tracing}
 
 Agents SDK には組み込みのトレーシングが含まれており、エージェント実行中のイベント（ LLM 生成、ツール呼び出し、ハンドオフ、ガードレール、さらに発生したカスタムイベント）を包括的に記録します。[Traces ダッシュボード](https://platform.openai.com/traces) を使用すると、開発中および本番環境でワークフローをデバッグ、可視化、監視できます。
 
@@ -16,7 +16,7 @@ Agents SDK には組み込みのトレーシングが含まれており、エー
 
 ***OpenAI の API を使用し、Zero Data Retention ( ZDR ) ポリシーの下で運用している組織では、トレーシングは利用できません。***
 
-## Traces と spans
+## Traces と spans {#traces-and-spans}
 
 -   **Traces** は 1 つの「ワークフロー」のエンドツーエンドの単一操作を表します。これは Span で構成されます。Traces には次のプロパティがあります。
     -   `workflow_name`: 論理的なワークフローまたはアプリです。例: 「Code generation」や「Customer service」。
@@ -30,7 +30,7 @@ Agents SDK には組み込みのトレーシングが含まれており、エー
     -   `parent_id`（この Span の親 Span を指します。存在する場合）
     -   `span_data`（ Span に関する情報）。たとえば、`AgentSpanData` は Agent の情報、`GenerationSpanData` は LLM 生成の情報を含みます。
 
-## デフォルトトレーシング
+## デフォルトトレーシング {#default-tracing}
 
 デフォルトで、 SDK は次をトレースします。
 
@@ -48,7 +48,7 @@ Agents SDK には組み込みのトレーシングが含まれており、エー
 
 さらに、[カスタムトレースプロセッサー](#custom-tracing-processors) を設定して、トレースを他の送信先にプッシュできます（置き換えまたは副次的な送信先として）。
 
-## 上位レベルトレース
+## 上位レベルトレース {#higher-level-traces}
 
 場合によっては、`run()` の複数回呼び出しを 1 つのトレースの一部にしたいことがあります。これは、コード全体を `trace()` でラップすることで実現できます。
 
@@ -67,7 +67,7 @@ async def main():
 
 1. `Runner.run` の 2 回の呼び出しは `with trace()` でラップされているため、2 つのトレースを作成するのではなく、個々の実行が全体トレースの一部になります。
 
-## トレース作成
+## トレース作成 {#creating-traces}
 
 [`trace()`][agents.tracing.trace] 関数を使用してトレースを作成できます。トレースは開始と終了が必要です。方法は 2 つあります。
 
@@ -76,13 +76,13 @@ async def main():
 
 現在のトレースは Python の [`contextvar`](https://docs.python.org/3/library/contextvars.html) を通じて追跡されます。これは並行処理でも自動的に機能することを意味します。トレースを手動で開始・終了する場合は、現在のトレースを更新するために `start()`/`finish()` に `mark_as_current` と `reset_current` を渡す必要があります。
 
-## Span 作成
+## Span 作成 {#creating-spans}
 
 さまざまな [`*_span()`][agents.tracing.create] メソッドを使って Span を作成できます。一般に、Span を手動で作成する必要はありません。カスタム Span 情報を追跡するための [`custom_span()`][agents.tracing.custom_span] 関数も利用できます。
 
 Span は自動的に現在のトレースの一部となり、最も近い現在の Span の配下にネストされます。これは Python の [`contextvar`](https://docs.python.org/3/library/contextvars.html) で追跡されます。
 
-## 機微データ
+## 機微データ {#sensitive-data}
 
 一部の Span では、機微データが含まれる可能性があります。
 
@@ -92,7 +92,7 @@ Span は自動的に現在のトレースの一部となり、最も近い現在
 
 デフォルトでは、`trace_include_sensitive_data` は `True` です。アプリ実行前に環境変数 `OPENAI_AGENTS_TRACE_INCLUDE_SENSITIVE_DATA` を `true/1` または `false/0` に設定することで、コードなしでデフォルト値を設定できます。
 
-## カスタムトレーシングプロセッサー
+## カスタムトレーシングプロセッサー {#custom-tracing-processors}
 
 トレーシングの高レベルアーキテクチャは次のとおりです。
 
@@ -105,7 +105,7 @@ Span は自動的に現在のトレースの一部となり、最も近い現在
 2. [`set_trace_processors()`][agents.tracing.set_trace_processors] を使うと、デフォルトプロセッサーを独自のトレースプロセッサーで**置き換え**できます。これは、`TracingProcessor` を含めない限り、トレースが OpenAI バックエンドへ送信されないことを意味します。
 
 
-## 非 OpenAI モデルでのトレーシング
+## 非 OpenAI モデルでのトレーシング {#tracing-with-non-openai-models}
 
 トレーシングを無効化しなくても、OpenAI 以外のモデルで OpenAI API キーを使用して OpenAI Traces ダッシュボードで無料トレーシングを有効化できます。アダプター選択とセットアップ時の注意点については、Models ガイドの [Third-party adapters](models/index.md#third-party-adapters) セクションを参照してください。
 
@@ -140,15 +140,15 @@ await Runner.run(
 )
 ```
 
-## 追加メモ
+## 追加メモ {#additional-notes}
 - Openai Traces ダッシュボードで無料トレースを表示します。
 
 
-## エコシステム統合
+## エコシステム統合 {#ecosystem-integrations}
 
 以下のコミュニティおよびベンダーの統合は、OpenAI Agents SDK のトレーシング機能をサポートしています。
 
-### 外部トレーシングプロセッサー一覧
+### 外部トレーシングプロセッサー一覧 {#external-tracing-processors-list}
 
 -   [Weights & Biases](https://weave-docs.wandb.ai/guides/integrations/openai_agents)
 -   [Arize-Phoenix](https://docs.arize.com/phoenix/tracing/integrations-tracing/openai-agents-sdk)

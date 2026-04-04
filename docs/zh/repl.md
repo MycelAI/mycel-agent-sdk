@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# REPL 实用工具
+# REPL 实用工具 {#repl-utility}
 
 该 SDK 提供 `run_demo_loop`，可在终端中直接对智能体行为进行快速、交互式测试。
 

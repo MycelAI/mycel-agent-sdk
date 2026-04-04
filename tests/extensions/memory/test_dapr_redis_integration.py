@@ -16,9 +16,10 @@ import tempfile
 import time
 import urllib.request
 
-import docker  # type: ignore[import-untyped]
 import pytest
-from docker.errors import DockerException  # type: ignore[import-untyped]
+
+import docker
+from docker.errors import DockerException
 
 # Skip tests if dependencies are not available
 pytest.importorskip("dapr")  # Skip tests if Dapr is not installed
@@ -29,7 +30,7 @@ if shutil.which("docker") is None:
         allow_module_level=True,
     )
 try:
-    client = docker.from_env()
+    client = docker.from_env()  # type: ignore[attr-defined]
     client.ping()
 except DockerException:
     pytest.skip(

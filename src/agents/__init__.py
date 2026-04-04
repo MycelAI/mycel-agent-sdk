@@ -15,6 +15,14 @@ from .agent import (
 )
 from .agent_output import AgentOutputSchema, AgentOutputSchemaBase
 from .apply_diff import apply_diff
+from .bundled_prompts import (
+    CODING_DEFAULT_PROMPT_ID,
+    DEFAULT_CODING_SYSTEM_PROMPT,
+    PROMPT_PACK_VERSION,
+    list_versions_for_prompt,
+    load_bundled_prompt,
+    load_default_coding_system_prompt,
+)
 from .computer import AsyncComputer, Button, Computer, Environment
 from .editor import ApplyPatchEditor, ApplyPatchOperation, ApplyPatchResult
 from .exceptions import (
@@ -83,6 +91,13 @@ from .models.multi_provider import MultiProvider
 from .models.openai_chatcompletions import OpenAIChatCompletionsModel
 from .models.openai_provider import OpenAIProvider
 from .models.openai_responses import OpenAIResponsesModel, OpenAIResponsesWSModel
+from .permissions import (
+    DEFAULT_SHELL_SUBSTRING_BLOCKLIST,
+    PermissionMode,
+    apply_permission_mode_to_tools,
+    path_is_under_allowlist,
+    shell_command_matches_blocklist,
+)
 from .prompts import DynamicPromptFunction, GenerateDynamicPromptData, Prompt
 from .repl import run_demo_loop
 from .responses_websocket_session import ResponsesWebSocketSession, responses_websocket_session
@@ -184,6 +199,14 @@ from .tool_guardrails import (
     tool_input_guardrail,
     tool_output_guardrail,
 )
+from .tools.builtin import (
+    CODING_TOOLKIT,
+    FILE_TOOLS,
+    RESEARCH_TOOLKIT,
+    SAFE_TOOLKIT,
+    SHELL_TOOLS,
+    WEB_TOOLS,
+)
 from .tracing import (
     AgentSpanData,
     CustomSpanData,
@@ -272,7 +295,7 @@ def set_default_openai_responses_transport(transport: Literal["http", "websocket
 
 def enable_verbose_stdout_logging():
     """Enables verbose logging to stdout. This is useful for debugging."""
-    logger = logging.getLogger("openai.agents")
+    logger = logging.getLogger("mycel_agents")
     logger.setLevel(logging.DEBUG)
     logger.addHandler(logging.StreamHandler(sys.stdout))
 
@@ -290,12 +313,20 @@ __all__ = [
     "reset_conversation_history_wrappers",
     "set_conversation_history_wrappers",
     "Runner",
+    "CODING_DEFAULT_PROMPT_ID",
+    "DEFAULT_CODING_SYSTEM_PROMPT",
+    "PROMPT_PACK_VERSION",
     "apply_diff",
     "run_demo_loop",
     "Model",
     "ModelProvider",
     "ModelTracing",
     "ModelSettings",
+    "DEFAULT_SHELL_SUBSTRING_BLOCKLIST",
+    "PermissionMode",
+    "apply_permission_mode_to_tools",
+    "path_is_under_allowlist",
+    "shell_command_matches_blocklist",
     "ModelRetryAdvice",
     "ModelRetryAdviceRequest",
     "ModelRetryBackoffSettings",
@@ -306,6 +337,12 @@ __all__ = [
     "RetryPolicyContext",
     "retry_policies",
     "OpenAIChatCompletionsModel",
+    "CODING_TOOLKIT",
+    "FILE_TOOLS",
+    "RESEARCH_TOOLKIT",
+    "SAFE_TOOLKIT",
+    "SHELL_TOOLS",
+    "WEB_TOOLS",
     "MultiProvider",
     "OpenAIProvider",
     "OpenAIResponsesModel",
@@ -321,6 +358,9 @@ __all__ = [
     "OutputGuardrailTripwireTriggered",
     "ToolInputGuardrailTripwireTriggered",
     "ToolOutputGuardrailTripwireTriggered",
+    "list_versions_for_prompt",
+    "load_bundled_prompt",
+    "load_default_coding_system_prompt",
     "DynamicPromptFunction",
     "GenerateDynamicPromptData",
     "Prompt",

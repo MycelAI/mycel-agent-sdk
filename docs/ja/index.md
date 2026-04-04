@@ -2,9 +2,9 @@
 search:
   exclude: true
 ---
-# OpenAI Agents SDK
+# Mycel Agent SDK {#mycel-agent-sdk}
 
-[OpenAI Agents SDK](https://github.com/openai/openai-agents-python) は、非常に少ない抽象化で、軽量かつ使いやすいパッケージとしてエージェント型 AI アプリを構築できるようにします。これは、以前のエージェント向け実験である [Swarm](https://github.com/openai/swarm/tree/main) を本番対応向けにアップグレードしたものです。Agents SDK には、非常に小さな基本コンポーネントのセットがあります。
+[Mycel Agent SDK](https://github.com/MycelAI/mycel-agent-sdk) は、非常に少ない抽象化で、軽量かつ使いやすいパッケージとしてエージェント型 AI アプリを構築できるようにします。上流の [OpenAI Agents SDK for Python](https://github.com/openai/openai-agents-python) を追従しており、それはさらに以前のエージェント実験 [Swarm](https://github.com/openai/swarm/tree/main) を本番向けに発展させたものです。SDK には、非常に小さな基本コンポーネントのセットがあります。
 
 -   **エージェント**: instructions と tools を備えた LLM
 -   **Agents as tools / ハンドオフ**: エージェントが特定タスクのために他のエージェントへ委任できるようにします
@@ -12,7 +12,7 @@ search:
 
 これらの基本コンポーネントは Python と組み合わせることで、ツールとエージェント間の複雑な関係を表現できるほど強力であり、急な学習コストなしに実運用アプリケーションを構築できます。さらに SDK には、エージェント型フローを可視化・デバッグできる組み込みの **トレーシング** があり、評価の実行や、アプリケーション向けモデルのファインチューニングまで可能です。
 
-## Agents SDK を使う理由
+## Agents SDK を使う理由 {#why-use-the-agents-sdk}
 
 SDK には 2 つの中核となる設計原則があります。
 
@@ -32,13 +32,13 @@ SDK には 2 つの中核となる設計原則があります。
 -   **トレーシング**: ワークフローの可視化・デバッグ・監視のための組み込みトレーシングで、OpenAI の評価・ファインチューニング・蒸留ツール群をサポートします。
 -   **Realtime Agents**: `gpt-realtime-1.5`、自動割り込み検知、コンテキスト管理、ガードレールなどにより、強力な音声エージェントを構築できます。
 
-## インストール
+## インストール {#installation}
 
 ```bash
-pip install openai-agents
+pip install mycel-agent-sdk
 ```
 
-## Hello world 例
+## Hello world 例 {#hello-world-example}
 
 ```python
 from agents import Agent, Runner
@@ -59,13 +59,13 @@ print(result.final_output)
 export OPENAI_API_KEY=sk-...
 ```
 
-## 開始地点
+## 開始地点 {#start-here}
 
 -   [Quickstart](quickstart.md) で最初のテキストベースエージェントを構築します。
 -   次に [Running agents](running_agents.md#choose-a-memory-strategy) で、ターン間で状態をどのように保持するかを決めます。
 -   handoffs と manager スタイルのオーケストレーションのどちらにするか検討している場合は、[Agent orchestration](multi_agent.md) を参照してください。
 
-## パスの選択
+## パスの選択 {#choose-your-path}
 
 やりたい作業は分かっているが、どのページに説明があるか分からない場合は、この表を使ってください。
 

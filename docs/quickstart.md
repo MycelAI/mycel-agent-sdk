@@ -21,7 +21,7 @@ source .venv/bin/activate
 ### Install the Agents SDK
 
 ```bash
-pip install openai-agents # or `uv add openai-agents`, etc
+pip install mycel-agent-sdk # or `uv add mycel-agent-sdk`, etc
 ```
 
 ### Set an OpenAI API key
@@ -177,9 +177,9 @@ if __name__ == "__main__":
 
 The repository includes full scripts for the same core patterns:
 
--   [`examples/basic/hello_world.py`](https://github.com/openai/openai-agents-python/tree/main/examples/basic/hello_world.py) for the first run.
--   [`examples/basic/tools.py`](https://github.com/openai/openai-agents-python/tree/main/examples/basic/tools.py) for function tools.
--   [`examples/agent_patterns/routing.py`](https://github.com/openai/openai-agents-python/tree/main/examples/agent_patterns/routing.py) for multi-agent routing.
+-   [`examples/basic/hello_world.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/basic/hello_world.py) for the first run.
+-   [`examples/basic/tools.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/basic/tools.py) for function tools.
+-   [`examples/agent_patterns/routing.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/agent_patterns/routing.py) for multi-agent routing.
 
 ## View your traces
 

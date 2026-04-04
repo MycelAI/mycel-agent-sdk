@@ -171,7 +171,7 @@ HostedMCPTool(
 ```
 
 Fully working hosted tool samples—including streaming, approvals, and connectors—live in
-[`examples/hosted_mcp`](https://github.com/openai/openai-agents-python/tree/main/examples/hosted_mcp).
+[`examples/hosted_mcp`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/hosted_mcp).
 
 ## 2. Streamable HTTP MCP servers
 
@@ -473,5 +473,5 @@ change frequently. To force a fresh list later, call `invalidate_tools_cache()` 
 ## Further reading
 
 - [Model Context Protocol](https://modelcontextprotocol.io/) – the specification and design guides.
-- [examples/mcp](https://github.com/openai/openai-agents-python/tree/main/examples/mcp) – runnable stdio, SSE, and Streamable HTTP samples.
-- [examples/hosted_mcp](https://github.com/openai/openai-agents-python/tree/main/examples/hosted_mcp) – complete hosted MCP demonstrations including approvals and connectors.
+- [examples/mcp](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/mcp) – runnable stdio, SSE, and Streamable HTTP samples.
+- [examples/hosted_mcp](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/hosted_mcp) – complete hosted MCP demonstrations including approvals and connectors.

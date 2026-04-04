@@ -128,7 +128,7 @@ __all__ = [
     "format_shell_error",
     "get_trace_tool_error",
     "with_tool_function_span",
-    "build_litellm_json_tool_call",
+    "build_json_schema_streaming_tool",
     "process_hosted_mcp_approvals",
     "collect_manual_mcp_approvals",
     "index_approval_items_by_call_id",
@@ -964,11 +964,11 @@ async def with_tool_function_span(
         return cast(TToolSpanResult, span_result)
 
 
-def build_litellm_json_tool_call(output: ResponseFunctionToolCall) -> FunctionTool:
-    """Wrap a JSON string result in a FunctionTool so LiteLLM can stream it."""
+def build_json_schema_streaming_tool(output: ResponseFunctionToolCall) -> FunctionTool:
+    """Wrap a JSON string result for ``json_tool_call`` output-schema streaming."""
 
     async def on_invoke_tool(_ctx: ToolContext[Any], value: Any) -> Any:
-        """Deserialize JSON strings so LiteLLM callers receive structured data."""
+        """Deserialize JSON strings so structured data is returned to the model."""
         if isinstance(value, str):
             return json.loads(value)
         return value

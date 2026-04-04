@@ -35,8 +35,8 @@ PRODUCTION FEATURES (provided by Dapr):
 PREREQUISITES:
 1. Install Dapr CLI: https://docs.dapr.io/getting-started/install-dapr-cli/
 2. Install Docker (for running Redis and optionally Dapr containers)
-3. Install openai-agents with dapr in your environment:
-        pip install openai-agents[dapr]
+3. Install mycel-agent-sdk with dapr in your environment:
+        pip install mycel-agent-sdk[dapr]
 4. Use the built-in helper to create components and start containers (Creates ./components with Redis + PostgreSQL and starts containers if Docker is available.):
         python examples/memory/dapr_session_example.py --setup-env --only-setup
 5. As always, ensure that the OPENAI_API_KEY environment variable is set.
@@ -44,7 +44,7 @@ PREREQUISITES:
      - This installs Redis, Zipkin, and Placement service locally
      - Useful for workflows, actors, pub/sub, and other Dapr building blocks that are incredible useful for agents.
 7. Start dapr sidecar (The app-id is the name of the application that will be running the agent. It can be any name you want. You can check the app-id with `dapr list`.):
-        dapr run --app-id openai-agents-example --dapr-http-port 3500 --dapr-grpc-port 50001 --resources-path ./components
+        dapr run --app-id mycel-agent-sdk-example --dapr-http-port 3500 --dapr-grpc-port 50001 --resources-path ./components
 
 COMMON ISSUES:
 - "Health check connection refused (port 3500)": Always use --dapr-http-port 3500

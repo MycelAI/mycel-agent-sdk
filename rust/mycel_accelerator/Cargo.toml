@@ -1,0 +1,14 @@
+[package]
+name = "mycel_accelerator"
+version = "0.1.0"
+edition = "2021"
+publish = false
+license = "MIT"
+description = "Optional PyO3 accelerator stub for the Mycel fork (build with maturin when needed)."
+
+[lib]
+name = "mycel_accelerator"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.22", features = ["extension-module"] }

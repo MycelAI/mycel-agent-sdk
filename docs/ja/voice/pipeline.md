@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# パイプラインとワークフロー
+# パイプラインとワークフロー {#pipelines-and-workflows}
 
 [`VoicePipeline`][agents.voice.pipeline.VoicePipeline] は、エージェントのワークフローを音声アプリに簡単に変換できるクラスです。実行するワークフローを渡すと、パイプラインが入力音声の文字起こし、音声終了の検出、適切なタイミングでのワークフロー呼び出し、そしてワークフロー出力の音声への変換を担います。
 
@@ -32,7 +32,7 @@ graph LR
 
 ```
 
-## パイプラインの設定
+## パイプラインの設定 {#configuring-a-pipeline}
 
 パイプラインを作成する際、いくつかの項目を設定できます。
 
@@ -43,14 +43,14 @@ graph LR
     - トレーシング（トレーシングを無効化するかどうか、音声ファイルをアップロードするかどうか、ワークフロー名、トレース ID など）
     - TTS および STT モデルの設定（プロンプト、言語、使用するデータ型など）
 
-## パイプラインの実行
+## パイプラインの実行 {#running-a-pipeline}
 
 パイプラインは [`run()`][agents.voice.pipeline.VoicePipeline.run] メソッドで実行でき、音声入力を 2 つの形式で渡せます。
 
 1. [`AudioInput`][agents.voice.input.AudioInput]：音声の全文書き起こしがすでにあり、それに対する結果だけを生成したい場合に使用します。話者が話し終えたタイミングを検出する必要がないケースで有用です。たとえば、事前録音の音声がある場合や、ユーザーが話し終えたことが明確な push-to-talk アプリなどです。
 2. [`StreamedAudioInput`][agents.voice.input.StreamedAudioInput]：ユーザーが話し終えたことを検出する必要がある可能性がある場合に使用します。検出された音声チャンクを順次プッシュでき、音声パイプラインは「activity detection」と呼ばれるプロセスにより、適切なタイミングで自動的にエージェントのワークフローを実行します。
 
-## 結果
+## 結果 {#results}
 
 音声パイプライン実行の結果は [`StreamedAudioResult`][agents.voice.result.StreamedAudioResult] です。これは、発生したイベントをストリーミングできるオブジェクトです。[`VoiceStreamEvent`][agents.voice.events.VoiceStreamEvent] にはいくつかの種類があり、たとえば次のものがあります。
 
@@ -72,8 +72,8 @@ async for event in result.stream():
     ...
 ```
 
-## ベストプラクティス
+## ベストプラクティス {#best-practices}
 
-### 割り込み
+### 割り込み {#interruptions}
 
 Agents SDK は現在、[`StreamedAudioInput`][agents.voice.input.StreamedAudioInput] に対する組み込みの割り込みサポートを提供していません。代わりに、検出された各ターンごとに、ワークフローの別個の実行がトリガーされます。アプリケーション内で割り込みを扱いたい場合は、[`VoiceStreamEventLifecycle`][agents.voice.events.VoiceStreamEventLifecycle] イベントをリッスンできます。`turn_started` は、新しいターンが文字起こしされて処理が開始されたことを示します。`turn_ended` は、該当ターンのすべての音声がディスパッチされた後にトリガーされます。これらのイベントを使って、モデルがターンを開始したときに話者のマイクをミュートし、ターンに関連する音声をすべてフラッシュした後にミュート解除するといった実装が可能です。

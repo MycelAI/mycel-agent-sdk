@@ -2,13 +2,13 @@
 search:
   exclude: true
 ---
-# エージェント
+# エージェント {#agents}
 
 エージェントは、アプリにおける中核的な基本コンポーネントです。エージェントは、大規模言語モデル ( LLM ) に instructions、ツール、さらにハンドオフ、ガードレール、structured outputs などの任意の実行時動作を設定したものです。
 
 このページは、単一のエージェントを定義またはカスタマイズしたい場合に使用します。複数のエージェントをどのように連携させるかを検討している場合は、[エージェントオーケストレーション](multi_agent.md) を参照してください。
 
-## 次のガイドの選択
+## 次のガイドの選択 {#choose-the-next-guide}
 
 このページをエージェント定義のハブとして使用してください。次に必要な判断に対応する隣接ガイドへ移動できます。
 
@@ -22,7 +22,7 @@ search:
 | 最終出力、実行項目、再開可能な状態を確認する | [結果](results.md) |
 | ローカル依存関係と実行時状態を共有する | [コンテキスト管理](context.md) |
 
-## 基本設定
+## 基本設定 {#basic-configuration}
 
 エージェントの最も一般的なプロパティは次のとおりです。
 
@@ -61,7 +61,7 @@ agent = Agent(
 )
 ```
 
-## プロンプトテンプレート
+## プロンプトテンプレート {#prompt-templates}
 
 `prompt` を設定することで、OpenAI プラットフォームで作成したプロンプトテンプレートを参照できます。これは Responses API を使用する OpenAI モデルで動作します。
 
@@ -120,7 +120,7 @@ result = await Runner.run(
 )
 ```
 
-## コンテキスト
+## コンテキスト {#context}
 
 エージェントは `context` 型に対してジェネリックです。コンテキストは依存性注入ツールです。これは、作成して `Runner.run()` に渡すオブジェクトであり、すべてのエージェント、ツール、ハンドオフなどに渡され、エージェント実行の依存関係と状態をまとめる入れ物として機能します。コンテキストには任意の Python オブジェクトを渡せます。
 
@@ -141,7 +141,7 @@ agent = Agent[UserContext](
 )
 ```
 
-## 出力型
+## 出力型 {#output-types}
 
 既定では、エージェントはプレーンテキスト ( つまり `str` ) を出力します。エージェントに特定の型の出力を生成させたい場合は、`output_type` パラメーターを使用できます。一般的には [Pydantic](https://docs.pydantic.dev/) オブジェクトが使われますが、Pydantic の [TypeAdapter](https://docs.pydantic.dev/latest/api/type_adapter/) でラップできる型であれば、dataclasses、lists、TypedDict など任意の型をサポートしています。
 
@@ -166,7 +166,7 @@ agent = Agent(
 
     `output_type` を渡すと、モデルは通常のプレーンテキスト応答ではなく [structured outputs](https://platform.openai.com/docs/guides/structured-outputs) を使用するようになります。
 
-## マルチエージェントシステムの設計パターン
+## マルチエージェントシステムの設計パターン {#multi-agent-system-design-patterns}
 
 マルチエージェントシステムの設計方法は多数ありますが、広く適用可能なパターンとして一般的に次の 2 つがあります。
 
@@ -175,7 +175,7 @@ agent = Agent(
 
 詳細は [エージェント構築の実践ガイド](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf) を参照してください。
 
-### Manager ( Agents as tools )
+### Manager ( Agents as tools ) {#manager-agents-as-tools}
 
 `customer_facing_agent` はすべてのユーザー対話を処理し、ツールとして公開された専門サブエージェントを呼び出します。詳しくは [tools](tools.md#agents-as-tools) のドキュメントを参照してください。
 
@@ -204,7 +204,7 @@ customer_facing_agent = Agent(
 )
 ```
 
-### ハンドオフ
+### ハンドオフ {#handoffs}
 
 ハンドオフは、エージェントが委譲できるサブエージェントです。ハンドオフが発生すると、委譲先エージェントが会話履歴を受け取り、会話を引き継ぎます。このパターンにより、単一タスクに特化して高い性能を発揮する、モジュール化された専門エージェントが実現できます。詳しくは [handoffs](handoffs.md) のドキュメントを参照してください。
 
@@ -225,7 +225,7 @@ triage_agent = Agent(
 )
 ```
 
-## 動的 instructions
+## 動的 instructions {#dynamic-instructions}
 
 ほとんどの場合、エージェント作成時に instructions を指定できます。ただし、関数を介して動的 instructions を指定することもできます。関数はエージェントとコンテキストを受け取り、プロンプトを返す必要があります。通常の関数と `async` 関数の両方が使用できます。
 
@@ -242,7 +242,7 @@ agent = Agent[UserContext](
 )
 ```
 
-## ライフサイクルイベント ( hooks )
+## ライフサイクルイベント ( hooks ) {#lifecycle-events-hooks}
 
 場合によっては、エージェントのライフサイクルを観測したいことがあります。たとえば、イベントをログに記録したり、データを事前取得したり、特定イベント発生時の使用状況を記録したりできます。
 
@@ -287,11 +287,11 @@ print(result.final_output)
 
 コールバック仕様の全体は、[Lifecycle API リファレンス](ref/lifecycle.md) を参照してください。
 
-## ガードレール
+## ガードレール {#guardrails}
 
 ガードレールを使用すると、エージェント実行と並行してユーザー入力に対するチェック / バリデーションを実行し、さらに生成後のエージェント出力に対してもチェック / バリデーションを実行できます。たとえば、ユーザー入力とエージェント出力の関連性をスクリーニングできます。詳しくは [guardrails](guardrails.md) のドキュメントを参照してください。
 
-## エージェントの複製 / コピー
+## エージェントの複製 / コピー {#cloningcopying-agents}
 
 エージェントで `clone()` メソッドを使用すると、Agent を複製し、必要に応じて任意のプロパティを変更できます。
 
@@ -308,7 +308,7 @@ robot_agent = pirate_agent.clone(
 )
 ```
 
-## ツール使用の強制
+## ツール使用の強制 {#forcing-tool-use}
 
 ツールのリストを指定しても、LLM が必ずツールを使用するとは限りません。[`ModelSettings.tool_choice`][agents.model_settings.ModelSettings.tool_choice] を設定することでツール使用を強制できます。有効な値は次のとおりです。
 
@@ -335,7 +335,7 @@ agent = Agent(
 )
 ```
 
-## ツール使用動作
+## ツール使用動作 {#tool-use-behavior}
 
 `Agent` 設定内の `tool_use_behavior` パラメーターは、ツール出力の扱い方を制御します。
 

@@ -2076,7 +2076,7 @@ async def test_wait_for_session_cleanup_logs_when_targets_linger(
     monkeypatch.setattr(asyncio, "sleep", fake_sleep)
 
     assert serialized_target is not None
-    with caplog.at_level("DEBUG", logger="openai.agents"):
+    with caplog.at_level("DEBUG", logger="mycel_agents"):
         await wait_for_session_cleanup(session, [serialized_target], max_attempts=2)
 
     assert sleeps == [0.1, 0.2]
@@ -2347,7 +2347,7 @@ async def test_save_result_to_session_counts_sanitized_openai_items() -> None:
             "type": "message",
             "role": "assistant",
             "content": "ok",
-            "provider_data": {"model": "litellm/test"},
+            "provider_data": {"model": "gateway/test"},
         },
         "message_output_item",
     )

@@ -294,7 +294,7 @@ CREATE TABLE turn_usage (
 
 ## Complete example
 
-Check out the [complete example](https://github.com/openai/openai-agents-python/tree/main/examples/memory/advanced_sqlite_session_example.py) for a comprehensive demonstration of all features.
+Check out the [complete example](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/memory/advanced_sqlite_session_example.py) for a comprehensive demonstration of all features.
 
 
 ## API reference

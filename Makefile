@@ -71,6 +71,15 @@ build-docs:
 	uv run docs/scripts/generate_ref_files.py
 	uv run mkdocs build
 
+# After ``make build-docs``, sync translated heading anchors to English ids.
+.PHONY: sync-i18n-heading-ids
+sync-i18n-heading-ids:
+	uv run python docs/scripts/sync_i18n_heading_ids.py
+
+# Full doc build plus i18n anchor sync (recommended before commit when English prose changed).
+.PHONY: build-docs-all
+build-docs-all: build-docs sync-i18n-heading-ids
+
 .PHONY: build-full-docs
 build-full-docs:
 	uv run docs/scripts/translate_docs.py

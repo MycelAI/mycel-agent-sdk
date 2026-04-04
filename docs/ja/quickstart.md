@@ -2,9 +2,9 @@
 search:
   exclude: true
 ---
-# クイックスタート
+# クイックスタート {#quickstart}
 
-## プロジェクトと仮想環境の作成
+## プロジェクトと仮想環境の作成 {#create-a-project-and-virtual-environment}
 
 これを行うのは 1 回だけで十分です。
 
@@ -14,7 +14,7 @@ cd my_project
 python -m venv .venv
 ```
 
-### 仮想環境の有効化
+### 仮想環境の有効化 {#activate-the-virtual-environment}
 
 新しいターミナルセッションを開始するたびに、これを実行してください。
 
@@ -22,13 +22,13 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-### Agents SDK のインストール
+### Agents SDK のインストール {#install-the-agents-sdk}
 
 ```bash
-pip install openai-agents # or `uv add openai-agents`, etc
+pip install mycel-agent-sdk # or `uv add mycel-agent-sdk`, etc
 ```
 
-### OpenAI API キーの設定
+### OpenAI API キーの設定 {#set-an-openai-api-key}
 
 まだ持っていない場合は、OpenAI API キーを作成するために [こちらの手順](https://platform.openai.com/docs/quickstart#create-and-export-an-api-key)に従ってください。
 
@@ -36,7 +36,7 @@ pip install openai-agents # or `uv add openai-agents`, etc
 export OPENAI_API_KEY=sk-...
 ```
 
-## 最初のエージェントの作成
+## 最初のエージェントの作成 {#create-your-first-agent}
 
 エージェントは instructions、名前、および特定のモデルなどの任意の設定で定義されます。
 
@@ -49,7 +49,7 @@ agent = Agent(
 )
 ```
 
-## 最初のエージェントの実行
+## 最初のエージェントの実行 {#run-your-first-agent}
 
 [`Runner`][agents.run.Runner] を使用してエージェントを実行し、[`RunResult`][agents.result.RunResult] を取得します。
 
@@ -82,7 +82,7 @@ if __name__ == "__main__":
 
 トレードオフと正確な挙動については、[Running agents](running_agents.md#choose-a-memory-strategy) を参照してください。
 
-## エージェントへのツールの付与
+## エージェントへのツールの付与 {#give-your-agent-tools}
 
 情報を検索したりアクションを実行したりするためのツールを、エージェントに与えることができます。
 
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-## 追加エージェントの作成
+## 追加エージェントの作成 {#add-a-few-more-agents}
 
 マルチエージェントパターンを選ぶ前に、最終回答を誰が担うべきかを決めてください。
 
@@ -143,7 +143,7 @@ math_tutor_agent = Agent(
 )
 ```
 
-## ハンドオフの定義
+## ハンドオフの定義 {#define-your-handoffs}
 
 エージェントでは、タスクを解決する間に選択できる、外向きのハンドオフオプションの一覧を定義できます。
 
@@ -155,7 +155,7 @@ triage_agent = Agent(
 )
 ```
 
-## エージェントオーケストレーションの実行
+## エージェントオーケストレーションの実行 {#run-the-agent-orchestration}
 
 ランナーは、個々のエージェントの実行、あらゆるハンドオフ、およびあらゆるツール呼び出しの処理を行います。
 
@@ -177,19 +177,19 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-## 参照コード例
+## 参照コード例 {#reference-examples}
 
 リポジトリには、同じ主要パターンの完全なスクリプトが含まれています。
 
--   最初の実行用: [`examples/basic/hello_world.py`](https://github.com/openai/openai-agents-python/tree/main/examples/basic/hello_world.py)
--   関数ツール用: [`examples/basic/tools.py`](https://github.com/openai/openai-agents-python/tree/main/examples/basic/tools.py)
--   マルチエージェントルーティング用: [`examples/agent_patterns/routing.py`](https://github.com/openai/openai-agents-python/tree/main/examples/agent_patterns/routing.py)
+-   最初の実行用: [`examples/basic/hello_world.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/basic/hello_world.py)
+-   関数ツール用: [`examples/basic/tools.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/basic/tools.py)
+-   マルチエージェントルーティング用: [`examples/agent_patterns/routing.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/agent_patterns/routing.py)
 
-## トレースの表示
+## トレースの表示 {#view-your-traces}
 
 エージェント実行中に何が起きたかを確認するには、[OpenAI Dashboard の Trace viewer](https://platform.openai.com/traces) に移動して、エージェント実行のトレースを表示してください。
 
-## 次のステップ
+## 次のステップ {#next-steps}
 
 より複雑な agentic フローの構築方法を学びましょう。
 

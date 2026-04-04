@@ -2,11 +2,11 @@
 search:
   exclude: true
 ---
-# 고급 SQLite 세션
+# 고급 SQLite 세션 {#advanced-sqlite-sessions}
 
 `AdvancedSQLiteSession`은 기본 `SQLiteSession`의 향상된 버전으로, 대화 브랜칭, 상세 사용량 분석, 구조화된 대화 쿼리를 포함한 고급 대화 관리 기능을 제공합니다
 
-## 기능
+## 기능 {#features}
 
 - **대화 브랜칭**: 모든 사용자 메시지에서 대체 대화 경로 생성
 - **사용량 추적**: 전체 JSON 세부 내역과 함께 턴별 상세 토큰 사용량 분석
@@ -14,7 +14,7 @@ search:
 - **브랜치 관리**: 독립적인 브랜치 전환 및 관리
 - **메시지 구조 메타데이터**: 메시지 유형, 도구 사용, 대화 흐름 추적
 
-## 빠른 시작
+## 빠른 시작 {#quick-start}
 
 ```python
 from agents import Agent, Runner
@@ -54,7 +54,7 @@ print(result.final_output)  # "California"
 await session.store_run_usage(result)
 ```
 
-## 초기화
+## 초기화 {#initialization}
 
 ```python
 from agents.extensions.memory import AdvancedSQLiteSession
@@ -82,18 +82,18 @@ session = AdvancedSQLiteSession(
 )
 ```
 
-### 매개변수
+### 매개변수 {#parameters}
 
 - `session_id` (str): 대화 세션의 고유 식별자
 - `db_path` (str | Path): SQLite 데이터베이스 파일 경로. 기본값은 인메모리 저장을 위한 `:memory:`
 - `create_tables` (bool): 고급 테이블을 자동으로 생성할지 여부. 기본값은 `False`
 - `logger` (logging.Logger | None): 세션용 사용자 지정 로거. 기본값은 모듈 로거
 
-## 사용량 추적
+## 사용량 추적 {#usage-tracking}
 
 AdvancedSQLiteSession은 대화 턴별 토큰 사용량 데이터를 저장하여 상세 사용량 분석을 제공합니다. **이는 각 에이전트 실행 후 `store_run_usage` 메서드가 호출되는지에 전적으로 의존합니다.**
 
-### 사용량 데이터 저장
+### 사용량 데이터 저장 {#storing-usage-data}
 
 ```python
 # After each agent run, store the usage data
@@ -107,7 +107,7 @@ await session.store_run_usage(result)
 # - Detailed JSON token information (if available)
 ```
 
-### 사용량 통계 조회
+### 사용량 통계 조회 {#retrieving-usage-statistics}
 
 ```python
 # Get session-level usage (all branches)
@@ -135,11 +135,11 @@ for turn_data in turn_usage:
 turn_2_usage = await session.get_turn_usage(user_turn_number=2)
 ```
 
-## 대화 브랜칭
+## 대화 브랜칭 {#conversation-branching}
 
 AdvancedSQLiteSession의 핵심 기능 중 하나는 모든 사용자 메시지에서 대화 브랜치를 생성할 수 있다는 점이며, 이를 통해 대체 대화 경로를 탐색할 수 있습니다.
 
-### 브랜치 생성
+### 브랜치 생성 {#creating-branches}
 
 ```python
 # Get available turns for branching
@@ -165,7 +165,7 @@ branch_id = await session.create_branch_from_content(
 )
 ```
 
-### 브랜치 관리
+### 브랜치 관리 {#branch-management}
 
 ```python
 # List all branches
@@ -182,7 +182,7 @@ await session.switch_to_branch(branch_id)
 await session.delete_branch(branch_id, force=True)  # force=True allows deleting current branch
 ```
 
-### 브랜치 워크플로 예제
+### 브랜치 워크플로 예제 {#branch-workflow-example}
 
 ```python
 # Original conversation
@@ -215,11 +215,11 @@ result = await Runner.run(
 await session.store_run_usage(result)
 ```
 
-## 구조화된 쿼리
+## 구조화된 쿼리 {#structured-queries}
 
 AdvancedSQLiteSession은 대화 구조와 내용을 분석하기 위한 여러 메서드를 제공합니다.
 
-### 대화 분석
+### 대화 분석 {#conversation-analysis}
 
 ```python
 # Get conversation organized by turns
@@ -243,7 +243,7 @@ for turn in matching_turns:
     print(f"Turn {turn['turn']}: {turn['content']}")
 ```
 
-### 메시지 구조
+### 메시지 구조 {#message-structure}
 
 세션은 다음을 포함한 메시지 구조를 자동으로 추적합니다:
 
@@ -253,11 +253,11 @@ for turn in matching_turns:
 - 브랜치 연결
 - 타임스탬프
 
-## 데이터베이스 스키마
+## 데이터베이스 스키마 {#database-schema}
 
 AdvancedSQLiteSession은 기본 SQLite 스키마를 두 개의 추가 테이블로 확장합니다:
 
-### message_structure 테이블
+### message_structure 테이블 {#message_structure-table}
 
 ```sql
 CREATE TABLE message_structure (
@@ -276,7 +276,7 @@ CREATE TABLE message_structure (
 );
 ```
 
-### turn_usage 테이블
+### turn_usage 테이블 {#turn_usage-table}
 
 ```sql
 CREATE TABLE turn_usage (
@@ -296,12 +296,12 @@ CREATE TABLE turn_usage (
 );
 ```
 
-## 전체 예제
+## 전체 예제 {#complete-example}
 
-모든 기능을 종합적으로 시연하는 [전체 예제](https://github.com/openai/openai-agents-python/tree/main/examples/memory/advanced_sqlite_session_example.py)를 확인하세요
+모든 기능을 종합적으로 시연하는 [전체 예제](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/memory/advanced_sqlite_session_example.py)를 확인하세요
 
 
-## API 참조
+## API 참조 {#api-reference}
 
 - [`AdvancedSQLiteSession`][agents.extensions.memory.advanced_sqlite_session.AdvancedSQLiteSession] - 메인 클래스
 - [`Session`][agents.memory.session.Session] - 기본 세션 프로토콜

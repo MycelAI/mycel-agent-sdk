@@ -22,8 +22,8 @@ from agents import (
 
 # Uncomment to see very verbose logs
 # import logging
-# logging.getLogger("openai.agents").setLevel(logging.DEBUG)
-# logging.getLogger("openai.agents").addHandler(logging.StreamHandler())
+# logging.getLogger("mycel_agents").setLevel(logging.DEBUG)
+# logging.getLogger("mycel_agents").addHandler(logging.StreamHandler())
 
 
 CUA_KEY_TO_PLAYWRIGHT_KEY = {

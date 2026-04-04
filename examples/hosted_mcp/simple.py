@@ -48,7 +48,7 @@ if __name__ == "__main__":
     parser.add_argument("--stream", action="store_true", default=False)
     parser.add_argument(
         "--repo",
-        default="https://github.com/openai/openai-agents-python",
+        default="https://github.com/MycelAI/mycel-agent-sdk",
         help="Repository URL or slug that the Git MCP server should use.",
     )
     args = parser.parse_args()

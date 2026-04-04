@@ -11,8 +11,8 @@ from typing import Any
 
 from openai.types.chat.chat_completion_message_tool_call import Function
 
-from agents.extensions.models.litellm_model import InternalChatCompletionMessage, InternalToolCall
 from agents.models.chatcmpl_converter import Converter
+from agents.models.internal_chat_completion import InternalChatCompletionMessage, InternalToolCall
 
 
 def test_gemini_thought_signature_roundtrip():

@@ -1,6 +1,6 @@
-# OpenAI Agents SDK
+# Mycel Agent SDK
 
-The [OpenAI Agents SDK](https://github.com/openai/openai-agents-python) enables you to build agentic AI apps in a lightweight, easy-to-use package with very few abstractions. It's a production-ready upgrade of our previous experimentation for agents, [Swarm](https://github.com/openai/swarm/tree/main). The Agents SDK has a very small set of primitives:
+The [Mycel Agent SDK](https://github.com/MycelAI/mycel-agent-sdk) enables you to build agentic AI apps in a lightweight, easy-to-use package with very few abstractions. It tracks the upstream [OpenAI Agents SDK for Python](https://github.com/openai/openai-agents-python), which in turn was a production-ready upgrade of the earlier agents experiment, [Swarm](https://github.com/openai/swarm/tree/main). The SDK has a very small set of primitives:
 
 -   **Agents**, which are LLMs equipped with instructions and tools
 -   **Agents as tools / Handoffs**, which allow agents to delegate to other agents for specific tasks
@@ -31,7 +31,7 @@ Here are the main features of the SDK:
 ## Installation
 
 ```bash
-pip install openai-agents
+pip install mycel-agent-sdk
 ```
 
 ## Hello world example

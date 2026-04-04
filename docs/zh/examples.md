@@ -2,13 +2,13 @@
 search:
   exclude: true
 ---
-# 示例
+# 示例 {#examples}
 
-请在 [repo](https://github.com/openai/openai-agents-python/tree/main/examples) 的示例部分查看 SDK 的多种 sample code。示例按多个目录组织，展示了不同的模式和能力。
+请在 [repo](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples) 的示例部分查看 SDK 的多种 sample code。示例按多个目录组织，展示了不同的模式和能力。
 
-## 目录
+## 目录 {#categories}
 
--   **[agent_patterns](https://github.com/openai/openai-agents-python/tree/main/examples/agent_patterns):**
+-   **[agent_patterns](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/agent_patterns):**
     此目录中的示例展示了常见的智能体设计模式，例如
 
     -   确定性工作流
@@ -26,7 +26,7 @@ search:
     -   带流式传输的人在回路（`examples/agent_patterns/human_in_the_loop_stream.py`）
     -   审批流程的自定义拒绝消息（`examples/agent_patterns/human_in_the_loop_custom_rejection.py`）
 
--   **[basic](https://github.com/openai/openai-agents-python/tree/main/examples/basic):**
+-   **[basic](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/basic):**
     这些示例展示了 SDK 的基础能力，例如
 
     -   Hello World 示例（默认模型、GPT-5、开放权重模型）
@@ -42,23 +42,23 @@ search:
     -   文件处理（本地与远程、图像与 PDF）
     -   用量追踪
     -   由 Runner 管理的重试设置（`examples/basic/retry.py`）
-    -   通过第三方适配器由 Runner 管理重试（`examples/basic/retry_litellm.py`）
+    -   通过 OpenAI Chat Completions 由 Runner 管理重试（`examples/basic/retry_openai_chatcompletions.py`）
     -   非严格输出类型
     -   previous response ID 用法
 
--   **[customer_service](https://github.com/openai/openai-agents-python/tree/main/examples/customer_service):**
+-   **[customer_service](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/customer_service):**
     航空公司的客户服务系统示例。
 
--   **[financial_research_agent](https://github.com/openai/openai-agents-python/tree/main/examples/financial_research_agent):**
+-   **[financial_research_agent](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/financial_research_agent):**
     一个金融研究智能体，展示了使用智能体和工具进行金融数据分析的结构化研究工作流。
 
--   **[handoffs](https://github.com/openai/openai-agents-python/tree/main/examples/handoffs):**
+-   **[handoffs](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/handoffs):**
     智能体任务转移的实用示例，包含消息过滤，包括：
 
     -   消息过滤示例（`examples/handoffs/message_filter.py`）
     -   带流式传输的消息过滤（`examples/handoffs/message_filter_streaming.py`）
 
--   **[hosted_mcp](https://github.com/openai/openai-agents-python/tree/main/examples/hosted_mcp):**
+-   **[hosted_mcp](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/hosted_mcp):**
     展示如何将托管 MCP（Model context protocol）与 OpenAI Responses API 一起使用的示例，包括：
 
     -   无需审批的简单托管 MCP（`examples/hosted_mcp/simple.py`）
@@ -66,7 +66,7 @@ search:
     -   基于中断审批的人在回路（`examples/hosted_mcp/human_in_the_loop.py`）
     -   MCP 工具调用的审批回调（`examples/hosted_mcp/on_approval.py`）
 
--   **[mcp](https://github.com/openai/openai-agents-python/tree/main/examples/mcp):**
+-   **[mcp](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/mcp):**
     了解如何使用 MCP（Model context protocol）构建智能体，包括：
 
     -   文件系统示例
@@ -81,7 +81,7 @@ search:
     -   搭配 FastAPI 的 MCPServerManager（`examples/mcp/manager_example`）
     -   MCP 工具过滤（`examples/mcp/tool_filter_example`）
 
--   **[memory](https://github.com/openai/openai-agents-python/tree/main/examples/memory):**
+-   **[memory](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/memory):**
     面向智能体的不同内存实现示例，包括：
 
     -   SQLite 会话存储
@@ -99,10 +99,10 @@ search:
     -   带人在回路的 OpenAI Conversations 会话（`examples/memory/openai_session_hitl_example.py`）
     -   跨会话的 HITL 审批/拒绝场景（`examples/memory/hitl_session_scenario.py`）
 
--   **[model_providers](https://github.com/openai/openai-agents-python/tree/main/examples/model_providers):**
+-   **[model_providers](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/model_providers):**
     探索如何在 SDK 中使用非 OpenAI 模型，包括自定义提供方和第三方适配器。
 
--   **[realtime](https://github.com/openai/openai-agents-python/tree/main/examples/realtime):**
+-   **[realtime](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime):**
     展示如何使用 SDK 构建实时体验的示例，包括：
 
     -   使用结构化文本和图像消息的 Web 应用模式
@@ -110,17 +110,17 @@ search:
     -   基于 WebSocket 的 Twilio Media Streams 集成
     -   使用 Realtime Calls API attach 流程的 Twilio SIP 集成
 
--   **[reasoning_content](https://github.com/openai/openai-agents-python/tree/main/examples/reasoning_content):**
+-   **[reasoning_content](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/reasoning_content):**
     展示如何处理推理内容的示例，包括：
 
     -   使用 Runner API 的推理内容，含流式和非流式（`examples/reasoning_content/runner_example.py`）
     -   通过 OpenRouter 使用 OSS 模型的推理内容（`examples/reasoning_content/gpt_oss_stream.py`）
     -   基础推理内容示例（`examples/reasoning_content/main.py`）
 
--   **[research_bot](https://github.com/openai/openai-agents-python/tree/main/examples/research_bot):**
+-   **[research_bot](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/research_bot):**
     简单的深度研究克隆示例，展示复杂的多智能体研究工作流。
 
--   **[tools](https://github.com/openai/openai-agents-python/tree/main/examples/tools):**
+-   **[tools](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/tools):**
     了解如何实现由OpenAI托管的工具和实验性 Codex 工具能力，例如：
 
     -   网络检索以及带过滤器的网络检索
@@ -138,5 +138,5 @@ search:
     -   实验性 Codex 工具工作流（`examples/tools/codex.py`）
     -   实验性 Codex 同线程工作流（`examples/tools/codex_same_thread.py`）
 
--   **[voice](https://github.com/openai/openai-agents-python/tree/main/examples/voice):**
+-   **[voice](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/voice):**
     查看语音智能体示例，使用我们的 TTS 和 STT 模型，包括流式语音示例。

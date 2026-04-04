@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# 휴먼인더루프 (HITL)
+# 휴먼인더루프 (HITL) {#human-in-the-loop}
 
 휴먼인더루프 (HITL) 흐름을 사용해 민감한 도구 호출을 사람이 승인하거나 거절할 때까지 에이전트 실행을 일시 중지할 수 있습니다. 도구는 승인 필요 여부를 선언하고, 실행 결과는 대기 중인 승인을 인터럽션으로 노출하며, `RunState`를 통해 결정 이후 실행을 직렬화하고 재개할 수 있습니다
 
@@ -12,7 +12,7 @@ search:
 
 이 페이지는 `interruptions`를 통한 수동 승인 흐름에 중점을 둡니다. 앱에서 코드로 판단할 수 있다면, 일부 도구 유형은 프로그래매틱 승인 콜백도 지원하므로 실행을 멈추지 않고 계속할 수 있습니다
 
-## 승인 필요 도구 표시
+## 승인 필요 도구 표시 {#marking-tools-that-need-approval}
 
 항상 승인을 요구하려면 `needs_approval`를 `True`로 설정하거나, 호출별로 판단하는 비동기 함수를 제공하세요. 호출 가능 객체는 실행 컨텍스트, 파싱된 도구 매개변수, 도구 호출 ID를 받습니다
 
@@ -43,7 +43,7 @@ agent = Agent(
 
 `needs_approval`는 [`function_tool`][agents.tool.function_tool], [`Agent.as_tool`][agents.agent.Agent.as_tool], [`ShellTool`][agents.tool.ShellTool], [`ApplyPatchTool`][agents.tool.ApplyPatchTool]에서 사용할 수 있습니다. 로컬 MCP 서버도 [`MCPServerStdio`][agents.mcp.server.MCPServerStdio], [`MCPServerSse`][agents.mcp.server.MCPServerSse], [`MCPServerStreamableHttp`][agents.mcp.server.MCPServerStreamableHttp]의 `require_approval`를 통해 승인을 지원합니다. 호스티드 MCP 서버는 [`HostedMCPTool`][agents.tool.HostedMCPTool]에서 `tool_config={"require_approval": "always"}`와 선택적 `on_approval_request` 콜백으로 승인을 지원합니다. Shell 및 apply_patch 도구는 인터럽션을 노출하지 않고 자동 승인 또는 자동 거절하려는 경우 `on_approval` 콜백을 받을 수 있습니다
 
-## 승인 흐름 작동 방식
+## 승인 흐름 작동 방식 {#how-the-approval-flow-works}
 
 1. 모델이 도구 호출을 생성하면 러너는 해당 도구의 승인 규칙(`needs_approval`, `require_approval`, 또는 호스티드 MCP 동등 설정)을 평가합니다
 2. 해당 도구 호출에 대한 승인 결정이 이미 [`RunContextWrapper`][agents.run_context.RunContextWrapper]에 저장되어 있으면, 러너는 추가 확인 없이 진행합니다. 호출별 승인은 특정 호출 ID 범위에만 적용됩니다. 실행의 나머지 동안 같은 도구의 향후 호출에도 동일한 결정을 유지하려면 `always_approve=True` 또는 `always_reject=True`를 전달하세요
@@ -55,7 +55,7 @@ agent = Agent(
 
 같은 패스에서 모든 대기 중 승인을 처리할 필요는 없습니다. `interruptions`에는 일반 함수 도구, 호스티드 MCP 승인, 중첩 `Agent.as_tool()` 승인이 혼합되어 있을 수 있습니다. 일부 항목만 승인 또는 거절한 뒤 다시 실행하면, 해결된 호출은 계속 진행되고 미해결 항목은 `interruptions`에 남아 실행을 다시 일시 중지합니다
 
-## 사용자 지정 거절 메시지
+## 사용자 지정 거절 메시지 {#custom-rejection-messages}
 
 기본적으로 거절된 도구 호출은 SDK의 표준 거절 텍스트를 실행으로 다시 반환합니다. 이 메시지는 두 계층에서 사용자 지정할 수 있습니다
 
@@ -83,9 +83,9 @@ state.reject(
 )
 ```
 
-두 계층을 함께 보여주는 완전한 예시는 [`examples/agent_patterns/human_in_the_loop_custom_rejection.py`](https://github.com/openai/openai-agents-python/tree/main/examples/agent_patterns/human_in_the_loop_custom_rejection.py)를 참조하세요
+두 계층을 함께 보여주는 완전한 예시는 [`examples/agent_patterns/human_in_the_loop_custom_rejection.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/agent_patterns/human_in_the_loop_custom_rejection.py)를 참조하세요
 
-## 자동 승인 결정
+## 자동 승인 결정 {#automatic-approval-decisions}
 
 수동 `interruptions`가 가장 일반적인 패턴이지만 유일한 방법은 아닙니다
 
@@ -95,13 +95,13 @@ state.reject(
 
 이 콜백들이 결정을 반환하면 실행은 사람 응답을 기다리며 멈추지 않고 계속됩니다. Realtime 및 음성 세션 API의 경우 [Realtime 가이드](realtime/guide.md)의 승인 흐름을 참조하세요
 
-## 스트리밍 및 세션
+## 스트리밍 및 세션 {#streaming-and-sessions}
 
 동일한 인터럽션 흐름은 스트리밍 실행에서도 동작합니다. 스트리밍 실행이 일시 중지된 뒤에는 반복자가 끝날 때까지 [`RunResultStreaming.stream_events()`][agents.result.RunResultStreaming.stream_events]를 계속 소비하고, [`RunResultStreaming.interruptions`][agents.result.RunResultStreaming.interruptions]를 확인해 해결한 다음, 재개 출력도 계속 스트리밍하려면 [`Runner.run_streamed(...)`][agents.run.Runner.run_streamed]로 재개하세요. 이 패턴의 스트리밍 버전은 [스트리밍](streaming.md)을 참조하세요
 
 세션도 함께 사용 중이라면 `RunState`에서 재개할 때 동일한 세션 인스턴스를 계속 전달하거나, 같은 백엔드 스토어를 가리키는 다른 세션 객체를 전달하세요. 그러면 재개된 턴이 같은 저장 대화 기록에 추가됩니다. 세션 수명주기 상세는 [세션](sessions/index.md)을 참조하세요
 
-## 예시: 일시 중지, 승인, 재개
+## 예시: 일시 중지, 승인, 재개 {#example-pause-approve-resume}
 
 아래 스니펫은 JavaScript HITL 가이드를 반영합니다: 도구에 승인이 필요하면 일시 중지하고, 상태를 디스크에 저장했다가, 다시 불러와 결정 수집 후 재개합니다
 
@@ -171,7 +171,7 @@ if __name__ == "__main__":
 
 승인 대기 중에도 출력을 스트리밍하려면 `Runner.run_streamed`를 호출하고, `result.stream_events()`를 완료될 때까지 소비한 다음, 위에 나온 동일한 `result.to_state()` 및 재개 단계를 따르세요
 
-## 저장소 패턴 및 예제
+## 저장소 패턴 및 예제 {#repository-patterns-and-examples}
 
 - **스트리밍 승인**: `examples/agent_patterns/human_in_the_loop_stream.py`는 `stream_events()`를 모두 소비한 뒤 대기 중인 도구 호출을 승인하고 `Runner.run_streamed(agent, state)`로 재개하는 방법을 보여줍니다
 - **사용자 지정 거절 텍스트**: `examples/agent_patterns/human_in_the_loop_custom_rejection.py`는 승인이 거절될 때 실행 수준 `tool_error_formatter`와 호출별 `rejection_message` 재정의를 결합하는 방법을 보여줍니다
@@ -182,7 +182,7 @@ if __name__ == "__main__":
 - **세션 및 메모리**: 승인과 대화 기록이 여러 턴에 걸쳐 유지되도록 `Runner.run`에 세션을 전달하세요. SQLite 및 OpenAI Conversations 세션 변형은 `examples/memory/memory_session_hitl_example.py`와 `examples/memory/openai_session_hitl_example.py`에 있습니다
 - **실시간 에이전트**: realtime 데모는 `RealtimeSession`의 `approve_tool_call` / `reject_tool_call`을 통해 도구 호출을 승인 또는 거절하는 WebSocket 메시지를 노출합니다(서버 측 핸들러는 `examples/realtime/app/server.py`, API 표면은 [Realtime 가이드](realtime/guide.md#tool-approvals) 참조)
 
-## 장기 실행 승인
+## 장기 실행 승인 {#long-running-approvals}
 
 `RunState`는 내구성을 고려해 설계되었습니다. 대기 작업을 데이터베이스나 큐에 저장하려면 `state.to_json()` 또는 `state.to_string()`을 사용하고, 나중에 `RunState.from_json(...)` 또는 `RunState.from_string(...)`으로 다시 생성하세요
 
@@ -196,6 +196,6 @@ if __name__ == "__main__":
 
 직렬화된 실행 상태에는 앱 컨텍스트와 함께 승인, 사용량, 직렬화된 `tool_input`, 중첩 에이전트-as-tool 재개, 트레이스 메타데이터, 서버 관리 대화 설정 같은 SDK 관리 런타임 메타데이터가 포함됩니다. 직렬화된 상태를 저장하거나 전송할 계획이라면 `RunContextWrapper.context`를 영속 데이터로 취급하고, 상태와 함께 이동시키려는 의도가 없는 한 비밀 정보를 그 안에 두지 마세요
 
-## 대기 작업 버전 관리
+## 대기 작업 버전 관리 {#versioning-pending-tasks}
 
 승인이 한동안 대기 상태로 있을 수 있다면, 직렬화된 상태와 함께 에이전트 정의 또는 SDK의 버전 마커를 저장하세요. 그러면 모델, 프롬프트 또는 도구 정의가 바뀔 때 발생할 수 있는 비호환성을 피하기 위해 역직렬화를 일치하는 코드 경로로 라우팅할 수 있습니다

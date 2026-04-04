@@ -2,14 +2,14 @@
 search:
   exclude: true
 ---
-# コンテキスト管理
+# コンテキスト管理 {#context-management}
 
 コンテキストは多義的な用語です。主に重要になるコンテキストは 2 つあります。
 
 1. コード内でローカルに利用可能なコンテキスト: これは、ツール関数の実行時、`on_handoff` のようなコールバック時、ライフサイクルフック内などで必要になる可能性があるデータや依存関係です。
 2. LLM で利用可能なコンテキスト: これは、レスポンス生成時に LLM が参照するデータです。
 
-## ローカルコンテキスト
+## ローカルコンテキスト {#local-context}
 
 これは [`RunContextWrapper`][agents.run_context.RunContextWrapper] クラスと、その中の [`context`][agents.run_context.RunContextWrapper.context] プロパティで表現されます。仕組みは次のとおりです。
 
@@ -31,7 +31,7 @@ search:
 
 単一の実行内では、派生ラッパーは同じ基盤の app コンテキスト、承認状態、使用量トラッキングを共有します。ネストされた [`Agent.as_tool()`][agents.agent.Agent.as_tool] 実行では別の `tool_input` が付与される場合がありますが、既定では app 状態の分離コピーは取得しません。
 
-### `RunContextWrapper` の公開内容
+### `RunContextWrapper` の公開内容 {#what-runcontextwrapper-exposes}
 
 [`RunContextWrapper`][agents.run_context.RunContextWrapper] は、app で定義したコンテキストオブジェクトのラッパーです。実際には、主に次を使用します。
 
@@ -91,7 +91,7 @@ if __name__ == "__main__":
 
 ---
 
-### 高度な利用: `ToolContext`
+### 高度な利用: `ToolContext` {#advanced-toolcontext}
 
 場合によっては、実行中のツールに関する追加メタデータ (名前、呼び出し ID、raw 引数文字列など) にアクセスしたいことがあります。  
 このために、`RunContextWrapper` を拡張した [`ToolContext`][agents.tool_context.ToolContext] クラスを使用できます。
@@ -136,7 +136,7 @@ agent = Agent(
 
 ---
 
-## エージェント / LLM コンテキスト
+## エージェント / LLM コンテキスト {#agentllm-context}
 
 LLM が呼び出されるとき、参照できるデータは会話履歴内のもの **のみ** です。これは、LLM に新しいデータを利用可能にしたい場合、それを会話履歴内で利用可能にする方法で渡す必要があることを意味します。方法はいくつかあります。
 

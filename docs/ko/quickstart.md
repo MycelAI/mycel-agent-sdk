@@ -2,9 +2,9 @@
 search:
   exclude: true
 ---
-# 빠른 시작
+# 빠른 시작 {#quickstart}
 
-## 프로젝트 및 가상 환경 생성
+## 프로젝트 및 가상 환경 생성 {#create-a-project-and-virtual-environment}
 
 이 작업은 한 번만 하면 됩니다
 
@@ -14,7 +14,7 @@ cd my_project
 python -m venv .venv
 ```
 
-### 가상 환경 활성화
+### 가상 환경 활성화 {#activate-the-virtual-environment}
 
 새 터미널 세션을 시작할 때마다 이 작업을 수행하세요
 
@@ -22,13 +22,13 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-### Agents SDK 설치
+### Agents SDK 설치 {#install-the-agents-sdk}
 
 ```bash
-pip install openai-agents # or `uv add openai-agents`, etc
+pip install mycel-agent-sdk # or `uv add mycel-agent-sdk`, etc
 ```
 
-### OpenAI API 키 설정
+### OpenAI API 키 설정 {#set-an-openai-api-key}
 
 아직 키가 없다면 [이 지침](https://platform.openai.com/docs/quickstart#create-and-export-an-api-key)을 따라 OpenAI API 키를 생성하세요
 
@@ -36,7 +36,7 @@ pip install openai-agents # or `uv add openai-agents`, etc
 export OPENAI_API_KEY=sk-...
 ```
 
-## 첫 에이전트 생성
+## 첫 에이전트 생성 {#create-your-first-agent}
 
 에이전트는 instructions, 이름, 그리고 특정 모델 같은 선택적 구성으로 정의됩니다
 
@@ -49,7 +49,7 @@ agent = Agent(
 )
 ```
 
-## 첫 에이전트 실행
+## 첫 에이전트 실행 {#run-your-first-agent}
 
 [`Runner`][agents.run.Runner]를 사용해 에이전트를 실행하고 [`RunResult`][agents.result.RunResult]를 반환받으세요
 
@@ -82,7 +82,7 @@ if __name__ == "__main__":
 
 트레이드오프와 정확한 동작은 [에이전트 실행](running_agents.md#choose-a-memory-strategy)을 참고하세요
 
-## 에이전트에 도구 제공
+## 에이전트에 도구 제공 {#give-your-agent-tools}
 
 에이전트에 정보를 조회하거나 작업을 수행할 수 있는 도구를 제공할 수 있습니다
 
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-## 에이전트 몇 개 더 추가
+## 에이전트 몇 개 더 추가 {#add-a-few-more-agents}
 
 멀티 에이전트 패턴을 선택하기 전에, 최종 답변을 누가 담당할지 결정하세요:
 
@@ -143,7 +143,7 @@ math_tutor_agent = Agent(
 )
 ```
 
-## 핸드오프 정의
+## 핸드오프 정의 {#define-your-handoffs}
 
 에이전트에서 작업 해결 중 선택할 수 있는 외부 핸드오프 옵션 목록을 정의할 수 있습니다
 
@@ -155,7 +155,7 @@ triage_agent = Agent(
 )
 ```
 
-## 에이전트 오케스트레이션 실행
+## 에이전트 오케스트레이션 실행 {#run-the-agent-orchestration}
 
 러너는 개별 에이전트 실행, 핸드오프, 도구 호출을 모두 처리합니다
 
@@ -177,19 +177,19 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-## 참고 코드 예제
+## 참고 코드 예제 {#reference-examples}
 
 리포지토리에는 동일한 핵심 패턴에 대한 전체 스크립트가 포함되어 있습니다:
 
--   첫 실행용 [`examples/basic/hello_world.py`](https://github.com/openai/openai-agents-python/tree/main/examples/basic/hello_world.py)
--   함수 도구용 [`examples/basic/tools.py`](https://github.com/openai/openai-agents-python/tree/main/examples/basic/tools.py)
--   멀티 에이전트 라우팅용 [`examples/agent_patterns/routing.py`](https://github.com/openai/openai-agents-python/tree/main/examples/agent_patterns/routing.py)
+-   첫 실행용 [`examples/basic/hello_world.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/basic/hello_world.py)
+-   함수 도구용 [`examples/basic/tools.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/basic/tools.py)
+-   멀티 에이전트 라우팅용 [`examples/agent_patterns/routing.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/agent_patterns/routing.py)
 
-## 트레이스 확인
+## 트레이스 확인 {#view-your-traces}
 
 에이전트 실행 중 무엇이 발생했는지 검토하려면 [OpenAI Dashboard의 Trace viewer](https://platform.openai.com/traces)로 이동해 에이전트 실행의 트레이스를 확인하세요
 
-## 다음 단계
+## 다음 단계 {#next-steps}
 
 더 복잡한 에이전트 흐름을 구축하는 방법을 알아보세요:
 

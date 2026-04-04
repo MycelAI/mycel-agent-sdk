@@ -2,9 +2,9 @@
 search:
   exclude: true
 ---
-# OpenAI Agents SDK
+# Mycel Agent SDK {#mycel-agent-sdk}
 
-[OpenAI Agents SDK](https://github.com/openai/openai-agents-python)使你能够以轻量、易用且抽象极少的方式构建智能体 AI 应用。它是在我们此前面向智能体的实验项目[Swarm](https://github.com/openai/swarm/tree/main)基础上的生产就绪升级版。Agents SDK 只有一小组基本组件：
+[Mycel Agent SDK](https://github.com/MycelAI/mycel-agent-sdk)使你能够以轻量、易用且抽象极少的方式构建智能体 AI 应用。本仓库沿袭上游 [OpenAI Agents SDK for Python](https://github.com/openai/openai-agents-python)，而后者又是面向智能体的早期实验项目 [Swarm](https://github.com/openai/swarm/tree/main) 的生产就绪升级版。SDK 只有一小组基本组件：
 
 -   **智能体**，即配备了指令和工具的 LLM
 -   **Agents as tools / 任务转移**，允许智能体将特定任务委派给其他智能体
@@ -12,7 +12,7 @@ search:
 
 结合 Python，这些基本组件足以表达工具与智能体之间的复杂关系，并让你无需陡峭的学习曲线即可构建真实世界应用。此外，SDK 内置了**追踪**功能，可帮助你可视化并调试智能体流程，同时还能进行评估，甚至为你的应用微调模型。
 
-## 使用 Agents SDK 的原因
+## 使用 Agents SDK 的原因 {#why-use-the-agents-sdk}
 
 SDK 有两个核心设计原则：
 
@@ -32,13 +32,13 @@ SDK 有两个核心设计原则：
 -   **追踪**：内置追踪能力，用于工作流可视化、调试与监控，并支持 OpenAI 的评估、微调与蒸馏工具套件。
 -   **Realtime 智能体**：使用 `gpt-realtime-1.5` 构建强大的语音智能体，支持自动打断检测、上下文管理、安全防护措施等。
 
-## 安装
+## 安装 {#installation}
 
 ```bash
-pip install openai-agents
+pip install mycel-agent-sdk
 ```
 
-## Hello World 示例
+## Hello World 示例 {#hello-world-example}
 
 ```python
 from agents import Agent, Runner
@@ -59,13 +59,13 @@ print(result.final_output)
 export OPENAI_API_KEY=sk-...
 ```
 
-## 起步路径
+## 起步路径 {#start-here}
 
 -   通过[快速开始](quickstart.md)构建你的第一个基于文本的智能体。
 -   然后在[运行智能体](running_agents.md#choose-a-memory-strategy)中决定如何在多轮之间传递状态。
 -   如果你正在比较任务转移与管理器式编排，请阅读[智能体编排](multi_agent.md)。
 
-## 路径选择
+## 路径选择 {#choose-your-path}
 
 当你知道要做什么，但不确定该看哪一页时，请使用下表。
 

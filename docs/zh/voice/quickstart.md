@@ -2,17 +2,17 @@
 search:
   exclude: true
 ---
-# 快速开始
+# 快速开始 {#quickstart}
 
-## 前置条件
+## 前置条件 {#prerequisites}
 
 请确保你已按照 Agents SDK 的基础[快速开始说明](../quickstart.md)完成操作，并设置好虚拟环境。然后，从 SDK 安装可选的语音依赖项：
 
 ```bash
-pip install 'openai-agents[voice]'
+pip install 'mycel-agent-sdk[voice]'
 ```
 
-## 概念
+## 概念 {#concepts}
 
 需要了解的主要概念是 [`VoicePipeline`][agents.voice.pipeline.VoicePipeline]，它是一个 3 步流程：
 
@@ -46,7 +46,7 @@ graph LR
 
 ```
 
-## 智能体
+## 智能体 {#agents}
 
 首先，让我们设置一些智能体。如果你曾用这个 SDK 构建过任何智能体，这部分会让你感到熟悉。我们会有几个智能体、一次任务转移和一个工具调用。
 
@@ -90,7 +90,7 @@ agent = Agent(
 )
 ```
 
-## 语音管道
+## 语音管道 {#voice-pipeline}
 
 我们将设置一个简单的语音管道，并使用 [`SingleAgentVoiceWorkflow`][agents.voice.workflow.SingleAgentVoiceWorkflow] 作为工作流。
 
@@ -99,7 +99,7 @@ from agents.voice import SingleAgentVoiceWorkflow, VoicePipeline
 pipeline = VoicePipeline(workflow=SingleAgentVoiceWorkflow(agent))
 ```
 
-## 运行管道
+## 运行管道 {#run-the-pipeline}
 
 ```python
 import numpy as np
@@ -124,7 +124,7 @@ async for event in result.stream():
 
 ```
 
-## 整体整合
+## 整体整合 {#put-it-all-together}
 
 ```python
 import asyncio
@@ -195,4 +195,4 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-如果你运行这个示例，智能体会和你说话！查看 [examples/voice/static](https://github.com/openai/openai-agents-python/tree/main/examples/voice/static) 中的示例，了解一个你可以亲自与智能体对话的演示。
+如果你运行这个示例，智能体会和你说话！查看 [examples/voice/static](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/voice/static) 中的示例，了解一个你可以亲自与智能体对话的演示。

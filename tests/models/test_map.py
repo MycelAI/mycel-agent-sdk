@@ -10,7 +10,6 @@ from agents import (
     RunConfig,
     UserError,
 )
-from agents.extensions.models.litellm_model import LitellmModel
 from agents.models.multi_provider import MultiProviderMap
 from agents.run_internal.run_loop import get_model
 
@@ -27,10 +26,10 @@ def test_openai_prefix_is_openai():
     assert isinstance(model, OpenAIResponsesModel)
 
 
-def test_litellm_prefix_is_litellm():
+def test_litellm_prefix_is_unknown_without_model_id_mode():
     agent = Agent(model="litellm/foo/bar", instructions="", name="test")
-    model = get_model(agent, RunConfig())
-    assert isinstance(model, LitellmModel)
+    with pytest.raises(UserError, match="Unknown prefix: litellm"):
+        get_model(agent, RunConfig())
 
 
 def test_any_llm_prefix_uses_any_llm_provider(monkeypatch):

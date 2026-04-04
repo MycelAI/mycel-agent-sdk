@@ -1,0 +1,13 @@
+.git
+.github
+**/__pycache__
+**/*.pyc
+.venv
+.venv_*
+.pytest_cache
+.mypy_cache
+.ruff_cache
+htmlcov
+gateway/target
+site
+tests

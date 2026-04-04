@@ -14,6 +14,7 @@ from .memory import Session, SessionInputCallback, SessionSettings
 from .model_settings import ModelSettings
 from .models.interface import Model, ModelProvider
 from .models.multi_provider import MultiProvider
+from .permissions import PermissionMode
 from .run_context import TContext
 from .run_error_handlers import RunErrorHandlers
 from .tracing import TracingConfig
@@ -189,6 +190,11 @@ class RunConfig:
 
     - ``None`` / ``"preserve"`` keeps reasoning item IDs as-is.
     - ``"omit"`` strips reasoning item IDs from model input built by the runner.
+    """
+
+    permission_mode: PermissionMode | None = None
+    """When set, the runner applies :func:`~agents.permissions.apply_permission_mode_to_tools`
+    to the resolved tool list each turn so ``FunctionTool.needs_approval`` follows the mode.
     """
 
 

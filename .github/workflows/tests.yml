@@ -128,3 +128,25 @@ jobs:
       - name: Skip docs build
         if: steps.changes.outputs.run != 'true'
         run: echo "Skipping docs build for non-docs changes."
+
+  rust-mycel-accelerator:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+      - name: Cargo build (optional PyO3 stub)
+        run: cargo build --manifest-path rust/mycel_accelerator/Cargo.toml
+
+  rust-mycel-gateway:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+      - name: Cargo test + build (Chat Completions gateway)
+        run: |
+          cargo test --manifest-path gateway/Cargo.toml
+          cargo build --release --manifest-path gateway/Cargo.toml

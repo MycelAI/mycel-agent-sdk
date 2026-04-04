@@ -95,7 +95,7 @@ For full tracing controls, see the [tracing guide](tracing.md).
 
 ## Debug logging
 
-The SDK defines two Python loggers (`openai.agents` and `openai.agents.tracing`) and does not attach handlers by default. Logs follow your application's Python logging configuration.
+The SDK defines two Python loggers (`mycel_agents` and `mycel_agents.tracing`) and does not attach handlers by default. Logs follow your application's Python logging configuration.
 
 To enable verbose logging, use the [`enable_verbose_stdout_logging()`][agents.enable_verbose_stdout_logging] function.
 
@@ -110,7 +110,7 @@ Alternatively, you can customize the logs by adding handlers, filters, formatter
 ```python
 import logging
 
-logger = logging.getLogger("openai.agents") # or openai.agents.tracing for the Tracing logger
+logger = logging.getLogger("mycel_agents") # or mycel_agents.tracing for the Tracing logger
 
 # To make all logs show up
 logger.setLevel(logging.DEBUG)

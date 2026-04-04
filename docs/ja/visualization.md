@@ -2,19 +2,19 @@
 search:
   exclude: true
 ---
-# エージェント可視化
+# エージェント可視化 {#agent-visualization}
 
 エージェント可視化では、 **Graphviz** を使用して、エージェントとその関係を構造化されたグラフィカル表現として生成できます。これは、アプリケーション内でエージェント、ツール、ハンドオフがどのように相互作用するかを理解するのに役立ちます。
 
-## インストール
+## インストール {#installation}
 
 オプションの `viz` 依存関係グループをインストールします。
 
 ```bash
-pip install "openai-agents[viz]"
+pip install "mycel-agent-sdk[viz]"
 ```
 
-## グラフ生成
+## グラフ生成 {#generating-a-graph}
 
 `draw_graph` 関数を使用してエージェント可視化を生成できます。この関数は、以下の構成を持つ有向グラフを作成します。
 
@@ -23,7 +23,7 @@ pip install "openai-agents[viz]"
 - **ツール** は緑色の楕円として表現されます。
 - **ハンドオフ** は、あるエージェントから別のエージェントへの有向エッジです。
 
-### 使用例
+### 使用例 {#example-usage}
 
 ```python
 import os
@@ -71,7 +71,7 @@ draw_graph(triage_agent)
 
 これにより、 **triage agent** の構造と、サブエージェントおよびツールへの接続を視覚的に表すグラフが生成されます。
 
-## 可視化の理解
+## 可視化の理解 {#understanding-the-visualization}
 
 生成されるグラフには以下が含まれます。
 
@@ -87,16 +87,16 @@ draw_graph(triage_agent)
 
 **注:** MCP サーバーは `agents` パッケージの最近のバージョン ( **v0.2.8** で確認済み ) で描画されます。可視化に MCP ボックスが表示されない場合は、最新リリースにアップグレードしてください。
 
-## グラフのカスタマイズ
+## グラフのカスタマイズ {#customizing-the-graph}
 
-### グラフ表示
+### グラフ表示 {#showing-the-graph}
 デフォルトでは、 `draw_graph` はグラフをインライン表示します。グラフを別ウィンドウで表示するには、次のように記述します。
 
 ```python
 draw_graph(triage_agent).view()
 ```
 
-### グラフ保存
+### グラフ保存 {#saving-the-graph}
 デフォルトでは、 `draw_graph` はグラフをインライン表示します。ファイルとして保存するには、ファイル名を指定します。
 
 ```python

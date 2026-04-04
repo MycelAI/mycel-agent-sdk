@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# 智能体编排
+# 智能体编排 {#agent-orchestration}
 
 编排是指你应用中智能体的流程。哪些智能体运行、按什么顺序运行，以及它们如何决定下一步发生什么？主要有两种智能体编排方式：
 
@@ -11,7 +11,7 @@ search:
 
 你可以混合使用这些模式。每种方式都有各自的权衡，详见下文。
 
-## 通过LLM编排
+## 通过LLM编排 {#orchestrating-via-llm}
 
 智能体是配备了指令、工具调用和任务转移的LLM。这意味着，对于开放式任务，LLM可以自主规划如何完成任务，使用工具采取行动并获取数据，并通过任务转移将任务委派给子智能体。例如，一个研究智能体可以配备如下工具：
 
@@ -21,7 +21,7 @@ search:
 -   代码执行，用于进行数据分析
 -   向擅长规划、报告撰写等工作的专门智能体进行任务转移
 
-### 核心SDK模式
+### 核心SDK模式 {#core-sdk-patterns}
 
 在 Python SDK 中，最常见的两种编排模式是：
 
@@ -44,7 +44,7 @@ search:
 
 如果你想了解这种编排风格背后的核心 SDK 基本组件，请从[工具](tools.md)、[任务转移](handoffs.md)和[运行智能体](running_agents.md)开始。
 
-## 通过代码编排
+## 通过代码编排 {#orchestrating-via-code}
 
 虽然通过LLM编排很强大，但通过代码编排能让任务在速度、成本和性能方面更具确定性和可预测性。常见模式包括：
 
@@ -53,9 +53,9 @@ search:
 -   在 `while` 循环中运行执行任务的智能体，并配合一个负责评估和反馈的智能体，直到评估者判定输出通过特定标准。
 -   并行运行多个智能体，例如使用 Python 基本组件 `asyncio.gather`。当多个任务彼此不依赖时，这对提速很有帮助。
 
-我们在 [`examples/agent_patterns`](https://github.com/openai/openai-agents-python/tree/main/examples/agent_patterns) 中提供了多个示例。
+我们在 [`examples/agent_patterns`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/agent_patterns) 中提供了多个示例。
 
-## 相关指南
+## 相关指南 {#related-guides}
 
 -   [智能体](agents.md)：了解组合模式与智能体配置。
 -   [工具](tools.md#agents-as-tools)：了解 `Agent.as_tool()` 与管理者风格编排。

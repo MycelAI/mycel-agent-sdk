@@ -18,7 +18,7 @@ if TYPE_CHECKING:
     from ..items import TResponseInputItem
     from .session import Session
 
-logger = logging.getLogger("openai-agents.openai.compaction")
+logger = logging.getLogger("mycel_agents.openai.compaction")
 
 DEFAULT_COMPACTION_THRESHOLD = 10
 

@@ -2,13 +2,13 @@
 search:
   exclude: true
 ---
-# 코드 예제
+# 코드 예제 {#examples}
 
-[repo](https://github.com/openai/openai-agents-python/tree/main/examples)의 examples 섹션에서 SDK의 다양한 샘플 구현을 확인해 보세요. examples는 서로 다른 패턴과 기능을 보여주는 여러 카테고리로 구성되어 있습니다.
+[repo](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples)의 examples 섹션에서 SDK의 다양한 샘플 구현을 확인해 보세요. examples는 서로 다른 패턴과 기능을 보여주는 여러 카테고리로 구성되어 있습니다.
 
-## 카테고리
+## 카테고리 {#categories}
 
--   **[agent_patterns](https://github.com/openai/openai-agents-python/tree/main/examples/agent_patterns):**
+-   **[agent_patterns](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/agent_patterns):**
     이 카테고리의 예제는 다음과 같은 일반적인 에이전트 설계 패턴을 보여줍니다
 
     -   결정론적 워크플로
@@ -26,7 +26,7 @@ search:
     -   스트리밍을 포함한 휴먼인더루프 (HITL) (`examples/agent_patterns/human_in_the_loop_stream.py`)
     -   승인 플로를 위한 사용자 지정 거절 메시지 (`examples/agent_patterns/human_in_the_loop_custom_rejection.py`)
 
--   **[basic](https://github.com/openai/openai-agents-python/tree/main/examples/basic):**
+-   **[basic](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/basic):**
     이 예제들은 다음과 같은 SDK의 기본 기능을 보여줍니다
 
     -   Hello World 예제 (기본 모델, GPT-5, 오픈 웨이트 모델)
@@ -42,23 +42,23 @@ search:
     -   파일 처리 (로컬 및 원격, 이미지 및 PDF)
     -   사용량 추적
     -   Runner 관리 재시도 설정 (`examples/basic/retry.py`)
-    -   서드파티 어댑터를 통한 Runner 관리 재시도 (`examples/basic/retry_litellm.py`)
+    -   OpenAI Chat Completions를 통한 Runner 관리 재시도 (`examples/basic/retry_openai_chatcompletions.py`)
     -   비엄격 출력 타입
     -   이전 응답 ID 사용
 
--   **[customer_service](https://github.com/openai/openai-agents-python/tree/main/examples/customer_service):**
+-   **[customer_service](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/customer_service):**
     항공사를 위한 고객 서비스 시스템 예제입니다
 
--   **[financial_research_agent](https://github.com/openai/openai-agents-python/tree/main/examples/financial_research_agent):**
+-   **[financial_research_agent](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/financial_research_agent):**
     금융 데이터 분석을 위한 에이전트와 도구를 사용한 구조화된 리서치 워크플로를 보여주는 금융 리서치 에이전트입니다
 
--   **[handoffs](https://github.com/openai/openai-agents-python/tree/main/examples/handoffs):**
+-   **[handoffs](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/handoffs):**
     메시지 필터링을 포함한 에이전트 핸드오프의 실용적인 예제:
 
     -   메시지 필터 예제 (`examples/handoffs/message_filter.py`)
     -   스트리밍을 포함한 메시지 필터 (`examples/handoffs/message_filter_streaming.py`)
 
--   **[hosted_mcp](https://github.com/openai/openai-agents-python/tree/main/examples/hosted_mcp):**
+-   **[hosted_mcp](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/hosted_mcp):**
     OpenAI Responses API와 함께 호스티드 MCP (Model context protocol)를 사용하는 방법을 보여주는 예제:
 
     -   승인 없는 간단한 호스티드 MCP (`examples/hosted_mcp/simple.py`)
@@ -66,7 +66,7 @@ search:
     -   인터럽션(중단 처리) 기반 승인을 포함한 휴먼인더루프 (HITL) (`examples/hosted_mcp/human_in_the_loop.py`)
     -   MCP 도구 호출용 승인 시 콜백 (`examples/hosted_mcp/on_approval.py`)
 
--   **[mcp](https://github.com/openai/openai-agents-python/tree/main/examples/mcp):**
+-   **[mcp](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/mcp):**
     MCP (Model context protocol)로 에이전트를 구축하는 방법을 알아보세요:
 
     -   파일시스템 예제
@@ -81,7 +81,7 @@ search:
     -   FastAPI를 사용하는 MCPServerManager (`examples/mcp/manager_example`)
     -   MCP 도구 필터링 (`examples/mcp/tool_filter_example`)
 
--   **[memory](https://github.com/openai/openai-agents-python/tree/main/examples/memory):**
+-   **[memory](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/memory):**
     에이전트를 위한 다양한 메모리 구현 예제:
 
     -   SQLite 세션 저장소
@@ -99,10 +99,10 @@ search:
     -   휴먼인더루프 (HITL)를 포함한 OpenAI Conversations 세션 (`examples/memory/openai_session_hitl_example.py`)
     -   세션 전반의 HITL 승인/거절 시나리오 (`examples/memory/hitl_session_scenario.py`)
 
--   **[model_providers](https://github.com/openai/openai-agents-python/tree/main/examples/model_providers):**
+-   **[model_providers](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/model_providers):**
     사용자 지정 프로바이더와 서드파티 어댑터를 포함해 SDK에서 OpenAI 이외 모델을 사용하는 방법을 살펴보세요
 
--   **[realtime](https://github.com/openai/openai-agents-python/tree/main/examples/realtime):**
+-   **[realtime](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime):**
     SDK를 사용해 실시간 경험을 구축하는 방법을 보여주는 예제:
 
     -   구조화된 텍스트 및 이미지 메시지를 사용하는 웹 애플리케이션 패턴
@@ -110,17 +110,17 @@ search:
     -   WebSocket을 통한 Twilio Media Streams 통합
     -   Realtime Calls API attach 플로를 사용하는 Twilio SIP 통합
 
--   **[reasoning_content](https://github.com/openai/openai-agents-python/tree/main/examples/reasoning_content):**
+-   **[reasoning_content](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/reasoning_content):**
     reasoning content를 다루는 방법을 보여주는 예제:
 
     -   Runner API의 reasoning content, 스트리밍 및 비스트리밍 (`examples/reasoning_content/runner_example.py`)
     -   OpenRouter를 통한 OSS 모델의 reasoning content (`examples/reasoning_content/gpt_oss_stream.py`)
     -   기본 reasoning content 예제 (`examples/reasoning_content/main.py`)
 
--   **[research_bot](https://github.com/openai/openai-agents-python/tree/main/examples/research_bot):**
+-   **[research_bot](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/research_bot):**
     복잡한 멀티 에이전트 리서치 워크플로를 보여주는 간단한 딥 리서치 클론입니다
 
--   **[tools](https://github.com/openai/openai-agents-python/tree/main/examples/tools):**
+-   **[tools](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/tools):**
     다음과 같은 OpenAI 호스트하는 도구 및 실험적 Codex 도구 기능을 구현하는 방법을 알아보세요:
 
     -   웹 검색 및 필터를 포함한 웹 검색
@@ -138,5 +138,5 @@ search:
     -   실험적 Codex 도구 워크플로 (`examples/tools/codex.py`)
     -   실험적 Codex 동일 스레드 워크플로 (`examples/tools/codex_same_thread.py`)
 
--   **[voice](https://github.com/openai/openai-agents-python/tree/main/examples/voice):**
+-   **[voice](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/voice):**
     스트리밍 음성 예제를 포함해 TTS 및 STT 모델을 사용하는 음성 에이전트 예제를 확인해 보세요

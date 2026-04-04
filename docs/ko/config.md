@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# 구성
+# 구성 {#configuration}
 
 이 페이지에서는 기본 OpenAI 키 또는 client, 기본 OpenAI API 형태, 트레이싱 내보내기 기본값, 로깅 동작 등 애플리케이션 시작 시 보통 한 번 설정하는 SDK 전역 기본값을 다룹니다
 
@@ -12,7 +12,7 @@ search:
 - [Models](models/index.md): 모델 선택 및 provider 구성
 - [Tracing](tracing.md): run별 트레이싱 메타데이터 및 사용자 지정 트레이스 프로세서
 
-## API 키 및 클라이언트
+## API 키 및 클라이언트 {#api-keys-and-clients}
 
 기본적으로 SDK는 LLM 요청과 트레이싱에 `OPENAI_API_KEY` 환경 변수를 사용합니다. 키는 SDK가 처음 OpenAI 클라이언트를 생성할 때(지연 초기화) 확인되므로, 첫 모델 호출 전에 환경 변수를 설정하세요. 앱 시작 전에 해당 환경 변수를 설정할 수 없다면 [set_default_openai_key()][agents.set_default_openai_key] 함수를 사용해 키를 설정할 수 있습니다.
 
@@ -40,7 +40,7 @@ from agents import set_default_openai_api
 set_default_openai_api("chat_completions")
 ```
 
-## 트레이싱
+## 트레이싱 {#tracing}
 
 트레이싱은 기본적으로 활성화되어 있습니다. 기본적으로 위 섹션의 모델 요청과 동일한 OpenAI API 키(즉, 환경 변수 또는 설정한 기본 키)를 사용합니다. 트레이싱에 사용할 API 키를 별도로 지정하려면 [`set_tracing_export_api_key`][agents.set_tracing_export_api_key] 함수를 사용하세요.
 
@@ -97,9 +97,9 @@ export OPENAI_AGENTS_TRACE_INCLUDE_SENSITIVE_DATA=0
 
 전체 트레이싱 제어는 [tracing guide](tracing.md)를 참고하세요.
 
-## 디버그 로깅
+## 디버그 로깅 {#debug-logging}
 
-SDK는 두 개의 Python 로거(`openai.agents`, `openai.agents.tracing`)를 정의하며 기본적으로 핸들러를 연결하지 않습니다. 로그는 애플리케이션의 Python 로깅 구성을 따릅니다.
+SDK는 두 개의 Python 로거(`mycel_agents`, `mycel_agents.tracing`)를 정의하며 기본적으로 핸들러를 연결하지 않습니다. 로그는 애플리케이션의 Python 로깅 구성을 따릅니다.
 
 상세 로깅을 활성화하려면 [`enable_verbose_stdout_logging()`][agents.enable_verbose_stdout_logging] 함수를 사용하세요.
 
@@ -114,7 +114,7 @@ enable_verbose_stdout_logging()
 ```python
 import logging
 
-logger = logging.getLogger("openai.agents") # or openai.agents.tracing for the Tracing logger
+logger = logging.getLogger("mycel_agents") # or mycel_agents.tracing for the Tracing logger
 
 # To make all logs show up
 logger.setLevel(logging.DEBUG)
@@ -128,7 +128,7 @@ logger.setLevel(logging.WARNING)
 logger.addHandler(logging.StreamHandler())
 ```
 
-### 로그 내 민감한 데이터
+### 로그 내 민감한 데이터 {#sensitive-data-in-logs}
 
 일부 로그에는 민감한 데이터(예: 사용자 데이터)가 포함될 수 있습니다.
 

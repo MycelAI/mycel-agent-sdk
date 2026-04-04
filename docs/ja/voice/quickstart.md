@@ -2,17 +2,17 @@
 search:
   exclude: true
 ---
-# クイックスタート
+# クイックスタート {#quickstart}
 
-## 前提条件
+## 前提条件 {#prerequisites}
 
 Agents SDK の基本的な [クイックスタート手順](../quickstart.md) に従い、仮想環境をセットアップしていることを確認してください。次に、 SDK からオプションの音声依存関係をインストールします。
 
 ```bash
-pip install 'openai-agents[voice]'
+pip install 'mycel-agent-sdk[voice]'
 ```
 
-## 概念
+## 概念 {#concepts}
 
 主に理解しておくべき概念は [`VoicePipeline`][agents.voice.pipeline.VoicePipeline] で、これは 3 ステップのプロセスです。
 
@@ -46,7 +46,7 @@ graph LR
 
 ```
 
-## エージェント
+## エージェント {#agents}
 
 まず、いくつかの Agents をセットアップしましょう。この SDK でエージェントを構築したことがあれば、ここは馴染みのある内容です。複数の Agents と、ハンドオフ、ツールを用意します。
 
@@ -90,7 +90,7 @@ agent = Agent(
 )
 ```
 
-## 音声パイプライン
+## 音声パイプライン {#voice-pipeline}
 
 ワークフローとして [`SingleAgentVoiceWorkflow`][agents.voice.workflow.SingleAgentVoiceWorkflow] を使い、シンプルな音声パイプラインをセットアップします。
 
@@ -99,7 +99,7 @@ from agents.voice import SingleAgentVoiceWorkflow, VoicePipeline
 pipeline = VoicePipeline(workflow=SingleAgentVoiceWorkflow(agent))
 ```
 
-## パイプライン実行
+## パイプライン実行 {#run-the-pipeline}
 
 ```python
 import numpy as np
@@ -124,7 +124,7 @@ async for event in result.stream():
 
 ```
 
-## 全体の統合
+## 全体の統合 {#put-it-all-together}
 
 ```python
 import asyncio
@@ -195,4 +195,4 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-この example を実行すると、エージェントがあなたに話しかけます。[examples/voice/static](https://github.com/openai/openai-agents-python/tree/main/examples/voice/static) の example では、自分でエージェントに話しかけられるデモを確認できます。
+この example を実行すると、エージェントがあなたに話しかけます。[examples/voice/static](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/voice/static) の example では、自分でエージェントに話しかけられるデモを確認できます。

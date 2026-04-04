@@ -38,7 +38,7 @@ async def test_run_streamed_resume_omits_tool_output_in_log_when_dont_log(
     }
     state._generated_items = [ToolCallOutputItem(agent=agent, raw_item=raw_output, output="secret")]
 
-    caplog.set_level(logging.DEBUG, logger="openai.agents")
+    caplog.set_level(logging.DEBUG, logger="mycel_agents")
 
     runner = AgentRunner()
     streamed_result = runner.run_streamed(agent, state, run_config=RunConfig())

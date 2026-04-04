@@ -2,14 +2,14 @@
 search:
   exclude: true
 ---
-# 上下文管理
+# 上下文管理 {#context-management}
 
 上下文（Context）是一个含义宽泛的术语。你可能会关注两类主要的上下文：
 
 1. 你的代码在本地可用的上下文：这是工具函数运行时、在如 `on_handoff` 之类的回调中、在生命周期钩子中等场景可能需要的数据和依赖。
 2. LLM 可用的上下文：这是 LLM 在生成响应时能够看到的数据。
 
-## 本地上下文
+## 本地上下文 {#local-context}
 
 这通过 [`RunContextWrapper`][agents.run_context.RunContextWrapper] 类及其中的 [`context`][agents.run_context.RunContextWrapper.context] 属性来表示。其工作方式如下：
 
@@ -31,7 +31,7 @@ search:
 
 在单次运行内，派生的包装器共享同一个底层应用上下文、审批状态和用量追踪。嵌套的 [`Agent.as_tool()`][agents.agent.Agent.as_tool] 运行可能会附加不同的 `tool_input`，但默认不会获得你的应用状态的隔离副本。
 
-### `RunContextWrapper` 提供的内容
+### `RunContextWrapper` 提供的内容 {#what-runcontextwrapper-exposes}
 
 [`RunContextWrapper`][agents.run_context.RunContextWrapper] 是对你应用定义的上下文对象的包装。实践中你最常使用：
 
@@ -91,7 +91,7 @@ if __name__ == "__main__":
 
 ---
 
-### 进阶：`ToolContext`
+### 进阶：`ToolContext` {#advanced-toolcontext}
 
 在某些情况下，你可能希望访问有关正在执行的工具的额外元数据——例如其名称、调用 ID 或原始参数字符串。  
 为此，你可以使用 [`ToolContext`][agents.tool_context.ToolContext] 类，它扩展了 `RunContextWrapper`。
@@ -136,7 +136,7 @@ agent = Agent(
 
 ---
 
-## 智能体/LLM 上下文
+## 智能体/LLM 上下文 {#agentllm-context}
 
 当调用 LLM 时，它**唯一**能看到的数据来自会话历史。这意味着，如果你想让某些新数据对 LLM 可见，必须以能进入该历史的方式提供。有几种方式可以做到：
 

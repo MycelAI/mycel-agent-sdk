@@ -2,19 +2,19 @@
 search:
   exclude: true
 ---
-# 에이전트 시각화
+# 에이전트 시각화 {#agent-visualization}
 
 에이전트 시각화를 사용하면 **Graphviz**를 통해 에이전트와 그 관계를 구조화된 그래픽 표현으로 생성할 수 있습니다. 이는 애플리케이션 내에서 에이전트, 도구, 핸드오프가 어떻게 상호작용하는지 이해하는 데 유용합니다.
 
-## 설치
+## 설치 {#installation}
 
 선택 사항인 `viz` 의존성 그룹을 설치하세요:
 
 ```bash
-pip install "openai-agents[viz]"
+pip install "mycel-agent-sdk[viz]"
 ```
 
-## 그래프 생성
+## 그래프 생성 {#generating-a-graph}
 
 `draw_graph` 함수를 사용해 에이전트 시각화를 생성할 수 있습니다. 이 함수는 다음과 같은 방향 그래프를 만듭니다:
 
@@ -23,7 +23,7 @@ pip install "openai-agents[viz]"
 - **도구**는 초록색 타원으로 표시됩니다
 - **핸드오프**는 한 에이전트에서 다른 에이전트로 향하는 방향성 간선으로 표시됩니다
 
-### 사용 예시
+### 사용 예시 {#example-usage}
 
 ```python
 import os
@@ -71,7 +71,7 @@ draw_graph(triage_agent)
 
 이렇게 하면 **triage agent**의 구조와 하위 에이전트 및 도구와의 연결을 시각적으로 나타내는 그래프가 생성됩니다.
 
-## 시각화 이해
+## 시각화 이해 {#understanding-the-visualization}
 
 생성된 그래프에는 다음이 포함됩니다:
 
@@ -87,16 +87,16 @@ draw_graph(triage_agent)
 
 **참고:** MCP 서버는 `agents` 패키지의 최신 버전에서 렌더링됩니다(**v0.2.8**에서 확인됨). 시각화에서 MCP 상자가 보이지 않으면 최신 릴리스로 업그레이드하세요.
 
-## 그래프 사용자 지정
+## 그래프 사용자 지정 {#customizing-the-graph}
 
-### 그래프 표시
+### 그래프 표시 {#showing-the-graph}
 기본적으로 `draw_graph`는 그래프를 인라인으로 표시합니다. 그래프를 별도 창에서 표시하려면 다음과 같이 작성하세요:
 
 ```python
 draw_graph(triage_agent).view()
 ```
 
-### 그래프 저장
+### 그래프 저장 {#saving-the-graph}
 기본적으로 `draw_graph`는 그래프를 인라인으로 표시합니다. 파일로 저장하려면 파일명을 지정하세요:
 
 ```python

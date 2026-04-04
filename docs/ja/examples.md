@@ -2,13 +2,13 @@
 search:
   exclude: true
 ---
-# コード例
+# コード例 {#examples}
 
-[repo](https://github.com/openai/openai-agents-python/tree/main/examples) の examples セクションで、 SDK のさまざまなサンプル実装を確認できます。これらのコード例は、異なるパターンと機能を示す複数のカテゴリーに整理されています。
+[repo](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples) の examples セクションで、 SDK のさまざまなサンプル実装を確認できます。これらのコード例は、異なるパターンと機能を示す複数のカテゴリーに整理されています。
 
-## カテゴリー
+## カテゴリー {#categories}
 
--   **[agent_patterns](https://github.com/openai/openai-agents-python/tree/main/examples/agent_patterns):**
+-   **[agent_patterns](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/agent_patterns):**
     このカテゴリーのコード例では、次のような一般的なエージェント設計パターンを示します。
 
     -   決定論的ワークフロー
@@ -26,7 +26,7 @@ search:
     -   ストリーミングを伴う Human-in-the-loop (`examples/agent_patterns/human_in_the_loop_stream.py`)
     -   承認フロー向けのカスタム拒否メッセージ (`examples/agent_patterns/human_in_the_loop_custom_rejection.py`)
 
--   **[basic](https://github.com/openai/openai-agents-python/tree/main/examples/basic):**
+-   **[basic](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/basic):**
     これらのコード例では、次のような SDK の基本機能を紹介します。
 
     -   Hello world のコード例 (デフォルトモデル、 GPT-5、 open-weight モデル)
@@ -42,23 +42,23 @@ search:
     -   ファイル処理 (ローカルとリモート、画像と PDF)
     -   使用状況追跡
     -   Runner 管理の再試行設定 (`examples/basic/retry.py`)
-    -   サードパーティアダプター経由の Runner 管理再試行 (`examples/basic/retry_litellm.py`)
+    -   OpenAI Chat Completions 経由の Runner 管理再試行 (`examples/basic/retry_openai_chatcompletions.py`)
     -   非 strict な出力型
     -   以前の response ID の使用
 
--   **[customer_service](https://github.com/openai/openai-agents-python/tree/main/examples/customer_service):**
+-   **[customer_service](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/customer_service):**
     航空会社向けのカスタマーサービスシステムのコード例です。
 
--   **[financial_research_agent](https://github.com/openai/openai-agents-python/tree/main/examples/financial_research_agent):**
+-   **[financial_research_agent](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/financial_research_agent):**
     金融データ分析のためのエージェントとツールを用いた、構造化された調査ワークフローを示す金融リサーチエージェントです。
 
--   **[handoffs](https://github.com/openai/openai-agents-python/tree/main/examples/handoffs):**
+-   **[handoffs](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/handoffs):**
     メッセージフィルタリングを含む、エージェントのハンドオフの実践的なコード例です。
 
     -   メッセージフィルター例 (`examples/handoffs/message_filter.py`)
     -   ストリーミングを伴うメッセージフィルター (`examples/handoffs/message_filter_streaming.py`)
 
--   **[hosted_mcp](https://github.com/openai/openai-agents-python/tree/main/examples/hosted_mcp):**
+-   **[hosted_mcp](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/hosted_mcp):**
     OpenAI Responses API で hosted MCP (Model Context Protocol) を使用する方法を示すコード例です。以下を含みます。
 
     -   承認なしのシンプルな hosted MCP (`examples/hosted_mcp/simple.py`)
@@ -66,7 +66,7 @@ search:
     -   割り込みベース承認を伴う Human-in-the-loop (`examples/hosted_mcp/human_in_the_loop.py`)
     -   MCP ツール呼び出しの on-approval コールバック (`examples/hosted_mcp/on_approval.py`)
 
--   **[mcp](https://github.com/openai/openai-agents-python/tree/main/examples/mcp):**
+-   **[mcp](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/mcp):**
     以下を含め、 MCP (Model Context Protocol) でエージェントを構築する方法を学べます。
 
     -   Filesystem のコード例
@@ -81,7 +81,7 @@ search:
     -   FastAPI を使用した MCPServerManager (`examples/mcp/manager_example`)
     -   MCP ツールフィルタリング (`examples/mcp/tool_filter_example`)
 
--   **[memory](https://github.com/openai/openai-agents-python/tree/main/examples/memory):**
+-   **[memory](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/memory):**
     エージェント向けのさまざまなメモリ実装のコード例です。以下を含みます。
 
     -   SQLite セッションストレージ
@@ -99,10 +99,10 @@ search:
     -   Human-in-the-loop を伴う OpenAI Conversations セッション (`examples/memory/openai_session_hitl_example.py`)
     -   セッションをまたぐ HITL 承認 / 拒否シナリオ (`examples/memory/hitl_session_scenario.py`)
 
--   **[model_providers](https://github.com/openai/openai-agents-python/tree/main/examples/model_providers):**
+-   **[model_providers](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/model_providers):**
     カスタムプロバイダーやサードパーティアダプターを含め、 SDK で非 OpenAI モデルを使用する方法を確認できます。
 
--   **[realtime](https://github.com/openai/openai-agents-python/tree/main/examples/realtime):**
+-   **[realtime](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime):**
     SDK を使用してリアルタイム体験を構築する方法を示すコード例です。以下を含みます。
 
     -   構造化されたテキストおよび画像メッセージによる Web アプリケーションパターン
@@ -110,17 +110,17 @@ search:
     -   WebSocket 経由の Twilio Media Streams 統合
     -   Realtime Calls API attach フローを使用した Twilio SIP 統合
 
--   **[reasoning_content](https://github.com/openai/openai-agents-python/tree/main/examples/reasoning_content):**
+-   **[reasoning_content](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/reasoning_content):**
     reasoning content の扱い方を示すコード例です。以下を含みます。
 
     -   Runner API、ストリーミング、非ストリーミングでの reasoning content (`examples/reasoning_content/runner_example.py`)
     -   OpenRouter 経由で OSS モデルを使用した reasoning content (`examples/reasoning_content/gpt_oss_stream.py`)
     -   基本的な reasoning content のコード例 (`examples/reasoning_content/main.py`)
 
--   **[research_bot](https://github.com/openai/openai-agents-python/tree/main/examples/research_bot):**
+-   **[research_bot](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/research_bot):**
     複雑なマルチエージェント調査ワークフローを示す、シンプルなディープリサーチクローンです。
 
--   **[tools](https://github.com/openai/openai-agents-python/tree/main/examples/tools):**
+-   **[tools](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/tools):**
     以下のような OpenAI がホストするツールと実験的な Codex ツール機能の実装方法を学べます。
 
     -   Web 検索 とフィルター付き Web 検索
@@ -138,5 +138,5 @@ search:
     -   実験的な Codex ツールワークフロー (`examples/tools/codex.py`)
     -   実験的な Codex 同一スレッドワークフロー (`examples/tools/codex_same_thread.py`)
 
--   **[voice](https://github.com/openai/openai-agents-python/tree/main/examples/voice):**
+-   **[voice](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/voice):**
     ストリーミング音声のコード例を含む、 TTS および STT モデルを使用した音声エージェントのコード例を確認できます。

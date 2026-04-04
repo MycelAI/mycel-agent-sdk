@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# 追踪
+# 追踪 {#tracing}
 
 就像[智能体如何被追踪](../tracing.md)一样，语音管道也会被自动追踪。
 

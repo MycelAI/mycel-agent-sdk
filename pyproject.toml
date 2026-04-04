@@ -1,11 +1,11 @@
 [project]
-name = "openai-agents"
-version = "0.13.4"
-description = "OpenAI Agents SDK"
+name = "mycel-agent-sdk"
+version = "0.14.0"
+description = "Mycel Agent SDK — multi-agent workflows with OpenAI-compatible models (gateway or direct OpenAI)."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
-authors = [{ name = "OpenAI", email = "support@openai.com" }]
+authors = [{ name = "Mycel UG (haftungsbeschränkt)", email = "info@mycel-ai.de" }]
 dependencies = [
     "openai>=2.26.0,<3",
     "pydantic>=2.12.2, <3",
@@ -30,13 +30,15 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://openai.github.io/openai-agents-python/"
-Repository = "https://github.com/openai/openai-agents-python"
+Homepage = "https://github.com/MycelAI/mycel-agent-sdk"
+Repository = "https://github.com/MycelAI/mycel-agent-sdk"
+Documentation = "https://mycelai.github.io/mycel-agent-sdk/"
+Mycel = "https://mycel-ai.de/en"
+Imprint = "https://mycel-ai.de/en/imprint"
 
 [project.optional-dependencies]
 voice = ["numpy>=2.2.0, <3; python_version>='3.10'", "websockets>=15.0, <16"]
 viz = ["graphviz>=0.17"]
-litellm = ["litellm>=1.81.0, <=1.82.6"]
 any-llm = ["any-llm-sdk>=1.11.0, <2; python_version >= '3.11'"]
 realtime = ["websockets>=15.0, <16"]
 sqlalchemy = ["SQLAlchemy>=2.0", "asyncpg>=0.29.0"]
@@ -91,6 +93,9 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["src/agents"]
 
+[tool.hatch.build.targets.sdist]
+force-include = { "NOTICE" = "NOTICE" }
+
 
 [tool.ruff]
 line-length = 100
@@ -122,6 +127,10 @@ disallow_untyped_calls = false
 
 [[tool.mypy.overrides]]
 module = "sounddevice.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["docker", "docker.*"]
 ignore_missing_imports = true
 
 [tool.coverage.run]

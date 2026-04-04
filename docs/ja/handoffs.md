@@ -2,13 +2,13 @@
 search:
   exclude: true
 ---
-# ハンドオフ
+# ハンドオフ {#handoffs}
 
 ハンドオフを使うと、あるエージェントが別のエージェントにタスクを委譲できます。これは、異なるエージェントがそれぞれ異なる領域を専門にしているシナリオで特に有用です。たとえば、カスタマーサポートアプリでは、注文状況、返金、 FAQ などのタスクをそれぞれ専任で処理するエージェントを用意できます。
 
 ハンドオフは LLM に対してツールとして表現されます。したがって、`Refund Agent` という名前のエージェントへのハンドオフがある場合、そのツール名は `transfer_to_refund_agent` になります。
 
-## ハンドオフの作成
+## ハンドオフの作成 {#creating-a-handoff}
 
 すべてのエージェントには [`handoffs`][agents.agent.Agent.handoffs] パラメーターがあり、`Agent` を直接渡すことも、ハンドオフをカスタマイズする `Handoff` オブジェクトを渡すこともできます。
 
@@ -16,7 +16,7 @@ search:
 
 Agents SDK が提供する [`handoff()`][agents.handoffs.handoff] 関数を使ってハンドオフを作成できます。この関数では、ハンドオフ先のエージェントに加えて、任意のオーバーライドや input filter を指定できます。
 
-### 基本的な使い方
+### 基本的な使い方 {#basic-usage}
 
 シンプルなハンドオフは次のように作成できます。
 
@@ -32,7 +32,7 @@ triage_agent = Agent(name="Triage agent", handoffs=[billing_agent, handoff(refun
 
 1. エージェントを直接（`billing_agent` のように）使うことも、`handoff()` 関数を使うこともできます。
 
-### `handoff()` 関数によるハンドオフのカスタマイズ
+### `handoff()` 関数によるハンドオフのカスタマイズ {#customizing-handoffs-via-the-handoff-function}
 
 [`handoff()`][agents.handoffs.handoff] 関数を使うと、さまざまなカスタマイズができます。
 
@@ -63,7 +63,7 @@ handoff_obj = handoff(
 )
 ```
 
-## ハンドオフ入力
+## ハンドオフ入力 {#handoff-inputs}
 
 状況によっては、ハンドオフを呼び出すときに LLM にデータを渡してほしいことがあります。たとえば「Escalation agent」へのハンドオフを考えてみてください。ログに記録できるよう、理由を渡してほしい場合があります。
 
@@ -93,7 +93,7 @@ handoff_obj = handoff(
 
 `input_type` は [`RunContextWrapper.context`][agents.run_context.RunContextWrapper.context] とも別物です。`input_type` は、ハンドオフ時にモデルが決定するメタデータに使い、ローカルですでに持っているアプリケーション状態や依存関係には使わないでください。
 
-### `input_type` を使うタイミング
+### `input_type` を使うタイミング {#when-to-use-input_type}
 
 ハンドオフに `reason`、`language`、`priority`、`summary` のような、モデル生成の小さなメタデータが必要な場合に `input_type` を使ってください。たとえば、トリアージエージェントは `{ "reason": "duplicate_charge", "priority": "high" }` を付けて返金エージェントへハンドオフでき、`on_handoff` は返金エージェントに制御が移る前にそのメタデータをログ化または永続化できます。
 
@@ -104,7 +104,7 @@ handoff_obj = handoff(
 -   複数の専門エージェントが候補にある場合は、遷移先ごとにハンドオフを 1 つずつ登録してください。`input_type` は選ばれたハンドオフにメタデータを追加できますが、遷移先の振り分けはしません。
 -   会話を転送せずにネストされた専門エージェント向けの構造化入力が欲しい場合は、[`Agent.as_tool(parameters=...)`][agents.agent.Agent.as_tool] を優先してください。[tools](tools.md#structured-input-for-tool-agents)を参照してください。
 
-## input filter
+## input filter {#input-filters}
 
 ハンドオフが発生すると、新しいエージェントが会話を引き継ぎ、以前の会話履歴全体を参照できる状態になります。これを変更したい場合は、[`input_filter`][agents.handoffs.Handoff.input_filter] を設定できます。input filter は、既存入力を [`HandoffInputData`][agents.handoffs.HandoffInputData] 経由で受け取り、新しい `HandoffInputData` を返す関数です。
 
@@ -140,7 +140,7 @@ handoff_obj = handoff(
 
 1. これにより、`FAQ agent` が呼び出されたときに履歴からすべてのツールが自動的に削除されます。
 
-## 推奨プロンプト
+## 推奨プロンプト {#recommended-prompts}
 
 LLM がハンドオフを適切に理解できるように、エージェントにハンドオフ情報を含めることを推奨します。[`agents.extensions.handoff_prompt.RECOMMENDED_PROMPT_PREFIX`][] に推奨プレフィックスがあり、または [`agents.extensions.handoff_prompt.prompt_with_handoff_instructions`][] を呼び出して、推奨データをプロンプトに自動追加できます。
 

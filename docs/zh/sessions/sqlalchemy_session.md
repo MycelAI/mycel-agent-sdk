@@ -2,21 +2,21 @@
 search:
   exclude: true
 ---
-# SQLAlchemy 会话
+# SQLAlchemy 会话 {#sqlalchemy-sessions}
 
 `SQLAlchemySession` 使用 SQLAlchemy 提供可用于生产环境的会话实现，使你能够使用 SQLAlchemy 支持的任意数据库（PostgreSQL、MySQL、SQLite 等）进行会话存储。
 
-## 安装
+## 安装 {#installation}
 
 SQLAlchemy 会话需要 `sqlalchemy` 扩展：
 
 ```bash
-pip install openai-agents[sqlalchemy]
+pip install mycel-agent-sdk[sqlalchemy]
 ```
 
-## 快速开始
+## 快速开始 {#quick-start}
 
-### 使用数据库 URL
+### 使用数据库 URL {#using-database-url}
 
 最简单的入门方式：
 
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-### 使用现有引擎
+### 使用现有引擎 {#using-existing-engine}
 
 适用于已有 SQLAlchemy 引擎的应用程序：
 
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-## API 参考
+## API 参考 {#api-reference}
 
 - [`SQLAlchemySession`][agents.extensions.memory.sqlalchemy_session.SQLAlchemySession] - 主类
 - [`Session`][agents.memory.session.Session] - 基础会话协议

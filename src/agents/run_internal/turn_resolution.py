@@ -109,7 +109,7 @@ from .run_steps import (
 )
 from .streaming import stream_step_items_to_queue
 from .tool_execution import (
-    build_litellm_json_tool_call,
+    build_json_schema_streaming_tool,
     coerce_apply_patch_operation,
     coerce_shell_call,
     extract_apply_patch_call_id,
@@ -139,6 +139,7 @@ from .tool_planning import (
     _make_unique_item_appender,
     _select_function_tool_runs_for_resume,
 )
+from .turn_preparation import get_all_tools as get_resolved_agent_tools
 
 __all__ = [
     "execute_final_output_step",
@@ -906,7 +907,11 @@ async def resolve_interrupted_turn(
     if pending_approval_items and agent.mcp_servers:
         approval_rebuild_function_tools = [
             tool
-            for tool in await agent.get_all_tools(context_wrapper)
+            for tool in await get_resolved_agent_tools(
+                agent,
+                context_wrapper,
+                permission_mode=run_config.permission_mode,
+            )
             if isinstance(tool, FunctionTool)
         ]
 
@@ -1638,7 +1643,7 @@ def process_model_response(
                     functions.append(
                         ToolRunFunction(
                             tool_call=output,
-                            function_tool=build_litellm_json_tool_call(output),
+                            function_tool=build_json_schema_streaming_tool(output),
                         )
                     )
                     continue

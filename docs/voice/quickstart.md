@@ -5,7 +5,7 @@
 Make sure you've followed the base [quickstart instructions](../quickstart.md) for the Agents SDK, and set up a virtual environment. Then, install the optional voice dependencies from the SDK:
 
 ```bash
-pip install 'openai-agents[voice]'
+pip install 'mycel-agent-sdk[voice]'
 ```
 
 ## Concepts
@@ -191,4 +191,4 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-If you run this example, the agent will speak to you! Check out the example in [examples/voice/static](https://github.com/openai/openai-agents-python/tree/main/examples/voice/static) to see a demo where you can speak to the agent yourself.
+If you run this example, the agent will speak to you! Check out the example in [examples/voice/static](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/voice/static) to see a demo where you can speak to the agent yourself.

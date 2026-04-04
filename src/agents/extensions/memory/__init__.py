@@ -43,7 +43,7 @@ def __getattr__(name: str) -> Any:
         except ModuleNotFoundError as e:
             raise ImportError(
                 "EncryptedSession requires the 'cryptography' extra. "
-                "Install it with: pip install openai-agents[encrypt]"
+                "Install it with: pip install mycel-agent-sdk[encrypt]"
             ) from e
 
     if name == "RedisSession":
@@ -54,7 +54,7 @@ def __getattr__(name: str) -> Any:
         except ModuleNotFoundError as e:
             raise ImportError(
                 "RedisSession requires the 'redis' extra. "
-                "Install it with: pip install openai-agents[redis]"
+                "Install it with: pip install mycel-agent-sdk[redis]"
             ) from e
 
     if name == "SQLAlchemySession":
@@ -65,7 +65,7 @@ def __getattr__(name: str) -> Any:
         except ModuleNotFoundError as e:
             raise ImportError(
                 "SQLAlchemySession requires the 'sqlalchemy' extra. "
-                "Install it with: pip install openai-agents[sqlalchemy]"
+                "Install it with: pip install mycel-agent-sdk[sqlalchemy]"
             ) from e
 
     if name == "AdvancedSQLiteSession":
@@ -92,7 +92,7 @@ def __getattr__(name: str) -> Any:
         except ModuleNotFoundError as e:
             raise ImportError(
                 "DaprSession requires the 'dapr' extra. "
-                "Install it with: pip install openai-agents[dapr]"
+                "Install it with: pip install mycel-agent-sdk[dapr]"
             ) from e
 
     if name == "DAPR_CONSISTENCY_EVENTUAL":
@@ -103,7 +103,7 @@ def __getattr__(name: str) -> Any:
         except ModuleNotFoundError as e:
             raise ImportError(
                 "DAPR_CONSISTENCY_EVENTUAL requires the 'dapr' extra. "
-                "Install it with: pip install openai-agents[dapr]"
+                "Install it with: pip install mycel-agent-sdk[dapr]"
             ) from e
 
     if name == "DAPR_CONSISTENCY_STRONG":
@@ -114,7 +114,7 @@ def __getattr__(name: str) -> Any:
         except ModuleNotFoundError as e:
             raise ImportError(
                 "DAPR_CONSISTENCY_STRONG requires the 'dapr' extra. "
-                "Install it with: pip install openai-agents[dapr]"
+                "Install it with: pip install mycel-agent-sdk[dapr]"
             ) from e
 
     raise AttributeError(f"module {__name__} has no attribute {name}")

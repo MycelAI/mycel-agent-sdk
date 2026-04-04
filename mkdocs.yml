@@ -1,4 +1,4 @@
-site_name: OpenAI Agents SDK
+site_name: Mycel Agent SDK
 theme:
   name: material
   features:
@@ -17,8 +17,8 @@ theme:
   logo: assets/logo.svg
   favicon: images/favicon-platform.svg
 
-repo_name: openai-agents-python
-repo_url: https://github.com/openai/openai-agents-python
+repo_name: mycel-agent-sdk
+repo_url: https://github.com/MycelAI/mycel-agent-sdk
 
 plugins:
   - search
@@ -55,6 +55,7 @@ plugins:
             - Documentation:
                 - agents.md
                 - Models: models/index.md
+                - Gateway model provider: gateway_model_provider.md
                 - tools.md
                 - guardrails.md
                 - running_agents.md
@@ -159,8 +160,6 @@ plugins:
                     - Third-party adapters:
                         - Any-LLM model: ref/extensions/models/any_llm_model.md
                         - Any-LLM provider: ref/extensions/models/any_llm_provider.md
-                        - LiteLLM model: ref/extensions/models/litellm_model.md
-                        - LiteLLM provider: ref/extensions/models/litellm_provider.md
                     - ref/extensions/tool_output_trimmer.md
                     - ref/extensions/memory/sqlalchemy_session.md
                     - ref/extensions/memory/async_sqlite_session.md
@@ -178,6 +177,7 @@ plugins:
             - ドキュメント:
                 - agents.md
                 - モデル: models/index.md
+                - ゲートウェイモデルプロバイダー: gateway_model_provider.md
                 - tools.md
                 - guardrails.md
                 - running_agents.md
@@ -216,6 +216,7 @@ plugins:
             - 문서:
                 - agents.md
                 - 모델: models/index.md
+                - 게이트웨이 모델 프로바이더: gateway_model_provider.md
                 - tools.md
                 - guardrails.md
                 - running_agents.md
@@ -254,6 +255,7 @@ plugins:
             - 文档:
                 - agents.md
                 - 模型: models/index.md
+                - 网关模型提供方: gateway_model_provider.md
                 - tools.md
                 - guardrails.md
                 - running_agents.md
@@ -288,16 +290,16 @@ extra:
   language: en
   alternate:
     - name: English
-      link: /openai-agents-python/
+      link: /mycel-agent-sdk/
       lang: en
     - name: 日本語
-      link: /openai-agents-python/ja/
+      link: /mycel-agent-sdk/ja/
       lang: ja
     - name: 한국어
-      link: /openai-agents-python/ko/
+      link: /mycel-agent-sdk/ko/
       lang: ko
     - name: 简体中文
-      link: /openai-agents-python/zh/
+      link: /mycel-agent-sdk/zh/
       lang: zh
 
 markdown_extensions:

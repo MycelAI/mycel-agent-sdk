@@ -14,7 +14,7 @@
 Encrypted sessions require the `encrypt` extra:
 
 ```bash
-pip install openai-agents[encrypt]
+pip install mycel-agent-sdk[encrypt]
 ```
 
 ## Quick start

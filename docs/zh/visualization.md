@@ -2,19 +2,19 @@
 search:
   exclude: true
 ---
-# 智能体可视化
+# 智能体可视化 {#agent-visualization}
 
 智能体可视化允许你使用 **Graphviz** 生成智能体及其关系的结构化图形表示。这有助于理解智能体、工具调用和任务转移在应用中的交互方式。
 
-## 安装
+## 安装 {#installation}
 
 安装可选的 `viz` 依赖组：
 
 ```bash
-pip install "openai-agents[viz]"
+pip install "mycel-agent-sdk[viz]"
 ```
 
-## 生成图
+## 生成图 {#generating-a-graph}
 
 你可以使用 `draw_graph` 函数生成智能体可视化。该函数会创建一个有向图，其中：
 
@@ -23,7 +23,7 @@ pip install "openai-agents[viz]"
 - **工具调用** 以绿色椭圆表示。
 - **任务转移** 是从一个智能体指向另一个智能体的有向边。
 
-### 使用示例
+### 使用示例 {#example-usage}
 
 ```python
 import os
@@ -72,7 +72,7 @@ draw_graph(triage_agent)
 这会生成一张图，直观展示**分诊智能体**及其与子智能体和工具的连接关系。
 
 
-## 理解可视化
+## 理解可视化 {#understanding-the-visualization}
 
 生成的图包括：
 
@@ -90,16 +90,16 @@ draw_graph(triage_agent)
 `agents` 包中渲染（已在 **v0.2.8** 验证）。如果你在可视化中看不到 MCP 方框，
 请升级到最新版本。
 
-## 自定义图
+## 自定义图 {#customizing-the-graph}
 
-### 显示图
+### 显示图 {#showing-the-graph}
 默认情况下，`draw_graph` 会以内联方式显示图。若要在单独窗口中显示图，请写入以下内容：
 
 ```python
 draw_graph(triage_agent).view()
 ```
 
-### 保存图
+### 保存图 {#saving-the-graph}
 默认情况下，`draw_graph` 会以内联方式显示图。若要将其保存为文件，请指定文件名：
 
 ```python

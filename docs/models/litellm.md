@@ -1,9 +1,9 @@
-# LiteLLM
+# LiteLLM (removed in Mycel fork)
 
 <script>
-  window.location.replace("../#third-party-adapters");
+  window.location.replace("index.html#third-party-adapters");
 </script>
 
-This page moved to the [Third-party adapters section in Models](index.md#third-party-adapters).
+LiteLLM is **not** shipped in this fork. See [Third-party adapters](index.md#third-party-adapters) in this guide, [Gateway model provider](../gateway_model_provider.md), and [`OpenAIChatCompletionsModel`][agents.models.openai_chatcompletions.OpenAIChatCompletionsModel].
 
 If you are not redirected automatically, use the link above.

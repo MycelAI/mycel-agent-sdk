@@ -1,14 +1,14 @@
-"""Tests for the extended thinking message order bug fix in LitellmModel."""
+"""Tests for chat completion tool message ordering (shared by model adapters)."""
 
 from __future__ import annotations
 
 from openai.types.chat import ChatCompletionMessageParam
 
-from agents.extensions.models.litellm_model import LitellmModel
+from agents.models.chatcmpl_tool_message_order import fix_tool_message_ordering
 
 
 class TestExtendedThinkingMessageOrder:
-    """Test the _fix_tool_message_ordering method."""
+    """Test ``fix_tool_message_ordering``."""
 
     def test_basic_reordering_tool_result_before_call(self):
         """Test that a tool result appearing before its tool call gets reordered correctly."""
@@ -28,8 +28,7 @@ class TestExtendedThinkingMessageOrder:
             {"role": "user", "content": "Thanks"},
         ]
 
-        model = LitellmModel("test-model")
-        result = model._fix_tool_message_ordering(messages)
+        result = fix_tool_message_ordering(messages)
 
         # Should reorder to: user, assistant+tool_call, tool_result, user
         assert len(result) == 4
@@ -68,8 +67,7 @@ class TestExtendedThinkingMessageOrder:
             {"role": "tool", "tool_call_id": "call_2", "content": "Result 2"},
         ]
 
-        model = LitellmModel("test-model")
-        result = model._fix_tool_message_ordering(messages)
+        result = fix_tool_message_ordering(messages)
 
         # Should pair each tool call with its result immediately
         assert len(result) == 5
@@ -102,8 +100,7 @@ class TestExtendedThinkingMessageOrder:
             {"role": "user", "content": "End"},
         ]
 
-        model = LitellmModel("test-model")
-        result = model._fix_tool_message_ordering(messages)
+        result = fix_tool_message_ordering(messages)
 
         # Should preserve the orphaned tool result
         assert len(result) == 5
@@ -132,8 +129,7 @@ class TestExtendedThinkingMessageOrder:
             {"role": "user", "content": "End"},
         ]
 
-        model = LitellmModel("test-model")
-        result = model._fix_tool_message_ordering(messages)
+        result = fix_tool_message_ordering(messages)
 
         # Should preserve the tool call even without a result
         assert len(result) == 3
@@ -160,8 +156,7 @@ class TestExtendedThinkingMessageOrder:
             {"role": "assistant", "content": "Done"},
         ]
 
-        model = LitellmModel("test-model")
-        result = model._fix_tool_message_ordering(messages)
+        result = fix_tool_message_ordering(messages)
 
         # Should remain exactly the same
         assert len(result) == 4
@@ -195,8 +190,7 @@ class TestExtendedThinkingMessageOrder:
             {"role": "tool", "tool_call_id": "call_2", "content": "Result 2"},
         ]
 
-        model = LitellmModel("test-model")
-        result = model._fix_tool_message_ordering(messages)
+        result = fix_tool_message_ordering(messages)
 
         # Should split the multi-tool message and pair each properly
         assert len(result) == 5
@@ -216,8 +210,7 @@ class TestExtendedThinkingMessageOrder:
         """Test that empty message list is handled correctly."""
         messages: list[ChatCompletionMessageParam] = []
 
-        model = LitellmModel("test-model")
-        result = model._fix_tool_message_ordering(messages)
+        result = fix_tool_message_ordering(messages)
 
         assert result == []
 
@@ -229,8 +222,7 @@ class TestExtendedThinkingMessageOrder:
             {"role": "user", "content": "How are you?"},
         ]
 
-        model = LitellmModel("test-model")
-        result = model._fix_tool_message_ordering(messages)
+        result = fix_tool_message_ordering(messages)
 
         assert result == messages
 
@@ -273,8 +265,7 @@ class TestExtendedThinkingMessageOrder:
             {"role": "user", "content": "End"},
         ]
 
-        model = LitellmModel("test-model")
-        result = model._fix_tool_message_ordering(messages)
+        result = fix_tool_message_ordering(messages)
 
         # Should reorder properly while preserving all messages
         assert len(result) == 8

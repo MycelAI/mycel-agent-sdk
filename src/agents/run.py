@@ -844,7 +844,11 @@ class AgentRunner:
                     if run_state is not None:
                         if run_state._current_step is None:
                             run_state._current_step = NextStepRunAgain()  # type: ignore[assignment]
-                    all_tools = await get_all_tools(current_agent, context_wrapper)
+                    all_tools = await get_all_tools(
+                        current_agent,
+                        context_wrapper,
+                        permission_mode=run_config.permission_mode,
+                    )
                     await initialize_computer_tools(
                         tools=all_tools, context_wrapper=context_wrapper
                     )

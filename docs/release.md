@@ -27,16 +27,16 @@ Highlights:
 
 -   The default websocket Realtime model is now `gpt-realtime-1.5`, so new Realtime agent setups use the newer model without extra configuration.
 -   `MCPServer` now exposes `list_resources()`, `list_resource_templates()`, and `read_resource()`, and `MCPServerStreamableHttp` now exposes `session_id` so streamable HTTP sessions can be resumed across reconnects or stateless workers.
--   Chat Completions integrations can now opt into reasoning-content replay via `should_replay_reasoning_content`, improving provider-specific reasoning/tool-call continuity for adapters such as LiteLLM/DeepSeek.
+-   Chat Completions integrations can now opt into reasoning-content replay via `should_replay_reasoning_content`, improving provider-specific reasoning/tool-call continuity for third-party Chat Completions adapters such as DeepSeek.
 -   Fixed several runtime and session edge cases, including concurrent first writes in `SQLAlchemySession`, compaction requests with orphaned assistant message IDs after reasoning stripping, `remove_all_tools()` leaving MCP/reasoning items behind, and a race in the function-tool batch executor.
 
 ### 0.12.0
 
-This minor release does **not** introduce a breaking change. Check [the release notes](https://github.com/openai/openai-agents-python/releases/tag/v0.12.0) for major feature additions.
+This minor release does **not** introduce a breaking change. Check [the OpenAI Agents SDK v0.12.0 release notes](https://github.com/openai/openai-agents-python/releases/tag/v0.12.0) for major feature additions in the upstream line this fork tracks.
 
 ### 0.11.0
 
-This minor release does **not** introduce a breaking change. Check [the release notes](https://github.com/openai/openai-agents-python/releases/tag/v0.11.0) for major feature additions.
+This minor release does **not** introduce a breaking change. Check [the OpenAI Agents SDK v0.11.0 release notes](https://github.com/openai/openai-agents-python/releases/tag/v0.11.0) for major feature additions in the upstream line this fork tracks.
 
 ### 0.10.0
 

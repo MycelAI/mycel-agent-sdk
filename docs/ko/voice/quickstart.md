@@ -2,17 +2,17 @@
 search:
   exclude: true
 ---
-# 빠른 시작
+# 빠른 시작 {#quickstart}
 
-## 사전 요구사항
+## 사전 요구사항 {#prerequisites}
 
 Agents SDK의 기본 [빠른 시작 안내](../quickstart.md)를 따랐는지 확인하고 가상 환경을 설정하세요. 그런 다음 SDK에서 선택적 음성 의존성을 설치하세요
 
 ```bash
-pip install 'openai-agents[voice]'
+pip install 'mycel-agent-sdk[voice]'
 ```
 
-## 개념
+## 개념 {#concepts}
 
 알아두어야 할 핵심 개념은 [`VoicePipeline`][agents.voice.pipeline.VoicePipeline]이며, 이는 3단계 프로세스입니다
 
@@ -46,7 +46,7 @@ graph LR
 
 ```
 
-## 에이전트
+## 에이전트 {#agents}
 
 먼저 몇 가지 에이전트를 설정해 보겠습니다. 이 SDK로 에이전트를 만들어 본 적이 있다면 익숙하게 느껴질 것입니다. 에이전트 몇 개, 핸드오프, 그리고 도구 하나를 사용할 것입니다
 
@@ -90,7 +90,7 @@ agent = Agent(
 )
 ```
 
-## 음성 파이프라인
+## 음성 파이프라인 {#voice-pipeline}
 
 워크플로로 [`SingleAgentVoiceWorkflow`][agents.voice.workflow.SingleAgentVoiceWorkflow]를 사용해 간단한 음성 파이프라인을 설정하겠습니다
 
@@ -99,7 +99,7 @@ from agents.voice import SingleAgentVoiceWorkflow, VoicePipeline
 pipeline = VoicePipeline(workflow=SingleAgentVoiceWorkflow(agent))
 ```
 
-## 파이프라인 실행
+## 파이프라인 실행 {#run-the-pipeline}
 
 ```python
 import numpy as np
@@ -124,7 +124,7 @@ async for event in result.stream():
 
 ```
 
-## 전체 구성
+## 전체 구성 {#put-it-all-together}
 
 ```python
 import asyncio
@@ -195,4 +195,4 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-이 예제를 실행하면 에이전트가 사용자에게 말합니다! 사용자가 직접 에이전트에게 말할 수 있는 데모를 보려면 [examples/voice/static](https://github.com/openai/openai-agents-python/tree/main/examples/voice/static)의 예제를 확인해 보세요
+이 예제를 실행하면 에이전트가 사용자에게 말합니다! 사용자가 직접 에이전트에게 말할 수 있는 데모를 보려면 [examples/voice/static](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/voice/static)의 예제를 확인해 보세요

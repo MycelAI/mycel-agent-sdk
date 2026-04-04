@@ -176,11 +176,11 @@ If you use a custom OpenAI-compatible endpoint or proxy, websocket transport als
 
 -   This is the Responses API over websocket transport, not the [Realtime API](../realtime/guide.md). It does not apply to Chat Completions or non-OpenAI providers unless they support the Responses websocket `/responses` endpoint.
 -   Install the `websockets` package if it is not already available in your environment.
--   You can use [`Runner.run_streamed()`][agents.run.Runner.run_streamed] directly after enabling websocket transport. For multi-turn workflows where you want to reuse the same websocket connection across turns (and nested agent-as-tool calls), the [`responses_websocket_session()`][agents.responses_websocket_session] helper is recommended. See the [Running agents](../running_agents.md) guide and [`examples/basic/stream_ws.py`](https://github.com/openai/openai-agents-python/tree/main/examples/basic/stream_ws.py).
+-   You can use [`Runner.run_streamed()`][agents.run.Runner.run_streamed] directly after enabling websocket transport. For multi-turn workflows where you want to reuse the same websocket connection across turns (and nested agent-as-tool calls), the [`responses_websocket_session()`][agents.responses_websocket_session] helper is recommended. See the [Running agents](../running_agents.md) guide and [`examples/basic/stream_ws.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/basic/stream_ws.py).
 
 ## Non-OpenAI models
 
-If you need a non-OpenAI provider, start with the SDK's built-in provider integration points. In many setups, this is enough without adding a third-party adapter. Examples for each pattern live in [examples/model_providers](https://github.com/openai/openai-agents-python/tree/main/examples/model_providers/).
+If you need a non-OpenAI provider, start with the SDK's built-in provider integration points. In many setups, this is enough without adding a third-party adapter. Examples for each pattern live in [examples/model_providers](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/model_providers/).
 
 ### Ways to integrate non-OpenAI providers
 
@@ -193,9 +193,9 @@ If you need a non-OpenAI provider, start with the SDK's built-in provider integr
 
 You can integrate other LLM providers with these built-in paths:
 
-1. [`set_default_openai_client`][agents.set_default_openai_client] is useful in cases where you want to globally use an instance of `AsyncOpenAI` as the LLM client. This is for cases where the LLM provider has an OpenAI compatible API endpoint, and you can set the `base_url` and `api_key`. See a configurable example in [examples/model_providers/custom_example_global.py](https://github.com/openai/openai-agents-python/tree/main/examples/model_providers/custom_example_global.py).
-2. [`ModelProvider`][agents.models.interface.ModelProvider] is at the `Runner.run` level. This lets you say "use a custom model provider for all agents in this run". See a configurable example in [examples/model_providers/custom_example_provider.py](https://github.com/openai/openai-agents-python/tree/main/examples/model_providers/custom_example_provider.py).
-3. [`Agent.model`][agents.agent.Agent.model] lets you specify the model on a specific Agent instance. This enables you to mix and match different providers for different agents. See a configurable example in [examples/model_providers/custom_example_agent.py](https://github.com/openai/openai-agents-python/tree/main/examples/model_providers/custom_example_agent.py).
+1. [`set_default_openai_client`][agents.set_default_openai_client] is useful in cases where you want to globally use an instance of `AsyncOpenAI` as the LLM client. This is for cases where the LLM provider has an OpenAI compatible API endpoint, and you can set the `base_url` and `api_key`. See a configurable example in [examples/model_providers/custom_example_global.py](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/model_providers/custom_example_global.py).
+2. [`ModelProvider`][agents.models.interface.ModelProvider] is at the `Runner.run` level. This lets you say "use a custom model provider for all agents in this run". See a configurable example in [examples/model_providers/custom_example_provider.py](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/model_providers/custom_example_provider.py).
+3. [`Agent.model`][agents.agent.Agent.model] lets you specify the model on a specific Agent instance. This enables you to mix and match different providers for different agents. See a configurable example in [examples/model_providers/custom_example_agent.py](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/model_providers/custom_example_agent.py).
 
 In cases where you do not have an API key from `platform.openai.com`, we recommend disabling tracing via `set_tracing_disabled()`, or setting up a [different tracing processor](../tracing.md).
 
@@ -415,7 +415,7 @@ Stateful follow-up requests using `previous_response_id` or `conversation_id` ar
 - An agent can override only part of `retry.backoff` and keep sibling backoff fields from the runner.
 - `policy` is runtime-only, so serialized `ModelSettings` keep `max_retries` and `backoff` but omit the callback itself.
 
-For fuller examples, see [`examples/basic/retry.py`](https://github.com/openai/openai-agents-python/tree/main/examples/basic/retry.py) and the [adapter-backed retry example](https://github.com/openai/openai-agents-python/tree/main/examples/basic/retry_litellm.py).
+For fuller examples, see [`examples/basic/retry.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/basic/retry.py) and [`examples/basic/retry_openai_chatcompletions.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/basic/retry_openai_chatcompletions.py).
 
 ## Troubleshooting non-OpenAI providers
 
@@ -432,7 +432,7 @@ If you get errors related to tracing, this is because traces are uploaded to Ope
 The SDK uses the Responses API by default, but many other LLM providers still do not support it. You may see 404s or similar issues as a result. To resolve, you have two options:
 
 1. Call [`set_default_openai_api("chat_completions")`][agents.set_default_openai_api]. This works if you are setting `OPENAI_API_KEY` and `OPENAI_BASE_URL` via environment vars.
-2. Use [`OpenAIChatCompletionsModel`][agents.models.openai_chatcompletions.OpenAIChatCompletionsModel]. There are examples [here](https://github.com/openai/openai-agents-python/tree/main/examples/model_providers/).
+2. Use [`OpenAIChatCompletionsModel`][agents.models.openai_chatcompletions.OpenAIChatCompletionsModel]. There are examples [here](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/model_providers/).
 
 ### Structured outputs support
 
@@ -456,7 +456,7 @@ You need to be aware of feature differences between model providers, or you may 
 
 ## Third-party adapters
 
-Reach for a third-party adapter only when the SDK's built-in provider integration points are not enough. If you are using OpenAI models only with this SDK, prefer the built-in [`OpenAIResponsesModel`][agents.models.openai_responses.OpenAIResponsesModel] path instead of Any-LLM or LiteLLM. Third-party adapters are for cases where you need to combine OpenAI models with non-OpenAI providers, or need adapter-managed provider coverage or routing that the built-in paths do not provide. Adapters add another compatibility layer between the SDK and the upstream model provider, so feature support and request semantics can vary by provider. The SDK currently includes Any-LLM and LiteLLM as best-effort, beta adapter integrations.
+Reach for a third-party adapter only when the SDK's built-in provider integration points are not enough. If you are using OpenAI models only with this SDK, prefer the built-in [`OpenAIResponsesModel`][agents.models.openai_responses.OpenAIResponsesModel] path instead of Any-LLM. For multi-vendor routing, use an OpenAI-compatible HTTP gateway with [`OpenAIChatCompletionsModel`][agents.models.openai_chatcompletions.OpenAIChatCompletionsModel] and `AsyncOpenAI(base_url=...)` (see [Gateway model provider](../gateway_model_provider.md)). Third-party adapters are for cases where you need adapter-managed provider coverage that the built-in paths do not provide. The SDK includes Any-LLM as a best-effort, beta adapter integration.
 
 ### Any-LLM
 
@@ -464,14 +464,10 @@ Any-LLM support is included on a best-effort, beta basis for cases where you nee
 
 Depending on the upstream provider path, Any-LLM may use the Responses API, Chat Completions-compatible APIs, or provider-specific compatibility layers.
 
-If you need Any-LLM, install `openai-agents[any-llm]`, then start from [`examples/model_providers/any_llm_auto.py`](https://github.com/openai/openai-agents-python/tree/main/examples/model_providers/any_llm_auto.py) or [`examples/model_providers/any_llm_provider.py`](https://github.com/openai/openai-agents-python/tree/main/examples/model_providers/any_llm_provider.py). You can use `any-llm/...` model names with [`MultiProvider`][agents.MultiProvider], instantiate `AnyLLMModel` directly, or use `AnyLLMProvider` at run scope. If you need to pin the model surface explicitly, pass `api="responses"` or `api="chat_completions"` when constructing `AnyLLMModel`.
+If you need Any-LLM, install `mycel-agent-sdk[any-llm]`, then start from [`examples/model_providers/any_llm_auto.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/model_providers/any_llm_auto.py) or [`examples/model_providers/any_llm_provider.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/model_providers/any_llm_provider.py). You can use `any-llm/...` model names with [`MultiProvider`][agents.MultiProvider], instantiate `AnyLLMModel` directly, or use `AnyLLMProvider` at run scope. If you need to pin the model surface explicitly, pass `api="responses"` or `api="chat_completions"` when constructing `AnyLLMModel`.
 
 Any-LLM remains a third-party adapter layer, so provider dependencies and capability gaps are defined upstream by Any-LLM rather than by the SDK. Usage metrics are propagated automatically when the upstream provider returns them, but streamed Chat Completions backends may require `ModelSettings(include_usage=True)` before they emit usage chunks. Validate the exact provider backend you plan to deploy if you depend on structured outputs, tool calling, usage reporting, or Responses-specific behavior.
 
-### LiteLLM
+### OpenAI-compatible gateway
 
-LiteLLM support is included on a best-effort, beta basis for cases where you need LiteLLM-specific provider coverage or routing.
-
-If you need LiteLLM, install `openai-agents[litellm]`, then start from [`examples/model_providers/litellm_auto.py`](https://github.com/openai/openai-agents-python/tree/main/examples/model_providers/litellm_auto.py) or [`examples/model_providers/litellm_provider.py`](https://github.com/openai/openai-agents-python/tree/main/examples/model_providers/litellm_provider.py). You can use `litellm/...` model names or instantiate [`LitellmModel`][agents.extensions.models.litellm_model.LitellmModel] directly.
-
-Some LiteLLM-backed providers do not populate SDK usage metrics by default. If you need usage reporting, pass `ModelSettings(include_usage=True)` and validate the exact provider backend you plan to deploy if you depend on structured outputs, tool calling, usage reporting, or adapter-specific routing behavior.
+Use [`OpenAIChatCompletionsModel`][agents.models.openai_chatcompletions.OpenAIChatCompletionsModel] with `AsyncOpenAI(base_url="http://localhost:8080/v1", api_key=...)` when a separate process (for example a Rust service) exposes the OpenAI Chat Completions API and performs provider routing. See [Gateway model provider](../gateway_model_provider.md) and [`examples/model_providers/gateway_chatcompletions.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/model_providers/gateway_chatcompletions.py).

@@ -2,21 +2,21 @@
 search:
   exclude: true
 ---
-# SQLAlchemy 세션
+# SQLAlchemy 세션 {#sqlalchemy-sessions}
 
 `SQLAlchemySession`은 SQLAlchemy를 사용하여 프로덕션 준비가 된 세션 구현을 제공하며, 세션 저장소에 SQLAlchemy가 지원하는 모든 데이터베이스(PostgreSQL, MySQL, SQLite 등)를 사용할 수 있게 해줍니다
 
-## 설치
+## 설치 {#installation}
 
 SQLAlchemy 세션에는 `sqlalchemy` extra가 필요합니다:
 
 ```bash
-pip install openai-agents[sqlalchemy]
+pip install mycel-agent-sdk[sqlalchemy]
 ```
 
-## 빠른 시작
+## 빠른 시작 {#quick-start}
 
-### 데이터베이스 URL 사용
+### 데이터베이스 URL 사용 {#using-database-url}
 
 시작하는 가장 간단한 방법입니다:
 
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-### 기존 엔진 사용
+### 기존 엔진 사용 {#using-existing-engine}
 
 기존 SQLAlchemy 엔진이 있는 애플리케이션의 경우:
 
@@ -74,7 +74,7 @@ if __name__ == "__main__":
 ```
 
 
-## API 참조
+## API 참조 {#api-reference}
 
 - [`SQLAlchemySession`][agents.extensions.memory.sqlalchemy_session.SQLAlchemySession] - 메인 클래스
 - [`Session`][agents.memory.session.Session] - 기본 세션 프로토콜

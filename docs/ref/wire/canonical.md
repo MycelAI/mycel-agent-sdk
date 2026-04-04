@@ -1,0 +1,3 @@
+# `Canonical`
+
+::: agents.wire.canonical

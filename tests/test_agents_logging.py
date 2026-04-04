@@ -6,7 +6,7 @@ from agents import enable_verbose_stdout_logging
 
 
 def test_enable_verbose_stdout_logging_attaches_handler() -> None:
-    logger = logging.getLogger("openai.agents")
+    logger = logging.getLogger("mycel_agents")
     logger.handlers.clear()
     enable_verbose_stdout_logging()
     assert logger.handlers

@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# 設定
+# 設定 {#configuration}
 
 このページでは、デフォルトの OpenAI キーやクライアント、デフォルトの OpenAI API 形式、トレーシングのエクスポート既定値、ロギングの動作など、通常はアプリケーション起動時に一度だけ設定する SDK 全体のデフォルトについて説明します。
 
@@ -12,7 +12,7 @@ search:
 -   モデル選択とプロバイダー設定については [モデル](models/index.md)。
 -   実行ごとのトレーシングメタデータとカスタムトレースプロセッサーについては [トレーシング](tracing.md)。
 
-## API キーとクライアント
+## API キーとクライアント {#api-keys-and-clients}
 
 デフォルトでは、 SDK は LLM リクエストとトレーシングに `OPENAI_API_KEY` 環境変数を使用します。このキーは SDK が最初に OpenAI クライアントを作成したときに解決されるため（遅延初期化）、最初のモデル呼び出しの前に環境変数を設定してください。アプリ起動前にその環境変数を設定できない場合は、キーを設定するために [set_default_openai_key()][agents.set_default_openai_key] 関数を使用できます。
 
@@ -40,7 +40,7 @@ from agents import set_default_openai_api
 set_default_openai_api("chat_completions")
 ```
 
-## トレーシング
+## トレーシング {#tracing}
 
 トレーシングはデフォルトで有効です。デフォルトでは、上記セクションのモデルリクエストと同じ OpenAI API キー（つまり環境変数または設定したデフォルトキー）を使用します。トレーシングで使用する API キーは、[`set_tracing_export_api_key`][agents.set_tracing_export_api_key] 関数で個別に設定できます。
 
@@ -97,9 +97,9 @@ export OPENAI_AGENTS_TRACE_INCLUDE_SENSITIVE_DATA=0
 
 トレーシング制御の詳細は、[トレーシングガイド](tracing.md) を参照してください。
 
-## デバッグロギング
+## デバッグロギング {#debug-logging}
 
-SDK は 2 つの Python ロガー（`openai.agents` と `openai.agents.tracing`）を定義しており、デフォルトではハンドラーをアタッチしません。ログはアプリケーションの Python ロギング設定に従います。
+SDK は 2 つの Python ロガー（`mycel_agents` と `mycel_agents.tracing`）を定義しており、デフォルトではハンドラーをアタッチしません。ログはアプリケーションの Python ロギング設定に従います。
 
 詳細なロギングを有効にするには、[`enable_verbose_stdout_logging()`][agents.enable_verbose_stdout_logging] 関数を使用します。
 
@@ -114,7 +114,7 @@ enable_verbose_stdout_logging()
 ```python
 import logging
 
-logger = logging.getLogger("openai.agents") # or openai.agents.tracing for the Tracing logger
+logger = logging.getLogger("mycel_agents") # or mycel_agents.tracing for the Tracing logger
 
 # To make all logs show up
 logger.setLevel(logging.DEBUG)
@@ -128,7 +128,7 @@ logger.setLevel(logging.WARNING)
 logger.addHandler(logging.StreamHandler())
 ```
 
-### ログ内の機密データ
+### ログ内の機密データ {#sensitive-data-in-logs}
 
 一部のログには機密データ（たとえばユーザーデータ）が含まれる可能性があります。
 

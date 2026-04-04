@@ -216,7 +216,7 @@ def test_stream_step_items_to_queue_emits_helper_events_and_skips_approvals(
         cast(Any, object()),
     ]
 
-    with caplog.at_level("WARNING", logger="openai.agents"):
+    with caplog.at_level("WARNING", logger="mycel_agents"):
         stream_step_items_to_queue(items, queue)
 
     names = []

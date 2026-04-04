@@ -658,7 +658,7 @@ def test_sanitize_for_openai_tracing_api_moves_unsupported_generation_usage_to_d
                 "total_tokens": 3,
                 "input_tokens_details": {"cached_tokens": 0},
                 "output_tokens_details": {"reasoning_tokens": 0},
-                "details": {"provider": "litellm"},
+                "details": {"provider": "gateway"},
             },
         },
     }
@@ -667,7 +667,7 @@ def test_sanitize_for_openai_tracing_api_moves_unsupported_generation_usage_to_d
         "input_tokens": 1,
         "output_tokens": 2,
         "details": {
-            "provider": "litellm",
+            "provider": "gateway",
             "total_tokens": 3,
             "input_tokens_details": {"cached_tokens": 0},
             "output_tokens_details": {"reasoning_tokens": 0},
@@ -693,7 +693,7 @@ def test_sanitize_for_openai_tracing_api_filters_non_json_values_in_usage_detail
                 "output_tokens_details": {"reasoning_tokens": 0},
                 "provider_usage": [1, non_json, {"ok": True, "bad": non_json}],
                 "details": {
-                    "provider": "litellm",
+                    "provider": "gateway",
                     "bad": non_json,
                     "nested": {"keep": 1, "bad": non_json},
                 },
@@ -705,7 +705,7 @@ def test_sanitize_for_openai_tracing_api_filters_non_json_values_in_usage_detail
         "input_tokens": 1,
         "output_tokens": 2,
         "details": {
-            "provider": "litellm",
+            "provider": "gateway",
             "nested": {"keep": 1},
             "input_tokens_details": {"cached_tokens": 0},
             "output_tokens_details": {"reasoning_tokens": 0},
@@ -731,7 +731,7 @@ def test_sanitize_for_openai_tracing_api_handles_cyclic_usage_values():
                 "output_tokens": 2,
                 "input_tokens_details": cyclic_dict,
                 "details": {
-                    "provider": "litellm",
+                    "provider": "gateway",
                     "cycle": cyclic_list,
                 },
             },
@@ -743,7 +743,7 @@ def test_sanitize_for_openai_tracing_api_handles_cyclic_usage_values():
         "input_tokens": 1,
         "output_tokens": 2,
         "details": {
-            "provider": "litellm",
+            "provider": "gateway",
             "cycle": [],
             "input_tokens_details": {},
         },

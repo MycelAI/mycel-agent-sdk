@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# 트레이싱
+# 트레이싱 {#tracing}
 
 Agents SDK에는 기본 제공 트레이싱이 포함되어 있으며, 에이전트 실행 중 발생하는 이벤트의 포괄적인 기록을 수집합니다: LLM 생성, 도구 호출, 핸드오프, 가드레일, 그리고 발생한 사용자 정의 이벤트까지 포함됩니다. [Traces 대시보드](https://platform.openai.com/traces)를 사용하면 개발 중과 프로덕션에서 워크플로를 디버그, 시각화, 모니터링할 수 있습니다.
 
@@ -16,7 +16,7 @@ Agents SDK에는 기본 제공 트레이싱이 포함되어 있으며, 에이전
 
 ***OpenAI API를 사용하면서 ZDR(Zero Data Retention) 정책으로 운영되는 조직에서는 트레이싱을 사용할 수 없습니다.***
 
-## 트레이스와 스팬
+## 트레이스와 스팬 {#traces-and-spans}
 
 -   **트레이스**는 "워크플로"의 단일 엔드투엔드 작업을 나타냅니다. 트레이스는 스팬으로 구성됩니다. 트레이스에는 다음 속성이 있습니다:
     -   `workflow_name`: 논리적 워크플로 또는 앱입니다. 예: "Code generation" 또는 "Customer service"
@@ -30,7 +30,7 @@ Agents SDK에는 기본 제공 트레이싱이 포함되어 있으며, 에이전
     -   `parent_id`: 이 스팬의 부모 스팬을 가리킵니다(있는 경우)
     -   `span_data`: 스팬에 대한 정보입니다. 예를 들어 `AgentSpanData`에는 에이전트 정보가, `GenerationSpanData`에는 LLM 생성 정보가 포함됩니다
 
-## 기본 트레이싱
+## 기본 트레이싱 {#default-tracing}
 
 기본적으로 SDK는 다음을 트레이싱합니다:
 
@@ -48,7 +48,7 @@ Agents SDK에는 기본 제공 트레이싱이 포함되어 있으며, 에이전
 
 또한 [사용자 정의 트레이스 프로세서](#custom-tracing-processors)를 설정하여 트레이스를 다른 대상(대체 또는 보조 대상)으로 전송할 수 있습니다.
 
-## 상위 수준 트레이스
+## 상위 수준 트레이스 {#higher-level-traces}
 
 때로는 `run()` 여러 호출을 단일 트레이스의 일부로 만들고 싶을 수 있습니다. 이 경우 전체 코드를 `trace()`로 감싸면 됩니다.
 
@@ -67,7 +67,7 @@ async def main():
 
 1. `Runner.run`에 대한 두 호출이 `with trace()`로 감싸져 있으므로, 각 실행은 두 개의 트레이스를 생성하는 대신 전체 트레이스의 일부가 됩니다
 
-## 트레이스 생성
+## 트레이스 생성 {#creating-traces}
 
 [`trace()`][agents.tracing.trace] 함수를 사용해 트레이스를 생성할 수 있습니다. 트레이스는 시작 및 종료되어야 하며, 이를 위한 두 가지 방법이 있습니다:
 
@@ -76,13 +76,13 @@ async def main():
 
 현재 트레이스는 Python [`contextvar`](https://docs.python.org/3/library/contextvars.html)를 통해 추적됩니다. 즉, 동시성에서도 자동으로 동작합니다. 트레이스를 수동으로 시작/종료하는 경우 현재 트레이스를 업데이트하려면 `start()`/`finish()`에 `mark_as_current` 및 `reset_current`를 전달해야 합니다.
 
-## 스팬 생성
+## 스팬 생성 {#creating-spans}
 
 다양한 [`*_span()`][agents.tracing.create] 메서드를 사용해 스팬을 생성할 수 있습니다. 일반적으로 스팬을 수동으로 생성할 필요는 없습니다. 사용자 정의 스팬 정보를 추적하기 위한 [`custom_span()`][agents.tracing.custom_span] 함수도 제공됩니다.
 
 스팬은 자동으로 현재 트레이스의 일부가 되며, Python [`contextvar`](https://docs.python.org/3/library/contextvars.html)로 추적되는 가장 가까운 현재 스팬 아래에 중첩됩니다.
 
-## 민감한 데이터
+## 민감한 데이터 {#sensitive-data}
 
 특정 스팬은 잠재적으로 민감한 데이터를 캡처할 수 있습니다.
 
@@ -92,7 +92,7 @@ async def main():
 
 기본적으로 `trace_include_sensitive_data`는 `True`입니다. 코드 없이 기본값을 설정하려면 앱 실행 전에 `OPENAI_AGENTS_TRACE_INCLUDE_SENSITIVE_DATA` 환경 변수를 `true/1` 또는 `false/0`으로 export하면 됩니다.
 
-## 사용자 정의 트레이싱 프로세서
+## 사용자 정의 트레이싱 프로세서 {#custom-tracing-processors}
 
 트레이싱의 상위 아키텍처는 다음과 같습니다:
 
@@ -105,7 +105,7 @@ async def main():
 2. [`set_trace_processors()`][agents.tracing.set_trace_processors]를 사용하면 기본 프로세서를 사용자 정의 트레이스 프로세서로 **대체**할 수 있습니다. 즉, 이를 수행하는 `TracingProcessor`를 포함하지 않으면 트레이스는 OpenAI 백엔드로 전송되지 않습니다
 
 
-## 비 OpenAI 모델에서의 트레이싱
+## 비 OpenAI 모델에서의 트레이싱 {#tracing-with-non-openai-models}
 
 OpenAI API 키를 비 OpenAI 모델과 함께 사용하면 트레이싱을 비활성화하지 않고도 OpenAI Traces 대시보드에서 무료 트레이싱을 사용할 수 있습니다. 어댑터 선택 및 설정 시 주의사항은 Models 가이드의 [서드파티 어댑터](models/index.md#third-party-adapters) 섹션을 참고하세요.
 
@@ -140,15 +140,15 @@ await Runner.run(
 )
 ```
 
-## 추가 참고 사항
+## 추가 참고 사항 {#additional-notes}
 - Openai Traces 대시보드에서 무료 트레이스를 확인하세요
 
 
-## 에코시스템 통합
+## 에코시스템 통합 {#ecosystem-integrations}
 
 다음 커뮤니티 및 벤더 통합은 OpenAI Agents SDK 트레이싱 표면을 지원합니다.
 
-### 외부 트레이싱 프로세서 목록
+### 외부 트레이싱 프로세서 목록 {#external-tracing-processors-list}
 
 -   [Weights & Biases](https://weave-docs.wandb.ai/guides/integrations/openai_agents)
 -   [Arize-Phoenix](https://docs.arize.com/phoenix/tracing/integrations-tracing/openai-agents-sdk)

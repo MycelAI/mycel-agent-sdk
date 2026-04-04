@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# Realtime智能体指南
+# Realtime智能体指南 {#realtime-agents-guide}
 
 本指南解释 OpenAI Agents SDK 的 realtime 层如何映射到 OpenAI Realtime API，以及 Python SDK 在其之上增加了哪些额外行为。
 
@@ -14,7 +14,7 @@ search:
 
     如果你想使用默认的 Python 路径，请先阅读[快速开始](quickstart.md)。如果你正在决定应用应使用服务端 WebSocket 还是 SIP，请阅读[Realtime 传输](transport.md)。浏览器 WebRTC 传输不属于 Python SDK 的一部分。
 
-## 概览
+## 概览 {#overview}
 
 Realtime智能体会与 Realtime API 保持长连接，以便模型可以增量处理文本和音频、流式输出音频、调用工具，并在不中断每轮都重启新请求的情况下处理打断。
 
@@ -25,7 +25,7 @@ SDK 的主要组件包括：
 -   **RealtimeSession**：一个实时会话，用于发送输入、接收事件、跟踪历史并执行工具
 -   **RealtimeModel**：传输抽象。默认是 OpenAI 的服务端 WebSocket 实现。
 
-## 会话生命周期
+## 会话生命周期 {#session-lifecycle}
 
 一个典型的 Realtime 会话如下：
 
@@ -40,7 +40,7 @@ SDK 的主要组件包括：
 
 默认情况下，`RealtimeRunner` 使用 `OpenAIRealtimeWebSocketModel`，因此默认 Python 路径是通过服务端 WebSocket 连接到 Realtime API。如果你传入不同的 `RealtimeModel`，相同的会话生命周期和智能体特性仍然适用，但连接机制可能变化。
 
-## 智能体与会话配置
+## 智能体与会话配置 {#agent-and-session-configuration}
 
 `RealtimeAgent` 有意比常规 `Agent` 类型更精简：
 
@@ -93,9 +93,9 @@ runner = RealtimeRunner(
 
 完整的类型化接口请参见 [`RealtimeRunConfig`][agents.realtime.config.RealtimeRunConfig] 和 [`RealtimeSessionModelSettings`][agents.realtime.config.RealtimeSessionModelSettings]。
 
-## 输入与输出
+## 输入与输出 {#inputs-and-outputs}
 
-### 文本与结构化用户消息
+### 文本与结构化用户消息 {#text-and-structured-user-messages}
 
 对纯文本或结构化 Realtime 消息，使用 [`session.send_message()`][agents.realtime.session.RealtimeSession.send_message]。
 
@@ -115,9 +115,9 @@ message: RealtimeUserInputMessage = {
 await session.send_message(message)
 ```
 
-结构化消息是在 Realtime 对话中包含图像输入的主要方式。示例 Web 演示 [`examples/realtime/app/server.py`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/app/server.py) 就是通过这种方式转发 `input_image` 消息。
+结构化消息是在 Realtime 对话中包含图像输入的主要方式。示例 Web 演示 [`examples/realtime/app/server.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/app/server.py) 就是通过这种方式转发 `input_image` 消息。
 
-### 音频输入
+### 音频输入 {#audio-input}
 
 使用 [`session.send_audio()`][agents.realtime.session.RealtimeSession.send_audio] 流式传输原始音频字节：
 
@@ -133,7 +133,7 @@ await session.send_audio(audio_bytes, commit=True)
 
 如果你需要更底层的控制，也可以通过底层模型传输发送原始客户端事件，例如 `input_audio_buffer.commit`。
 
-### 手动响应控制
+### 手动响应控制 {#manual-response-control}
 
 `session.send_message()` 通过高层路径发送用户输入，并会为你启动响应。原始音频缓冲在所有配置中**不会**自动执行同样行为。
 
@@ -159,9 +159,9 @@ await session.model.send_event(
 -   你希望在触发响应前检查或控制用户输入
 -   你需要为带外响应提供自定义提示词
 
-SIP 示例 [`examples/realtime/twilio_sip/server.py`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/twilio_sip/server.py) 使用了原始 `response.create` 来强制发送开场问候。
+SIP 示例 [`examples/realtime/twilio_sip/server.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/twilio_sip/server.py) 使用了原始 `response.create` 来强制发送开场问候。
 
-## 事件、历史与打断
+## 事件、历史与打断 {#events-history-and-interruptions}
 
 `RealtimeSession` 会发出更高层的 SDK 事件，同时在你需要时仍转发原始模型事件。
 
@@ -179,17 +179,17 @@ SIP 示例 [`examples/realtime/twilio_sip/server.py`](https://github.com/openai/
 
 对 UI 状态最有用的事件通常是 `history_added` 和 `history_updated`。它们以 `RealtimeItem` 对象暴露会话本地历史，包括用户消息、助手消息和工具调用。
 
-### 打断与播放跟踪
+### 打断与播放跟踪 {#interruptions-and-playback-tracking}
 
 当用户打断助手时，会话会发出 `audio_interrupted`，并更新历史，以便服务端对话与用户实际听到的内容保持一致。
 
 在低延迟本地播放中，默认播放跟踪器通常已足够。在远程或延迟播放场景，尤其是电话场景中，请使用 [`RealtimePlaybackTracker`][agents.realtime.model.RealtimePlaybackTracker]，这样打断截断会基于实际播放进度，而不是假设所有已生成音频都已被听到。
 
-Twilio 示例 [`examples/realtime/twilio/twilio_handler.py`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/twilio/twilio_handler.py) 展示了这种模式。
+Twilio 示例 [`examples/realtime/twilio/twilio_handler.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/twilio/twilio_handler.py) 展示了这种模式。
 
-## 工具、审批、任务转移与安全防护措施
+## 工具、审批、任务转移与安全防护措施 {#tools-approvals-handoffs-and-guardrails}
 
-### 工具调用
+### 工具调用 {#function-tools}
 
 Realtime智能体支持在实时对话中使用工具调用：
 
@@ -210,7 +210,7 @@ agent = RealtimeAgent(
 )
 ```
 
-### 工具审批
+### 工具审批 {#tool-approvals}
 
 工具调用在执行前可以要求人工审批。发生这种情况时，会话会发出 `tool_approval_required`，并暂停工具运行，直到你调用 `approve_tool_call()` 或 `reject_tool_call()`。
 
@@ -220,9 +220,9 @@ async for event in session:
         await session.approve_tool_call(event.call_id)
 ```
 
-关于具体的服务端审批循环，请参见 [`examples/realtime/app/server.py`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/app/server.py)。human-in-the-loop 文档也在[Human in the loop](../human_in_the_loop.md)中回指了此流程。
+关于具体的服务端审批循环，请参见 [`examples/realtime/app/server.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/app/server.py)。human-in-the-loop 文档也在[Human in the loop](../human_in_the_loop.md)中回指了此流程。
 
-### 任务转移
+### 任务转移 {#handoffs}
 
 Realtime 任务转移允许一个智能体将实时对话转移给另一个专家智能体：
 
@@ -243,7 +243,7 @@ main_agent = RealtimeAgent(
 
 裸 `RealtimeAgent` 任务转移会被自动包装，`realtime_handoff(...)` 则允许你自定义名称、描述、校验、回调和可用性。Realtime 任务转移**不**支持常规任务转移的 `input_filter`。
 
-### 安全防护措施
+### 安全防护措施 {#guardrails}
 
 Realtime智能体仅支持输出安全防护措施。它们基于防抖后的转录累计内容运行，而不是对每个部分 token 运行；触发时会发出 `guardrail_tripped`，而不是抛出异常。
 
@@ -265,7 +265,7 @@ agent = RealtimeAgent(
 )
 ```
 
-## SIP 与电话
+## SIP 与电话 {#sip-and-telephony}
 
 Python SDK 通过 [`OpenAIRealtimeSIPModel`][agents.realtime.openai_realtime.OpenAIRealtimeSIPModel] 提供了一流的 SIP 附加流程。
 
@@ -286,9 +286,9 @@ async with await runner.run(
         ...
 ```
 
-如果你需要先接听来电，并希望接听载荷与智能体推导出的会话配置一致，可使用 `OpenAIRealtimeSIPModel.build_initial_session_payload(...)`。完整流程见 [`examples/realtime/twilio_sip/server.py`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/twilio_sip/server.py)。
+如果你需要先接听来电，并希望接听载荷与智能体推导出的会话配置一致，可使用 `OpenAIRealtimeSIPModel.build_initial_session_payload(...)`。完整流程见 [`examples/realtime/twilio_sip/server.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/twilio_sip/server.py)。
 
-## 底层访问与自定义端点
+## 底层访问与自定义端点 {#low-level-access-and-custom-endpoints}
 
 你可以通过 `session.model` 访问底层传输对象。
 
@@ -334,10 +334,10 @@ session = await runner.run(
 
 如果你传入 `headers`，SDK 不会自动添加 `Authorization`。在 Realtime智能体中请避免使用旧的 beta 路径（`/openai/realtime?api-version=...`）。
 
-## 延伸阅读
+## 延伸阅读 {#further-reading}
 
 -   [Realtime 传输](transport.md)
 -   [快速开始](quickstart.md)
 -   [OpenAI Realtime 对话](https://developers.openai.com/api/docs/guides/realtime-conversations/)
 -   [OpenAI Realtime 服务端控制](https://developers.openai.com/api/docs/guides/realtime-server-controls/)
--   [`examples/realtime`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime)
+-   [`examples/realtime`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime)

@@ -7,7 +7,7 @@
 SQLAlchemy sessions require the `sqlalchemy` extra:
 
 ```bash
-pip install openai-agents[sqlalchemy]
+pip install mycel-agent-sdk[sqlalchemy]
 ```
 
 ## Quick start

@@ -48,10 +48,10 @@ def test_infer_fallback_labels_marks_extensions_for_extensions_memory_changes() 
     assert labels == {"feature:extensions"}
 
 
-def test_infer_fallback_labels_marks_extensions_for_litellm_changes() -> None:
-    labels = pr_labels.infer_fallback_labels(["src/agents/extensions/models/litellm_model.py"])
+def test_infer_fallback_labels_marks_chat_completions_for_tool_order_module() -> None:
+    labels = pr_labels.infer_fallback_labels(["src/agents/models/chatcmpl_tool_message_order.py"])
 
-    assert labels == {"feature:extensions"}
+    assert labels == {"feature:chat-completions"}
 
 
 def test_infer_fallback_labels_marks_extensions_for_any_llm_changes() -> None:

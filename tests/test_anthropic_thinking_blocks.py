@@ -15,8 +15,8 @@ from typing import Any, cast
 from openai.types.chat import ChatCompletionMessageToolCall
 from openai.types.chat.chat_completion_message_tool_call import Function
 
-from agents.extensions.models.litellm_model import InternalChatCompletionMessage
 from agents.models.chatcmpl_converter import Converter
+from agents.models.internal_chat_completion import InternalChatCompletionMessage
 
 
 def create_mock_anthropic_response_with_thinking() -> InternalChatCompletionMessage:

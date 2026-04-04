@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# REPL ユーティリティ
+# REPL ユーティリティ {#repl-utility}
 
 この SDK は、ターミナル上でエージェントの挙動を素早く対話的にテストできる `run_demo_loop` を提供します。
 

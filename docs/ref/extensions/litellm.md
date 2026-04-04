@@ -1,9 +1,5 @@
-# `LiteLLM Models`
+# LiteLLM (removed)
 
-<script>
-  window.location.replace("../third_party_adapters/");
-</script>
+LiteLLM integration was **removed** from the Mycel fork. Use **Any-LLM**, an **OpenAI-compatible gateway** (see [Gateway model provider](../../gateway_model_provider.md)), or wire your own Chat Completions client with [`OpenAIChatCompletionsModel`][agents.models.openai_chatcompletions.OpenAIChatCompletionsModel].
 
-This page moved to the [Third-party adapters API reference](third_party_adapters.md).
-
-If you are not redirected automatically, use the link above.
+See [Third-party adapters](../../models/index.md#third-party-adapters) in the Models guide for supported paths.

@@ -1204,7 +1204,7 @@ async def test_stream_input_persistence_strips_ids_for_openai_conversation_sessi
                 "type": "message",
                 "role": "user",
                 "content": "hello",
-                "provider_data": {"model": "litellm/test"},
+                "provider_data": {"model": "gateway/test"},
             },
         )
     ]

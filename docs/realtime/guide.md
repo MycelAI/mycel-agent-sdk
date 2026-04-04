@@ -111,7 +111,7 @@ message: RealtimeUserInputMessage = {
 await session.send_message(message)
 ```
 
-Structured messages are the main way to include image input in a realtime conversation. The example web demo in [`examples/realtime/app/server.py`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/app/server.py) forwards `input_image` messages this way.
+Structured messages are the main way to include image input in a realtime conversation. The example web demo in [`examples/realtime/app/server.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/app/server.py) forwards `input_image` messages this way.
 
 ### Audio input
 
@@ -155,7 +155,7 @@ This pattern is useful when:
 -   you want to inspect or gate user input before triggering a response
 -   you need a custom prompt for an out-of-band response
 
-The SIP example in [`examples/realtime/twilio_sip/server.py`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/twilio_sip/server.py) uses a raw `response.create` to force an opening greeting.
+The SIP example in [`examples/realtime/twilio_sip/server.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/twilio_sip/server.py) uses a raw `response.create` to force an opening greeting.
 
 ## Events, history, and interruptions
 
@@ -181,7 +181,7 @@ When the user interrupts the assistant, the session emits `audio_interrupted` an
 
 In low-latency local playback, the default playback tracker is often enough. In remote or delayed playback scenarios, especially telephony, use [`RealtimePlaybackTracker`][agents.realtime.model.RealtimePlaybackTracker] so interruption truncation is based on actual playback progress rather than assuming all generated audio has already been heard.
 
-The Twilio example in [`examples/realtime/twilio/twilio_handler.py`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/twilio/twilio_handler.py) shows this pattern.
+The Twilio example in [`examples/realtime/twilio/twilio_handler.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/twilio/twilio_handler.py) shows this pattern.
 
 ## Tools, approvals, handoffs, and guardrails
 
@@ -216,7 +216,7 @@ async for event in session:
         await session.approve_tool_call(event.call_id)
 ```
 
-For a concrete server-side approval loop, see [`examples/realtime/app/server.py`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/app/server.py). The human-in-the-loop docs also point back to this flow in [Human in the loop](../human_in_the_loop.md).
+For a concrete server-side approval loop, see [`examples/realtime/app/server.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/app/server.py). The human-in-the-loop docs also point back to this flow in [Human in the loop](../human_in_the_loop.md).
 
 ### Handoffs
 
@@ -282,7 +282,7 @@ async with await runner.run(
         ...
 ```
 
-If you need to accept the call first and want the accept payload to match the agent-derived session configuration, use `OpenAIRealtimeSIPModel.build_initial_session_payload(...)`. The complete flow is shown in [`examples/realtime/twilio_sip/server.py`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/twilio_sip/server.py).
+If you need to accept the call first and want the accept payload to match the agent-derived session configuration, use `OpenAIRealtimeSIPModel.build_initial_session_payload(...)`. The complete flow is shown in [`examples/realtime/twilio_sip/server.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/twilio_sip/server.py).
 
 ## Low-level access and custom endpoints
 
@@ -336,4 +336,4 @@ If you pass `headers`, the SDK does not add `Authorization` automatically. Avoid
 -   [Quickstart](quickstart.md)
 -   [OpenAI Realtime conversations](https://developers.openai.com/api/docs/guides/realtime-conversations/)
 -   [OpenAI Realtime server-side controls](https://developers.openai.com/api/docs/guides/realtime-server-controls/)
--   [`examples/realtime`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime)
+-   [`examples/realtime`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime)

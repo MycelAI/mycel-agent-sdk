@@ -60,8 +60,11 @@ class MultiProvider(ModelProvider):
     """This ModelProvider maps to a Model based on the prefix of the model name. By default, the
     mapping is:
     - "openai/" prefix or no prefix -> OpenAIProvider. e.g. "openai/gpt-4.1", "gpt-4.1"
-    - "litellm/" prefix -> LitellmProvider. e.g. "litellm/openai/gpt-4.1"
     - "any-llm/" prefix -> AnyLLMProvider. e.g. "any-llm/openrouter/openai/gpt-4.1"
+
+    For multi-vendor routing, point ``OpenAIProvider`` at an OpenAI-compatible gateway
+    (``AsyncOpenAI(base_url=...)``) and use ``unknown_prefix_mode="model_id"`` for namespaced model
+    IDs when needed.
 
     You can override or customize this mapping. The ``openai`` prefix is ambiguous for some
     OpenAI-compatible backends because a string like ``openai/gpt-4.1`` could mean either "route
@@ -140,16 +143,11 @@ class MultiProvider(ModelProvider):
             return None, model_name
 
     def _create_fallback_provider(self, prefix: str) -> ModelProvider:
-        if prefix == "litellm":
-            from ..extensions.models.litellm_provider import LitellmProvider
-
-            return LitellmProvider()
-        elif prefix == "any-llm":
+        if prefix == "any-llm":
             from ..extensions.models.any_llm_provider import AnyLLMProvider
 
             return AnyLLMProvider()
-        else:
-            raise UserError(f"Unknown prefix: {prefix}")
+        raise UserError(f"Unknown prefix: {prefix}")
 
     @staticmethod
     def _validate_openai_prefix_mode(mode: str) -> MultiProviderOpenAIPrefixMode:
@@ -186,7 +184,7 @@ class MultiProvider(ModelProvider):
         if self.provider_map and (provider := self.provider_map.get_provider(prefix)):
             return provider, stripped_model_name
 
-        if prefix in {"litellm", "any-llm"}:
+        if prefix == "any-llm":
             return self._get_fallback_provider(prefix), stripped_model_name
 
         if prefix == "openai":

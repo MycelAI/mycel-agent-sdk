@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# 人在回路中
+# 人在回路中 {#human-in-the-loop}
 
 使用人在回路（HITL）流程，在人员批准或拒绝敏感工具调用之前暂停智能体执行。工具会声明何时需要审批，运行结果会将待审批项作为中断暴露出来，而 `RunState` 允许你在决策完成后序列化并恢复运行。
 
@@ -12,7 +12,7 @@ search:
 
 本页重点介绍通过 `interruptions` 的手动审批流程。如果你的应用可以在代码中做决策，某些工具类型也支持编程式审批回调，使运行无需暂停即可继续。
 
-## 需要审批的工具标记
+## 需要审批的工具标记 {#marking-tools-that-need-approval}
 
 将 `needs_approval` 设为 `True` 可始终要求审批，或提供一个异步函数按调用逐次决定。该可调用对象会接收运行上下文、解析后的工具参数以及工具调用 ID。
 
@@ -43,7 +43,7 @@ agent = Agent(
 
 `needs_approval` 可用于 [`function_tool`][agents.tool.function_tool]、[`Agent.as_tool`][agents.agent.Agent.as_tool]、[`ShellTool`][agents.tool.ShellTool] 和 [`ApplyPatchTool`][agents.tool.ApplyPatchTool]。本地 MCP 服务也支持通过 [`MCPServerStdio`][agents.mcp.server.MCPServerStdio]、[`MCPServerSse`][agents.mcp.server.MCPServerSse] 和 [`MCPServerStreamableHttp`][agents.mcp.server.MCPServerStreamableHttp] 上的 `require_approval` 进行审批。托管 MCP 服务可通过 [`HostedMCPTool`][agents.tool.HostedMCPTool] 配置 `tool_config={"require_approval": "always"}` 支持审批，并可选提供 `on_approval_request` 回调。Shell 和 apply_patch 工具接受 `on_approval` 回调，用于在不暴露中断的情况下自动批准或自动拒绝。
 
-## 审批流程机制
+## 审批流程机制 {#how-the-approval-flow-works}
 
 1. 当模型发出工具调用时，运行器会评估其审批规则（`needs_approval`、`require_approval` 或托管 MCP 的等效配置）。
 2. 如果该工具调用的审批决定已存储在 [`RunContextWrapper`][agents.run_context.RunContextWrapper] 中，运行器将不再提示而直接继续。按调用的审批仅作用于特定调用 ID；传入 `always_approve=True` 或 `always_reject=True` 可将同一决定持久化到本次运行后续对该工具的调用。
@@ -55,7 +55,7 @@ agent = Agent(
 
 你不需要在同一轮中解决所有待审批项。`interruptions` 可以同时包含常规函数工具、托管 MCP 审批以及嵌套 `Agent.as_tool()` 审批。如果你仅批准或拒绝其中部分项目后重新运行，已解决调用可以继续，而未解决项仍会保留在 `interruptions` 中并再次暂停运行。
 
-## 自定义拒绝消息
+## 自定义拒绝消息 {#custom-rejection-messages}
 
 默认情况下，被拒绝的工具调用会将 SDK 的标准拒绝文本返回到运行中。你可以在两层进行自定义：
 
@@ -83,9 +83,9 @@ state.reject(
 )
 ```
 
-参见 [`examples/agent_patterns/human_in_the_loop_custom_rejection.py`](https://github.com/openai/openai-agents-python/tree/main/examples/agent_patterns/human_in_the_loop_custom_rejection.py) 获取同时展示这两层的完整示例。
+参见 [`examples/agent_patterns/human_in_the_loop_custom_rejection.py`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/agent_patterns/human_in_the_loop_custom_rejection.py) 获取同时展示这两层的完整示例。
 
-## 自动审批决策
+## 自动审批决策 {#automatic-approval-decisions}
 
 手动 `interruptions` 是最通用模式，但并非唯一方式：
 
@@ -95,13 +95,13 @@ state.reject(
 
 当这些回调返回决策时，运行会继续，无需暂停等待人工响应。对于 Realtime 和语音会话 API，请参阅 [Realtime 指南](realtime/guide.md) 中的审批流程。
 
-## 流式传输与会话
+## 流式传输与会话 {#streaming-and-sessions}
 
 同样的中断流程也适用于流式传输运行。流式运行暂停后，继续消费 [`RunResultStreaming.stream_events()`][agents.result.RunResultStreaming.stream_events] 直到迭代器结束，检查 [`RunResultStreaming.interruptions`][agents.result.RunResultStreaming.interruptions]，解决后如需继续流式输出，可用 [`Runner.run_streamed(...)`][agents.run.Runner.run_streamed] 恢复。此模式的流式版本请参见[流式传输](streaming.md)。
 
 如果你也在使用会话，从 `RunState` 恢复时请继续传入同一个会话实例，或传入另一个指向同一后端存储的会话对象。恢复后的轮次会追加到同一已存储会话历史中。会话生命周期细节见[会话](sessions/index.md)。
 
-## 示例：暂停、批准、恢复
+## 示例：暂停、批准、恢复 {#example-pause-approve-resume}
 
 下面的片段与 JavaScript HITL 指南一致：当工具需要审批时暂停，将状态持久化到磁盘，重新加载后在收集决策后恢复。
 
@@ -171,7 +171,7 @@ if __name__ == "__main__":
 
 若要在等待审批时流式输出，请调用 `Runner.run_streamed`，消费 `result.stream_events()` 直到完成，然后按上文相同方式执行 `result.to_state()` 和恢复步骤。
 
-## 仓库模式与代码示例
+## 仓库模式与代码示例 {#repository-patterns-and-examples}
 
 - **流式审批**：`examples/agent_patterns/human_in_the_loop_stream.py` 展示如何清空 `stream_events()`，随后批准待处理工具调用，并通过 `Runner.run_streamed(agent, state)` 恢复。
 - **自定义拒绝文本**：`examples/agent_patterns/human_in_the_loop_custom_rejection.py` 展示当审批被拒绝时，如何结合运行级 `tool_error_formatter` 与按调用 `rejection_message` 覆盖。
@@ -182,7 +182,7 @@ if __name__ == "__main__":
 - **会话与记忆**：向 `Runner.run` 传入会话，使审批与会话历史可跨多轮保留。SQLite 和 OpenAI Conversations 会话变体见 `examples/memory/memory_session_hitl_example.py` 与 `examples/memory/openai_session_hitl_example.py`。
 - **Realtime 智能体**：Realtime 演示通过 WebSocket 消息，使用 `RealtimeSession` 上的 `approve_tool_call` / `reject_tool_call` 批准或拒绝工具调用（服务端处理见 `examples/realtime/app/server.py`，API 说明见 [Realtime 指南](realtime/guide.md#tool-approvals)）。
 
-## 长时审批
+## 长时审批 {#long-running-approvals}
 
 `RunState` 设计为可持久化。使用 `state.to_json()` 或 `state.to_string()` 将待处理工作存入数据库或队列，并可稍后用 `RunState.from_json(...)` 或 `RunState.from_string(...)` 重建。
 
@@ -196,6 +196,6 @@ if __name__ == "__main__":
 
 序列化后的运行状态包含你的应用上下文以及 SDK 管理的运行时元数据，例如审批、用量、序列化的 `tool_input`、嵌套 agent-as-tool 恢复、追踪元数据以及服务端管理的会话设置。如果你计划存储或传输序列化状态，请将 `RunContextWrapper.context` 视为持久化数据，避免在其中放置机密信息，除非你有意让其随状态传递。
 
-## 待处理任务版本管理
+## 待处理任务版本管理 {#versioning-pending-tasks}
 
 如果审批可能会搁置一段时间，请将智能体定义或 SDK 的版本标记与序列化状态一起存储。这样在模型、提示词或工具定义变更时，你就可以将反序列化路由到匹配的代码路径，避免不兼容问题。

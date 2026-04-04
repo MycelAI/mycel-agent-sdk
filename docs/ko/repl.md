@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# REPL 유틸리티
+# REPL 유틸리티 {#repl-utility}
 
 SDK는 터미널에서 에이전트의 동작을 빠르고 대화형으로 테스트할 수 있도록 `run_demo_loop`를 제공합니다.
 

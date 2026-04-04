@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# 스트리밍
+# 스트리밍 {#streaming}
 
 스트리밍을 사용하면 에이전트 실행이 진행되는 동안 업데이트를 구독할 수 있습니다. 이는 최종 사용자에게 진행 상황 업데이트와 부분 응답을 보여주는 데 유용합니다
 
@@ -10,7 +10,7 @@ search:
 
 비동기 이터레이터가 끝날 때까지 `result.stream_events()`를 계속 소비하세요. 스트리밍 실행은 이터레이터가 종료될 때까지 완료되지 않으며, 세션 영속성, 승인 기록 관리, 히스토리 압축 같은 후처리는 마지막으로 보이는 토큰이 도착한 뒤에 완료될 수 있습니다. 루프가 종료되면 `result.is_complete`에 최종 실행 상태가 반영됩니다
 
-## 원시 응답 이벤트
+## 원시 응답 이벤트 {#raw-response-events}
 
 [`RawResponsesStreamEvent`][agents.stream_events.RawResponsesStreamEvent]는 LLM에서 직접 전달되는 원시 이벤트입니다. OpenAI Responses API 형식이므로, 각 이벤트에는 타입(`response.created`, `response.output_text.delta` 등)과 데이터가 있습니다. 이 이벤트는 생성되는 즉시 응답 메시지를 사용자에게 스트리밍하고 싶을 때 유용합니다
 
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-## 스트리밍과 승인
+## 스트리밍과 승인 {#streaming-and-approvals}
 
 스트리밍은 도구 승인을 위해 일시 중지되는 실행과도 호환됩니다. 도구에 승인이 필요하면 `result.stream_events()`가 종료되고, 대기 중인 승인 항목은 [`RunResultStreaming.interruptions`][agents.result.RunResultStreaming.interruptions]에 노출됩니다. `result.to_state()`로 결과를 [`RunState`][agents.run_state.RunState]로 변환하고, 인터럽션(중단 처리)을 승인 또는 거부한 뒤 `Runner.run_streamed(...)`로 재개하세요
 
@@ -59,7 +59,7 @@ if result.interruptions:
 
 전체 일시 중지/재개 흐름은 [휴먼인더루프 (HITL) 가이드](human_in_the_loop.md)를 참고하세요
 
-## 현재 턴 이후 스트리밍 취소
+## 현재 턴 이후 스트리밍 취소 {#cancel-streaming-after-the-current-turn}
 
 중간에 스트리밍 실행을 중지해야 한다면 [`result.cancel()`][agents.result.RunResultStreaming.cancel]을 호출하세요. 기본적으로는 즉시 실행을 중지합니다. 중지 전에 현재 턴을 깔끔하게 마무리하려면 대신 `result.cancel(mode="after_turn")`를 호출하세요
 
@@ -69,11 +69,11 @@ if result.interruptions:
 - 스트리밍 실행이 도구 승인 때문에 중지되었다면 이를 새 턴으로 처리하지 마세요. 스트림 소비를 끝까지 완료하고 `result.interruptions`를 확인한 뒤 `result.to_state()`에서 재개하세요
 - 다음 모델 호출 전에 조회된 세션 히스토리와 새 사용자 입력을 어떻게 병합할지 사용자 지정하려면 [`RunConfig.session_input_callback`][agents.run.RunConfig.session_input_callback]을 사용하세요. 그곳에서 새 턴 항목을 다시 작성하면, 해당 턴에는 다시 작성된 버전이 영속화됩니다
 
-## 실행 항목 이벤트와 에이전트 이벤트
+## 실행 항목 이벤트와 에이전트 이벤트 {#run-item-events-and-agent-events}
 
 [`RunItemStreamEvent`][agents.stream_events.RunItemStreamEvent]는 더 상위 수준의 이벤트입니다. 항목이 완전히 생성되었을 때 알려줍니다. 이를 통해 각 토큰이 아니라 "메시지 생성됨", "도구 실행됨" 수준으로 진행 업데이트를 푸시할 수 있습니다. 마찬가지로, [`AgentUpdatedStreamEvent`][agents.stream_events.AgentUpdatedStreamEvent]는 현재 에이전트가 변경될 때(예: 핸드오프로 인한 경우) 업데이트를 제공합니다
 
-### 실행 항목 이벤트 이름
+### 실행 항목 이벤트 이름 {#run-item-event-names}
 
 `RunItemStreamEvent.name`은 고정된 의미론적 이벤트 이름 집합을 사용합니다
 

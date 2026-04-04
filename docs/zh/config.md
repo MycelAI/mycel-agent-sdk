@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# 配置
+# 配置 {#configuration}
 
 本页介绍 SDK 范围内的默认设置，你通常会在应用启动时一次性完成配置，例如默认 OpenAI 密钥或客户端、默认 OpenAI API 形态、追踪导出默认值以及日志行为。
 
@@ -12,7 +12,7 @@ search:
 -   [模型](models/index.md)，了解模型选择和提供方配置。
 -   [追踪](tracing.md)，了解按运行设置的追踪元数据和自定义追踪进程。
 
-## API 密钥与客户端
+## API 密钥与客户端 {#api-keys-and-clients}
 
 默认情况下，SDK 使用 `OPENAI_API_KEY` 环境变量来处理 LLM 请求和追踪。该密钥会在 SDK 首次创建 OpenAI 客户端时解析（延迟初始化），因此请在首次模型调用前设置该环境变量。如果你无法在应用启动前设置该环境变量，可以使用 [set_default_openai_key()][agents.set_default_openai_key] 函数来设置密钥。
 
@@ -40,7 +40,7 @@ from agents import set_default_openai_api
 set_default_openai_api("chat_completions")
 ```
 
-## 追踪
+## 追踪 {#tracing}
 
 默认启用追踪。默认情况下，它使用与上文模型请求相同的 OpenAI API 密钥（即环境变量中的密钥或你设置的默认密钥）。你可以使用 [`set_tracing_export_api_key`][agents.set_tracing_export_api_key] 函数专门设置用于追踪的 API 密钥。
 
@@ -97,9 +97,9 @@ export OPENAI_AGENTS_TRACE_INCLUDE_SENSITIVE_DATA=0
 
 完整的追踪控制请参阅[追踪指南](tracing.md)。
 
-## 调试日志
+## 调试日志 {#debug-logging}
 
-SDK 定义了两个 Python 日志记录器（`openai.agents` 和 `openai.agents.tracing`），默认不附加处理器。日志遵循你应用的 Python 日志配置。
+SDK 定义了两个 Python 日志记录器（`mycel_agents` 和 `mycel_agents.tracing`），默认不附加处理器。日志遵循你应用的 Python 日志配置。
 
 要启用详细日志，请使用 [`enable_verbose_stdout_logging()`][agents.enable_verbose_stdout_logging] 函数。
 
@@ -114,7 +114,7 @@ enable_verbose_stdout_logging()
 ```python
 import logging
 
-logger = logging.getLogger("openai.agents") # or openai.agents.tracing for the Tracing logger
+logger = logging.getLogger("mycel_agents") # or mycel_agents.tracing for the Tracing logger
 
 # To make all logs show up
 logger.setLevel(logging.DEBUG)
@@ -128,7 +128,7 @@ logger.setLevel(logging.WARNING)
 logger.addHandler(logging.StreamHandler())
 ```
 
-### 日志中的敏感数据
+### 日志中的敏感数据 {#sensitive-data-in-logs}
 
 某些日志可能包含敏感数据（例如用户数据）。
 

@@ -2,7 +2,7 @@
 search:
   exclude: true
 ---
-# 실시간 전송
+# 실시간 전송 {#realtime-transport}
 
 이 페이지를 사용해 실시간 에이전트가 Python 애플리케이션에 어떻게 맞는지 결정하세요
 
@@ -10,15 +10,15 @@ search:
 
     Python SDK에는 브라우저 WebRTC 전송이 **포함되지 않습니다**. 이 페이지는 Python SDK 전송 선택지만 다룹니다: 서버 측 WebSocket 및 SIP 연결 플로우. 브라우저 WebRTC는 별도의 플랫폼 주제이며, 공식 [WebRTC와 함께하는 Realtime API](https://developers.openai.com/api/docs/guides/realtime-webrtc/) 가이드에 문서화되어 있습니다.
 
-## 결정 가이드
+## 결정 가이드 {#decision-guide}
 
 | 목표 | 시작점 | 이유 |
 | --- | --- | --- |
 | 서버에서 관리하는 실시간 앱 구축 | [빠른 시작](quickstart.md) | 기본 Python 경로는 `RealtimeRunner`가 관리하는 서버 측 WebSocket 세션입니다. |
 | 어떤 전송 및 배포 형태를 선택할지 이해 | 이 페이지 | 전송 또는 배포 형태를 확정하기 전에 이 페이지를 사용하세요. |
-| 전화 또는 SIP 통화에 에이전트 연결 | [실시간 가이드](guide.md) 및 [`examples/realtime/twilio_sip`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/twilio_sip) | 이 저장소는 `call_id`로 구동되는 SIP 연결 플로우를 제공합니다. |
+| 전화 또는 SIP 통화에 에이전트 연결 | [실시간 가이드](guide.md) 및 [`examples/realtime/twilio_sip`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/twilio_sip) | 이 저장소는 `call_id`로 구동되는 SIP 연결 플로우를 제공합니다. |
 
-## 서버 측 WebSocket 기본 Python 경로
+## 서버 측 WebSocket 기본 Python 경로 {#server-side-websocket-is-the-default-python-path}
 
 `RealtimeRunner`는 사용자 정의 `RealtimeModel`을 전달하지 않는 한 `OpenAIRealtimeWebSocketModel`을 사용합니다.
 
@@ -31,13 +31,13 @@ search:
 
 이 토폴로지는 핵심 데모 앱, CLI 예제, Twilio Media Streams 예제에서 사용됩니다:
 
--   [`examples/realtime/app`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/app)
--   [`examples/realtime/cli`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/cli)
--   [`examples/realtime/twilio`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/twilio)
+-   [`examples/realtime/app`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/app)
+-   [`examples/realtime/cli`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/cli)
+-   [`examples/realtime/twilio`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/twilio)
 
 서버가 오디오 파이프라인, 도구 실행, 승인 플로우, 히스토리 처리를 소유하는 경우 이 경로를 사용하세요.
 
-## SIP 연결 전화 통신 경로
+## SIP 연결 전화 통신 경로 {#sip-attach-is-the-telephony-path}
 
 이 저장소에 문서화된 전화 통신 플로우에서는 Python SDK가 `call_id`를 통해 기존 실시간 통화에 연결됩니다.
 
@@ -48,11 +48,11 @@ search:
 3. Python 서비스가 `RealtimeRunner(..., model=OpenAIRealtimeSIPModel())`를 시작합니다.
 4. 세션이 `model_config={"call_id": ...}`로 연결된 뒤, 다른 실시간 세션과 동일하게 이벤트를 처리합니다.
 
-이 토폴로지는 [`examples/realtime/twilio_sip`](https://github.com/openai/openai-agents-python/tree/main/examples/realtime/twilio_sip)에 나와 있습니다.
+이 토폴로지는 [`examples/realtime/twilio_sip`](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples/realtime/twilio_sip)에 나와 있습니다.
 
 더 넓은 Realtime API도 일부 서버 측 제어 패턴에 `call_id`를 사용하지만, 이 저장소에서 제공되는 연결 예제는 SIP입니다.
 
-## 이 SDK 범위 외 브라우저 WebRTC
+## 이 SDK 범위 외 브라우저 WebRTC {#browser-webrtc-is-outside-this-sdk}
 
 앱의 기본 클라이언트가 Realtime WebRTC를 사용하는 브라우저인 경우:
 
@@ -63,7 +63,7 @@ search:
 
 또한 이 저장소는 현재 브라우저 WebRTC와 Python 사이드밴드를 함께 사용하는 예제를 제공하지 않습니다.
 
-## 사용자 정의 엔드포인트 및 연결 지점
+## 사용자 정의 엔드포인트 및 연결 지점 {#custom-endpoints-and-attach-points}
 
 [`RealtimeModelConfig`][agents.realtime.model.RealtimeModelConfig]의 전송 구성 표면을 통해 기본 경로를 조정할 수 있습니다:
 
