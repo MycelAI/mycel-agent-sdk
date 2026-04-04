@@ -208,6 +208,11 @@ make tests
   make serve-docs      # preview docs locally
   make build-full-docs # run translations and build
   ```
+- **Published docs (GitHub Pages):** this monorepo is the only codebase. Source
+  lives under `docs/` and `mkdocs.yml`. The public site is
+  **`https://mycelai.github.io/mycel-agent-sdk/`** — MkDocs output is deployed to
+  the **`gh-pages`** branch (see `make deploy-docs` and `.github/workflows/docs.yml`
+  on `main`). No separate docs repository is required.
 - Snapshot helpers:
   ```bash
   make snapshots-fix

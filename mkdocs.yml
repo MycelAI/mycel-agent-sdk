@@ -1,4 +1,6 @@
 site_name: Mycel Agent SDK
+# GitHub Pages project site: https://mycelai.github.io/mycel-agent-sdk/
+site_url: https://mycelai.github.io/mycel-agent-sdk/
 theme:
   name: material
   features:
