@@ -29,6 +29,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`README.md`:** expanded with fork vision (ExecPlan), gateway / LiteLLM /
   builtins narrative, Mycel profile assets, governance / policy links, and a
   branded footer (badges, tagline, legal).
+- **Docs site (Material):** Mycel visual system in **`docs/stylesheets/extra.css`**
+  (navy surface **`#0D1927`**, primary **`#00FBE9`**, Manrope + IBM Plex Mono);
+  **`mkdocs.yml`** uses org **`icon-dark.png`** for logo/favicon, **`custom`**
+  palette, and **`slate`** scheme. OpenAI-hosted fonts removed from CSS.
+- **`uv.lock`:** sync editable **`mycel-agent-sdk`** entry to **0.14.0** to match
+  **`pyproject.toml`**.
 
 ## [0.14.0] - 2026-04-04
 
