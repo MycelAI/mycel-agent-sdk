@@ -1,51 +1,73 @@
-# Mycel Agent SDK [PyPI](https://pypi.org/project/mycel-agent-sdk/)
+<div align="center">
 
-The Mycel Agent SDK is a lightweight yet powerful framework for building multi-agent workflows. It is provider-agnostic, supporting the OpenAI Responses and Chat Completions APIs, as well as 100+ other LLMs. Python code still uses `import agents`; this distribution is published on PyPI as `mycel-agent-sdk`.
+# Mycel Agent SDK
 
-The companion **mycel-gateway** Rust service (OpenAI Chat Completions–compatible HTTP API) lives in `gateway/` in this monorepo. See [gateway/README.md](gateway/README.md) and [docker/README.md](docker/README.md).
+**Multi-agent workflows for Python — OpenAI Responses & Chat Completions, gateways, and pluggable providers.**
+
+[![PyPI version](https://img.shields.io/pypi/v/mycel-agent-sdk.svg)](https://pypi.org/project/mycel-agent-sdk/)
+[![Python versions](https://img.shields.io/pypi/pyversions/mycel-agent-sdk.svg)](https://pypi.org/project/mycel-agent-sdk/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-0366d6.svg)](https://mycelai.github.io/mycel-agent-sdk/)
+[![Mycel](https://img.shields.io/badge/Mycel-mycel--ai.de-5c4ee5.svg)](https://mycel-ai.de/en)
+
+[Documentation](https://mycelai.github.io/mycel-agent-sdk/) ·
+[Examples](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples) ·
+[Contributing](CONTRIBUTING.md) ·
+[Code of conduct](CODE_OF_CONDUCT.md)
+
+</div>
+
+---
+
+The **Mycel Agent SDK** is a focused framework for building **multi-agent**
+workflows in Python. Your code still uses `import agents`; this package ships on
+**[PyPI](https://pypi.org/project/mycel-agent-sdk/)** as **`mycel-agent-sdk`**.
+
+A companion **Rust gateway** (`gateway/`) exposes an **OpenAI Chat
+Completions–compatible** HTTP API for routing models. See
+[`gateway/README.md`](gateway/README.md) and [`docker/README.md`](docker/README.md).
 
 > [!NOTE]
-> Looking for the JavaScript/TypeScript version? Check out [Agents SDK JS/TS](https://github.com/openai/openai-agents-js).
+> Prefer the **JS/TS** stack? See
+> [Agents SDK JS/TS](https://github.com/openai/openai-agents-js).
 
-### Core concepts:
+## Highlights
 
-1. **[Agents](https://mycelai.github.io/mycel-agent-sdk/agents)**: LLMs configured with instructions, tools, guardrails, and handoffs
-2. **[Agents as tools](https://mycelai.github.io/mycel-agent-sdk/tools/#agents-as-tools) / [Handoffs](https://mycelai.github.io/mycel-agent-sdk/handoffs/)**: Delegating to other agents for specific tasks
-3. **[Tools](https://mycelai.github.io/mycel-agent-sdk/tools/)**: Various Tools let agents take actions (functions, MCP, hosted tools)
-4. **[Guardrails](https://mycelai.github.io/mycel-agent-sdk/guardrails/)**: Configurable safety checks for input and output validation
-5. **[Human in the loop](https://mycelai.github.io/mycel-agent-sdk/human_in_the_loop/)**: Built-in mechanisms for involving humans across agent runs
-6. **[Sessions](https://mycelai.github.io/mycel-agent-sdk/sessions/)**: Automatic conversation history management across agent runs
-7. **[Tracing](https://mycelai.github.io/mycel-agent-sdk/tracing/)**: Built-in tracking of agent runs, allowing you to view, debug and optimize your workflows
-8. **[Realtime Agents](https://mycelai.github.io/mycel-agent-sdk/realtime/quickstart/)**: Build powerful voice agents with `gpt-realtime-1.5` and full agent features
+| | |
+| --- | --- |
+| **Agents** | Instructions, tools, guardrails, handoffs — [docs](https://mycelai.github.io/mycel-agent-sdk/agents) |
+| **Tools & MCP** | Function tools, MCP, hosted tools — [docs](https://mycelai.github.io/mycel-agent-sdk/tools/) |
+| **Sessions** | Conversation history across runs — [docs](https://mycelai.github.io/mycel-agent-sdk/sessions/) |
+| **Tracing** | Debug and optimize runs — [docs](https://mycelai.github.io/mycel-agent-sdk/tracing/) |
+| **Realtime** | Voice agents with Realtime models — [quickstart](https://mycelai.github.io/mycel-agent-sdk/realtime/quickstart/) |
+| **Providers** | OpenAI, gateways, **Any-LLM** (optional extra), custom providers — [models](https://mycelai.github.io/mycel-agent-sdk/models/) |
 
-Explore the [examples](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples) directory to see the SDK in action, and read our [documentation](https://mycelai.github.io/mycel-agent-sdk/) for more details.
+## Install
 
-## Get started
+**Python 3.10+** required.
 
-To get started, set up your Python environment (Python 3.10 or newer required), and then install the Mycel Agent SDK package.
-
-### venv
+### pip
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install mycel-agent-sdk
 ```
 
-For voice support, install with the optional `voice` group: `pip install 'mycel-agent-sdk[voice]'`. For Redis session support, install with the optional `redis` group: `pip install 'mycel-agent-sdk[redis]'`.
+Optional extras:
+
+- Voice: `pip install 'mycel-agent-sdk[voice]'`
+- Redis sessions: `pip install 'mycel-agent-sdk[redis]'`
+- Any-LLM: `pip install 'mycel-agent-sdk[any-llm]'`
 
 ### uv
-
-If you're familiar with [uv](https://docs.astral.sh/uv/), installing the package would be even easier:
 
 ```bash
 uv init
 uv add mycel-agent-sdk
 ```
 
-For voice support, install with the optional `voice` group: `uv add 'mycel-agent-sdk[voice]'`. For Redis session support, install with the optional `redis` group: `uv add 'mycel-agent-sdk[redis]'`.
-
-## Run your first agent
+## Minimal example
 
 ```python
 from agents import Agent, Runner
@@ -54,44 +76,32 @@ agent = Agent(name="Assistant", instructions="You are a helpful assistant")
 
 result = Runner.run_sync(agent, "Write a haiku about recursion in programming.")
 print(result.final_output)
-
-# Code within the code,
-# Functions calling themselves,
-# Infinite loop's dance.
 ```
 
-(*If running this, ensure you set the `OPENAI_API_KEY` environment variable*)
+Set **`OPENAI_API_KEY`** (or configure your provider / gateway) before running.
 
-(*For Jupyter notebook users, see [hello_world_jupyter.ipynb](https://github.com/MycelAI/mycel-agent-sdk/blob/main/examples/basic/hello_world_jupyter.ipynb)*)
+**Notebook:** [`hello_world_jupyter.ipynb`](https://github.com/MycelAI/mycel-agent-sdk/blob/main/examples/basic/hello_world_jupyter.ipynb)
 
-Explore the [examples](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples) directory to see the SDK in action, and read our [documentation](https://mycelai.github.io/mycel-agent-sdk/) for more details.
+## Development
+
+Clone the repo, install dev deps (see **[AGENTS.md](AGENTS.md)**), then use
+`make sync`, `make tests`, etc. **Contributions** must follow
+**[CONTRIBUTING.md](CONTRIBUTING.md)** (feature branches + PRs; `main` is
+maintainer-controlled).
 
 ## Acknowledgements
 
-This project builds on the [OpenAI Agents SDK for Python](https://github.com/openai/openai-agents-python). We'd like to acknowledge the excellent work of the open-source community, especially:
-
-- [Pydantic](https://docs.pydantic.dev/latest/)
-- [Requests](https://github.com/psf/requests)
-- [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
-- [Griffe](https://github.com/mkdocstrings/griffe)
-
-This library has these optional dependencies:
-
-- [websockets](https://github.com/python-websockets/websockets)
-- [SQLAlchemy](https://github.com/sqlalchemy/sqlalchemy)
-- [any-llm](https://github.com/mozilla-ai/any-llm)
-
-We also rely on the following tools to manage the project:
-
-- [uv](https://github.com/astral-sh/uv) and [ruff](https://github.com/astral-sh/ruff)
-- [mypy](https://github.com/python/mypy) and [Pyright](https://github.com/microsoft/pyright)
-- [pytest](https://github.com/pytest-dev/pytest) and [Coverage.py](https://github.com/coveragepy/coveragepy)
-- [MkDocs](https://github.com/squidfunk/mkdocs-material)
-
-We're committed to continuing to develop the Mycel Agent SDK as an open source framework so others in the community can expand on our approach.
+Built on ideas and code from the **[OpenAI Agents SDK for Python](https://github.com/openai/openai-agents-python)**.
+We also depend on great tools and libraries — notably **Pydantic**, **MCP**,
+**Griffe**, **uv**, **ruff**, **pytest**, **MkDocs Material**, and optional stacks
+such as **websockets**, **SQLAlchemy**, and **any-llm**. See **[NOTICE](NOTICE)**
+for attribution detail.
 
 ## Publisher / legal
 
-The SDK is published by **Mycel UG (haftungsbeschränkt)**, Kollwitzstraße 76, 10435 Berlin, Germany (Amtsgericht Charlottenburg, HRB 278808 B; VAT ID DE458879972). Contact: [info@mycel-ai.de](mailto:info@mycel-ai.de). The statutory [imprint / Impressum](https://mycel-ai.de/en/imprint) is available on [mycel-ai.de](https://mycel-ai.de/en).
+Published by **Mycel UG (haftungsbeschränkt)**, Kollwitzstraße 76, 10435 Berlin,
+Germany (Amtsgericht Charlottenburg, HRB 278808 B; VAT ID DE458879972).
+Contact: **[info@mycel-ai.de](mailto:info@mycel-ai.de)**.
+**[Imprint](https://mycel-ai.de/en/imprint)** · **[mycel-ai.de](https://mycel-ai.de/en)**
 
-Licensing: this project is under the [MIT License](LICENSE). Upstream and third-party attribution is summarized in [NOTICE](NOTICE).
+Licensed under the **[MIT License](LICENSE)**.
