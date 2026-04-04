@@ -14,9 +14,14 @@ theme:
     # Enables annotations in code blocks
     - content.code.annotate
   palette:
-    primary: black
-  logo: assets/logo.svg
-  favicon: images/favicon-platform.svg
+    scheme: slate
+    primary: custom
+    accent: custom
+  font:
+    text: Manrope
+    code: IBM Plex Mono
+  logo: https://raw.githubusercontent.com/MycelAI/.github/main/profile/icon-dark.png
+  favicon: https://raw.githubusercontent.com/MycelAI/.github/main/profile/icon-dark.png
 
 repo_name: mycel-agent-sdk
 repo_url: https://github.com/MycelAI/mycel-agent-sdk
@@ -288,6 +293,8 @@ plugins:
 extra:
   # Remove material generation message in footer
   generator: false
+  copyright: Copyright &copy; Mycel UG ·
+    <a href="https://mycel-ai.de/en">mycel-ai.de</a>
   language: en
   alternate:
     - name: English
