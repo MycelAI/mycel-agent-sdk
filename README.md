@@ -176,12 +176,48 @@ and **any-llm**. Full attribution: **[NOTICE](NOTICE)**.
 
 ---
 
-## Publisher / legal
+<!-- Footer -->
+<div align="center">
 
-**Mycel UG (haftungsbeschränkt)** · Kollwitzstraße 76, 10435 Berlin, Germany
-(Amtsgericht Charlottenburg, HRB 278808 B; VAT ID DE458879972).
+<br>
 
-- Contact: **[info@mycel-ai.de](mailto:info@mycel-ai.de)**
-- **[Imprint](https://mycel-ai.de/en/imprint)** · **[mycel-ai.de](https://mycel-ai.de/en)**
+<img src="https://raw.githubusercontent.com/MycelAI/.github/main/profile/logo-dark.png"
+     alt="Mycel"
+     width="160">
 
-Licensed under the **[MIT License](LICENSE)**.
+<br><br>
+
+<sub>*Like mycelia networks that connect forests underground, we build systems that link what matters.*<br>
+<strong>Silently. Reliably. At scale.</strong></sub>
+
+<br>
+
+[![Website](https://img.shields.io/badge/Website-mycel--ai.de-0d9488?style=for-the-badge&logo=link)](https://mycel-ai.de/en)
+[![Contact](https://img.shields.io/badge/Contact-info%40mycel--ai.de-0d9488?style=for-the-badge&logo=minutemailer)](mailto:info@mycel-ai.de)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Mycel%20AI-0d9488?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/company/mycel-ai)
+[![Docs](https://img.shields.io/badge/Docs-GitHub%20Pages-0d9488?style=for-the-badge&logo=readthedocs)](https://mycelai.github.io/mycel-agent-sdk/)
+[![PyPI](https://img.shields.io/badge/PyPI-mycel--agent--sdk-0d9488?style=for-the-badge&logo=pypi)](https://pypi.org/project/mycel-agent-sdk/)
+
+<br>
+
+**Mycel UG (haftungsbeschränkt)** · Kollwitzstraße 76, 10435 Berlin, Germany  
+Amtsgericht Charlottenburg · HRB 278808 B · VAT ID DE458879972
+
+<br>
+
+[**mycel-ai.de**](https://mycel-ai.de/en) ·
+[**About**](https://mycel-ai.de/en/about) ·
+[**Contact**](https://mycel-ai.de/en/contact) ·
+[**Imprint**](https://mycel-ai.de/en/imprint) ·
+[**Privacy**](https://mycel-ai.de/en/privacy) ·
+[**GitHub Org**](https://github.com/MycelAI)
+
+<br>
+
+**[MIT License](LICENSE)** · **[NOTICE](NOTICE)** · **[CHANGELOG](CHANGELOG.md)**
+
+<br>
+
+<sub>© Mycel UG (haftungsbeschränkt). Open source under MIT; see NOTICE for upstream and third-party attribution.</sub>
+
+</div>

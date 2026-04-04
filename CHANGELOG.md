@@ -20,7 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`mkdocs.yml`:** set **`site_url`** to the GitHub project Pages URL so
   canonical links and search behave correctly.
 - **`README.md`:** expanded with fork vision (ExecPlan), gateway / LiteLLM /
-  builtins narrative, Mycel profile assets, and governance / policy links.
+  builtins narrative, Mycel profile assets, governance / policy links, and a
+  branded footer (badges, tagline, legal).
 
 ## [0.14.0] - 2026-04-04
 
