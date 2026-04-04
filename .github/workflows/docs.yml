@@ -28,7 +28,9 @@ jobs:
           before="${{ github.event.before }}"
           sha="${{ github.sha }}"
           changed_files=$(git diff --name-only "$before" "$sha" || true)
-          non_docs=$(echo "$changed_files" | grep -vE '^(docs/|mkdocs.yml$)' || true)
+          # Allow repo-meta doc files so mkdocs.yml-only or docs+changelog
+          # commits still deploy (skip only when real code paths change).
+          non_docs=$(echo "$changed_files" | grep -vE '^(docs/|mkdocs.yml$|AGENTS.md$|CHANGELOG.md$|README.md$|CONTRIBUTING.md$|CODE_OF_CONDUCT.md$)' || true)
           if [ -n "$non_docs" ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
           else
