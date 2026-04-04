@@ -7,8 +7,9 @@ This guide helps new contributors get started with the OpenAI Agents Python repo
 ## Table of Contents
 
 1. [Policies & Mandatory Rules](#policies--mandatory-rules)
-2. [Project Structure Guide](#project-structure-guide)
-3. [Operation Guide](#operation-guide)
+2. [Changelog and SemVer releases](#changelog-and-semver-releases)
+3. [Project Structure Guide](#project-structure-guide)
+4. [Operation Guide](#operation-guide)
 
 ## Policies & Mandatory Rules
 
@@ -55,6 +56,19 @@ Treat the parameter and dataclass field order of exported runtime APIs as a comp
 - If reordering is unavoidable, add an explicit compatibility layer and regression tests that exercise the old positional call pattern.
 - Prefer keyword arguments at call sites to reduce accidental breakage, but do not rely on this to justify breaking positional compatibility for public APIs.
 
+## Changelog and SemVer releases
+
+This fork maintains **[`CHANGELOG.md`](CHANGELOG.md)** in **[Keep a Changelog](https://keepachangelog.com/en/1.1.0/)** format. **Continue this for every release** (and accumulate meaningful entries under **`## [Unreleased]`** during development).
+
+### Rules
+
+- **Version numbers** follow **[Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html)** (MAJOR.MINOR.PATCH), aligned with **`pyproject.toml`** / **`importlib.metadata.version("mycel-agent-sdk")`** and Git tags `vMAJOR.MINOR.PATCH`.
+- **While developing:** add concise bullets under `## [Unreleased]` in the right subsection (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`).
+- **When releasing:** set the release date (`YYYY-MM-DD`), move Unreleased content into `## [X.Y.Z] - YYYY-MM-DD`, leave a fresh empty `## [Unreleased]`, bump **`pyproject.toml`** if needed, and update the comparison links at the bottom of **`CHANGELOG.md`** (keep **`[Unreleased]: ...compare/vLAST...HEAD`** in sync with the latest tag).
+- **Compatibility:** call out **breaking** API or migration-impacting changes under `Changed` or `Removed` clearly so MINOR/MAJOR bumps match user impact.
+
+Pull requests that affect user-visible behavior should update **`CHANGELOG.md`** together with **`CONTRIBUTING.md`** expectations and the PR template.
+
 ## Project Structure Guide
 
 ### Overview
@@ -71,6 +85,7 @@ The OpenAI Agents Python repository provides the Python Agents SDK, examples, an
 - `mkdocs.yml`: Documentation site configuration.
 - `Makefile`: Common developer commands.
 - `pyproject.toml`, `uv.lock`: Python dependencies and tool configuration.
+- `CHANGELOG.md`: Release history (Keep a Changelog); must be kept current per [Changelog and SemVer releases](#changelog-and-semver-releases).
 - `.github/PULL_REQUEST_TEMPLATE/pull_request_template.md`: Pull request template to use when opening PRs.
 - `site/`: Built documentation output.
 
@@ -208,6 +223,7 @@ make tests
 
 - Use the template at `.github/PULL_REQUEST_TEMPLATE/pull_request_template.md`; include a summary, test plan, and issue number if applicable.
 - Add tests for new behavior when feasible and update documentation for user-facing changes.
+- Update **`CHANGELOG.md`** (`## [Unreleased]`) when the change is user-visible or belongs in release notes (see [Changelog and SemVer releases](#changelog-and-semver-releases)).
 - Run `make format`, `make lint`, `make typecheck`, and `make tests` before marking work ready.
 - Commit messages should be concise and written in the imperative mood. Small, focused commits are preferred.
 
@@ -217,5 +233,6 @@ make tests
 - ✅ Tests cover new behavior and edge cases.
 - ✅ Code is readable, maintainable, and consistent with existing style.
 - ✅ Public APIs and user-facing behavior changes are documented.
+- ✅ **`CHANGELOG.md`** updated when the change warrants a release note.
 - ✅ Examples are updated if behavior changes.
 - ✅ History is clean with a clear PR description.
