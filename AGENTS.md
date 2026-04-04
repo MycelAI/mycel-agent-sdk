@@ -210,9 +210,10 @@ make tests
   ```
 - **Published docs (GitHub Pages):** this monorepo is the only codebase. Source
   lives under `docs/` and `mkdocs.yml`. The public site is
-  **`https://mycelai.github.io/mycel-agent-sdk/`** — MkDocs output is deployed to
-  the **`gh-pages`** branch (see `make deploy-docs` and `.github/workflows/docs.yml`
-  on `main`). No separate docs repository is required.
+  **`https://mycelai.github.io/mycel-agent-sdk/`** — CI builds with MkDocs and
+  deploys via **GitHub Actions** (`.github/workflows/docs.yml`: artifact +
+  `deploy-pages`). Pages **build type** is **workflow** (not `gh-pages` branch).
+  To redeploy without a doc commit: **Actions → Deploy docs → Run workflow**.
 - Snapshot helpers:
   ```bash
   make snapshots-fix

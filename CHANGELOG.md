@@ -14,6 +14,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`CONTRIBUTING.md`**, **`CODE_OF_CONDUCT.md`**, and a refreshed **`README.md`**
   (after the `v0.14.0` tag).
 
+### Fixed
+
+- **GitHub Pages:** enable **`build_type: workflow`** and deploy via
+  **`upload-pages-artifact` + `deploy-pages`** (replacing `gh-deploy`), so
+  **https://mycelai.github.io/mycel-agent-sdk/** publishes without a
+  **`gh-pages`** branch. Added **`workflow_dispatch`** for manual rebuilds.
+
 ### Changed
 
 - **`CODE_OF_CONDUCT.md`** follows **Contributor Covenant 3.0**.
