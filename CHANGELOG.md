@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`CODE_OF_CONDUCT.md`** follows **Contributor Covenant 3.0**.
 - **`mkdocs.yml`:** set **`site_url`** to the GitHub project Pages URL so
   canonical links and search behave correctly.
+- **`README.md`:** expanded with fork vision (ExecPlan), gateway / LiteLLM /
+  builtins narrative, Mycel profile assets, and governance / policy links.
 
 ## [0.14.0] - 2026-04-04
 

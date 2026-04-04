@@ -1,35 +1,70 @@
 <div align="center">
 
+<a href="https://mycel-ai.de/en" title="Mycel">
+  <img src="https://raw.githubusercontent.com/MycelAI/.github/main/profile/logo-dark.png"
+       alt="Mycel"
+       width="320">
+</a>
+
 # Mycel Agent SDK
 
-**Multi-agent workflows for Python — OpenAI Responses & Chat Completions, gateways, and pluggable providers.**
+**Multi-agent workflows in Python — gateways, built-in tools, and clear permission
+models for production-grade agents.**
+
+*Cultivating intelligent transformation — [mycel-ai.de](https://mycel-ai.de/en)*
 
 [![PyPI version](https://img.shields.io/pypi/v/mycel-agent-sdk.svg)](https://pypi.org/project/mycel-agent-sdk/)
 [![Python versions](https://img.shields.io/pypi/pyversions/mycel-agent-sdk.svg)](https://pypi.org/project/mycel-agent-sdk/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-0366d6.svg)](https://mycelai.github.io/mycel-agent-sdk/)
-[![Mycel](https://img.shields.io/badge/Mycel-mycel--ai.de-5c4ee5.svg)](https://mycel-ai.de/en)
+[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-0d9488.svg)](https://mycelai.github.io/mycel-agent-sdk/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-0d9488.svg)](LICENSE)
+[![Website](https://img.shields.io/badge/Website-mycel--ai.de-0d9488.svg)](https://mycel-ai.de/en)
+[![Organization](https://img.shields.io/badge/GitHub-MycelAI-0d9488.svg)](https://github.com/MycelAI)
 
 [Documentation](https://mycelai.github.io/mycel-agent-sdk/) ·
-[Examples](https://github.com/MycelAI/mycel-agent-sdk/tree/main/examples) ·
-[Contributing](CONTRIBUTING.md) ·
-[Code of conduct](CODE_OF_CONDUCT.md)
+[Examples](examples/) ·
+[Gateway](gateway/README.md) ·
+[Org profile](https://github.com/MycelAI/.github/blob/main/profile/README.md)
 
 </div>
 
 ---
 
-The **Mycel Agent SDK** is a focused framework for building **multi-agent**
-workflows in Python. Your code still uses `import agents`; this package ships on
-**[PyPI](https://pypi.org/project/mycel-agent-sdk/)** as **`mycel-agent-sdk`**.
+## Fork lineage and release status
 
-A companion **Rust gateway** (`gateway/`) exposes an **OpenAI Chat
-Completions–compatible** HTTP API for routing models. See
-[`gateway/README.md`](gateway/README.md) and [`docker/README.md`](docker/README.md).
+This repository is a **fork** of
+**[openai/openai-agents-python](https://github.com/openai/openai-agents-python)**
+(the OpenAI Agents SDK for Python). We track **our own SemVer** on PyPI as
+**[`mycel-agent-sdk`](https://pypi.org/project/mycel-agent-sdk/)** while keeping
+the familiar **`import agents`** module layout.
 
-> [!NOTE]
-> Prefer the **JS/TS** stack? See
-> [Agents SDK JS/TS](https://github.com/openai/openai-agents-js).
+**Release posture:** `main` carries **ongoing fork development**. Published
+versions are listed in [**CHANGELOG.md**](CHANGELOG.md); behaviour and APIs may
+diverge from upstream between syncs. Treat **migration to this fork** like any
+major dependency: pin versions, read the changelog, and validate gateways or
+providers in staging.
+
+Upstream JS/TS SDK: **[openai/openai-agents-js](https://github.com/openai/openai-agents-js)**.
+
+---
+
+## Vision (why this fork exists)
+
+The roadmap is captured in the living **ExecPlan**
+[**`docs/execplans/mycel-fork-gateway-and-rust-tiers.md`**](docs/execplans/mycel-fork-gateway-and-rust-tiers.md)
+and in **[`PLANS.md`](PLANS.md)** (how ExecPlans are written here). In short:
+
+| Theme | Intent |
+| --- | --- |
+| **Rust gateway** | Multi-provider access through an **OpenAI Chat Completions + SSE**-compatible HTTP service in [`gateway/`](gateway/), consumed from Python via `OpenAIChatCompletionsModel` and `AsyncOpenAI(base_url=..., api_key=...)`. Routing and provider keys **belong at the gateway**, not scattered across Python adapters. |
+| **LiteLLM removed** | **No built-in LiteLLM** dependency or `Litellm*` classes in this distribution. That cuts a large optional surface area and keeps **one** opinionated path: OpenAI-native APIs, **Any-LLM** where appropriate, or **your gateway**. See [models](https://mycelai.github.io/mycel-agent-sdk/models/) and [**Gateway model provider**](https://mycelai.github.io/mycel-agent-sdk/gateway_model_provider/). |
+| **Built-ins & permissions** | First-class **coding and research tool presets** under **`agents.tools.builtin`** (file, shell, web helpers) plus a **unified permission model** (`PermissionMode`, allowlists/blocklists, `RunConfig.permission_mode`) so agent runs behave more like **modern agent products**—the same *class* of ergonomics people expect from **Claude-style agent CLIs and similar SDKs**—without implying any endorsement or shared codebase with Anthropic. |
+| **Wire types & optional Rust** | **Canonical DTOs** in **`agents.wire`** and an optional **PyO3** accelerator stub in [`rust/mycel_accelerator/`](rust/mycel_accelerator/) so hot paths can tighten over time **without** blocking Python workflows. |
+| **Bundled prompts & evals** | Versioned **bundled prompts** and a small **eval harness** (`examples/evals/`, `tests/evals/`) to regress behaviour on real `RunResult` traces—not only mocks. |
+
+Operational detail, decision log, and validation commands live in the ExecPlan;
+day-to-day contributor rules are in **[`AGENTS.md`](AGENTS.md)**.
+
+---
 
 ## Highlights
 
@@ -37,10 +72,13 @@ Completions–compatible** HTTP API for routing models. See
 | --- | --- |
 | **Agents** | Instructions, tools, guardrails, handoffs — [docs](https://mycelai.github.io/mycel-agent-sdk/agents) |
 | **Tools & MCP** | Function tools, MCP, hosted tools — [docs](https://mycelai.github.io/mycel-agent-sdk/tools/) |
+| **Built-in toolkits** | Presets such as `FILE_TOOLS`, `SHELL_TOOLS`, `WEB_TOOLS`, `CODING_TOOLKIT` — [`agents.tools.builtin`](src/agents/tools/builtin/) |
 | **Sessions** | Conversation history across runs — [docs](https://mycelai.github.io/mycel-agent-sdk/sessions/) |
 | **Tracing** | Debug and optimize runs — [docs](https://mycelai.github.io/mycel-agent-sdk/tracing/) |
-| **Realtime** | Voice agents with Realtime models — [quickstart](https://mycelai.github.io/mycel-agent-sdk/realtime/quickstart/) |
-| **Providers** | OpenAI, gateways, **Any-LLM** (optional extra), custom providers — [models](https://mycelai.github.io/mycel-agent-sdk/models/) |
+| **Realtime** | Voice agents — [quickstart](https://mycelai.github.io/mycel-agent-sdk/realtime/quickstart/) |
+| **Providers** | OpenAI Responses / Chat Completions, gateway, **Any-LLM** (optional extra) — [models](https://mycelai.github.io/mycel-agent-sdk/models/) |
+
+---
 
 ## Install
 
@@ -67,6 +105,8 @@ uv init
 uv add mycel-agent-sdk
 ```
 
+---
+
 ## Minimal example
 
 ```python
@@ -78,30 +118,70 @@ result = Runner.run_sync(agent, "Write a haiku about recursion in programming.")
 print(result.final_output)
 ```
 
-Set **`OPENAI_API_KEY`** (or configure your provider / gateway) before running.
+Set **`OPENAI_API_KEY`** (or point `base_url` at your **gateway**) before running.
 
-**Notebook:** [`hello_world_jupyter.ipynb`](https://github.com/MycelAI/mycel-agent-sdk/blob/main/examples/basic/hello_world_jupyter.ipynb)
+**Notebook:**
+[`examples/basic/hello_world_jupyter.ipynb`](examples/basic/hello_world_jupyter.ipynb)
 
-## Development
+---
 
-Clone the repo, install dev deps (see **[AGENTS.md](AGENTS.md)**), then use
-`make sync`, `make tests`, etc. **Contributions** must follow
-**[CONTRIBUTING.md](CONTRIBUTING.md)** (feature branches + PRs; `main` is
-maintainer-controlled).
+## Monorepo layout (this repo)
+
+| Path | Role |
+| --- | --- |
+| [`src/agents/`](src/agents/) | Python SDK (`import agents`) |
+| [`gateway/`](gateway/) | Rust OpenAI Chat Completions–shaped gateway (JSON + SSE); **not** bundled in the wheel |
+| [`docker/`](docker/), [`docker-compose.yml`](docker-compose.yml) | Optional container recipes |
+| [`rust/mycel_accelerator/`](rust/mycel_accelerator/) | Optional PyO3 accelerator stub |
+| [`docs/`](docs/) | MkDocs source; **live site:** **https://mycelai.github.io/mycel-agent-sdk/** |
+
+Gateway client pattern: [`examples/model_providers/gateway_chatcompletions.py`](examples/model_providers/gateway_chatcompletions.py).
+
+---
+
+## Development & contributing
+
+Clone the repository, run **`make sync`**, then follow **[`AGENTS.md`](AGENTS.md)**
+(format, lint, typecheck, tests). External contributors work in **feature
+branches** and open PRs — see **[`CONTRIBUTING.md`](CONTRIBUTING.md)** (direct
+pushes to `main` are restricted to maintainers).
+
+---
+
+## Governance, legal, and policies
+
+| Resource | Description |
+| --- | --- |
+| [**LICENSE**](LICENSE) | MIT License |
+| [**NOTICE**](NOTICE) | Third-party and upstream attribution |
+| [**CHANGELOG.md**](CHANGELOG.md) | **Keep a Changelog** + SemVer history |
+| [**CONTRIBUTING.md**](CONTRIBUTING.md) | Branch / PR workflow and expectations |
+| [**CODE_OF_CONDUCT.md**](CODE_OF_CONDUCT.md) | **Contributor Covenant 3.0** |
+| [**AGENTS.md**](AGENTS.md) | Maintainer and contributor operations guide |
+| [**PLANS.md**](PLANS.md) | ExecPlan discipline for substantial work |
+| [**ExecPlan (fork vision)**](docs/execplans/mycel-fork-gateway-and-rust-tiers.md) | Gateway, builtins, Rust tiers — living spec |
+| [**Pull request template**](.github/PULL_REQUEST_TEMPLATE/pull_request_template.md) | Use when opening PRs here |
+
+**Security:** there is no `SECURITY.md` yet; report sensitive issues privately via
+**[info@mycel-ai.de](mailto:info@mycel-ai.de)** (see **CONTRIBUTING**).
+
+---
 
 ## Acknowledgements
 
-Built on ideas and code from the **[OpenAI Agents SDK for Python](https://github.com/openai/openai-agents-python)**.
-We also depend on great tools and libraries — notably **Pydantic**, **MCP**,
-**Griffe**, **uv**, **ruff**, **pytest**, **MkDocs Material**, and optional stacks
-such as **websockets**, **SQLAlchemy**, and **any-llm**. See **[NOTICE](NOTICE)**
-for attribution detail.
+Built on **[OpenAI Agents SDK for Python](https://github.com/openai/openai-agents-python)**.
+We also depend on **Pydantic**, **MCP**, **Griffe**, **uv**, **ruff**, **pytest**,
+**MkDocs Material**, and optional stacks such as **websockets**, **SQLAlchemy**,
+and **any-llm**. Full attribution: **[NOTICE](NOTICE)**.
+
+---
 
 ## Publisher / legal
 
-Published by **Mycel UG (haftungsbeschränkt)**, Kollwitzstraße 76, 10435 Berlin,
-Germany (Amtsgericht Charlottenburg, HRB 278808 B; VAT ID DE458879972).
-Contact: **[info@mycel-ai.de](mailto:info@mycel-ai.de)**.
-**[Imprint](https://mycel-ai.de/en/imprint)** · **[mycel-ai.de](https://mycel-ai.de/en)**
+**Mycel UG (haftungsbeschränkt)** · Kollwitzstraße 76, 10435 Berlin, Germany
+(Amtsgericht Charlottenburg, HRB 278808 B; VAT ID DE458879972).
+
+- Contact: **[info@mycel-ai.de](mailto:info@mycel-ai.de)**
+- **[Imprint](https://mycel-ai.de/en/imprint)** · **[mycel-ai.de](https://mycel-ai.de/en)**
 
 Licensed under the **[MIT License](LICENSE)**.
